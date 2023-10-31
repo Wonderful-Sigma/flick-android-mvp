@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_bottom_sheet"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/container_bottom_sheet"
+    app:behavior_draggable="true"
+    app:behavior_hideable="true"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <ImageView
+        android:id="@+id/iv_bar"
+        android:layout_width="130dp"
+        android:layout_height="5dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/button_small_rounded" />
+
+    <TextView
+        android:id="@+id/tv_qr_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:fontFamily="@font/pretendard_semibold"
+        android:text="QR 결제"
+        android:textColor="@color/light_black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_bar" />
+
+    <LinearLayout
+        android:id="@+id/linear_my_coin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="center_vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_qr_title">
+
+        <ImageView
+            android:id="@+id/iv_my_mini"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_my_mini"
+            tools:layout_editor_absoluteX="79dp"
+            tools:layout_editor_absoluteY="139dp" />
+
+        <TextView
+            android:id="@+id/tv_payment_my_coin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/pretendard_medium"
+            android:text="3,320,342코인"
+            android:textColor="@color/title"
+            android:textSize="17sp"
+            tools:layout_editor_absoluteX="195dp"
+            tools:layout_editor_absoluteY="169dp" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_frame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="56dp"
+        android:src="@drawable/qr_frame"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linear_my_coin" />
+
+    <ImageView
+        android:id="@+id/iv_qr_code"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="12dp"
+        android:contentDescription="qr_code"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_frame"
+        app:layout_constraintEnd_toEndOf="@+id/iv_frame"
+        app:layout_constraintStart_toStartOf="@+id/iv_frame"
+        app:layout_constraintTop_toTopOf="@+id/iv_frame" />
+
+    <TextView
+        android:id="@+id/tv_please_generate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/pretendard_medium"
+        android:text="QR코드를 다시 생성해주세요"
+        android:textColor="@color/light_gray"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_frame"
+        app:layout_constraintEnd_toEndOf="@+id/iv_frame"
+        app:layout_constraintStart_toStartOf="@+id/iv_frame"
+        app:layout_constraintTop_toTopOf="@+id/iv_frame" />
+
+    <LinearLayout
+        android:id="@+id/linear_left_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_frame">
+
+        <TextView
+            android:id="@+id/tv_until_stop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="QR코드 사용 종료까지"
+            android:textColor="@color/light_gray"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_left_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="4dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:text=""
+            android:textColor="@color/sub_title"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="남았어요"
+            android:textColor="@color/light_gray"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_re_generate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="6dp"
+        android:background="@drawable/button_ripple_white_small"
+        android:gravity="center_vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linear_left_time">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="다시 생성하기"
+            android:textColor="@color/sub_title"
+            android:textSize="13sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            app:srcCompat="@drawable/ic_reload" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linear_re_generate" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".feature.send.screen.SendPointFragment">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navigationIcon="@drawable/ic_arrow_back" />
+
+        <TextView
+            android:id="@+id/tv_my_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/pretendard_bold"
+            android:text="내 통장"
+            android:textColor="@color/title"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+        <TextView
+            android:id="@+id/tv_from"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/pretendard_medium"
+            android:text="에서"
+            android:textColor="@color/title"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@+id/tv_my_account"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+        <TextView
+            android:id="@+id/tv_my_left_point"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="잔액 ...원"
+            android:textColor="@color/light_gray"
+            android:textSize="13sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_my_account" />
+
+        <TextView
+            android:id="@+id/tv_to_send_account_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="50dp"
+            android:fontFamily="@font/pretendard_bold"
+            android:text="..."
+            android:textColor="@color/title"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_my_left_point" />
+
+        <TextView
+            android:id="@+id/tv_to"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:fontFamily="@font/pretendard_medium"
+            android:text="님에게"
+            android:textColor="@color/title"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@+id/tv_to_send_account_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_my_left_point" />
+
+        <TextView
+            android:id="@+id/tv_daeso_coin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="대소코인"
+            android:textColor="@color/light_gray"
+            android:textSize="13sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_to_send_account_name" />
+
+        <TextView
+            android:id="@+id/tv_to_send_account_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="..."
+            android:textColor="@color/light_gray"
+            android:textSize="13sp"
+            app:layout_constraintStart_toEndOf="@+id/tv_daeso_coin"
+            app:layout_constraintTop_toBottomOf="@+id/tv_to_send_account_name" />
+
+        <TextView
+            android:id="@+id/tv_how_much_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="50dp"
+            android:fontFamily="@font/pretendard_semibold"
+            android:text="얼마나 보낼까요?"
+            android:textColor="@color/light_gray"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_to_send_account_number" />
+
+        <TextView
+            android:id="@+id/tv_send_coin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="50dp"
+            android:fontFamily="@font/pretendard_semibold"
+            android:text=""
+            android:textColor="@color/light_black"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_to_send_account_number" />
+
+        <TextView
+            android:id="@+id/tv_coin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:fontFamily="@font/pretendard_semibold"
+            android:text="코인"
+            android:textColor="@color/light_black"
+            android:textSize="30sp"
+            android:visibility="invisible"
+            app:layout_constraintStart_toEndOf="@+id/tv_send_coin"
+            app:layout_constraintTop_toBottomOf="@+id/tv_to_send_account_number" />
+
+        <Button
+            android:id="@+id/btn_decide"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:background="@drawable/button_angular_blue"
+            android:fontFamily="@font/pretendard_semibold"
+            android:visibility="invisible"
+            android:text="확인"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:backgroundTint="@color/blue_400"
+            app:layout_constraintBottom_toTopOf="@+id/linear_first"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/linear_first"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/linear_second"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <Button
+                android:id="@+id/btn_one"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_angular"
+                app:backgroundTint="@color/white"
+                android:fontFamily="@font/pretendard_medium"
+                android:text="1"
+                android:textColor="@color/title"
+                android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/btn_two"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_angular"
+                app:backgroundTint="@color/white"
+                android:fontFamily="@font/pretendard_medium"
+                android:text="2"
+                android:textColor="@color/title"
+                android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/btn_three"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_angular"
+                app:backgroundTint="@color/white"
+                android:fontFamily="@font/pretendard_medium"
+                android:text="3"
+                android:textColor="@color/title"
+                android:textSize="30sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_second"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/linear_third"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <Button
+                android:id="@+id/btn_four"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_angular"
+                app:backgroundTint="@color/white"
+                android:fontFamily="@font/pretendard_medium"
+                android:text="4"
+                android:textColor="@color/title"
+                android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/btn_five"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_angular"
+                app:backgroundTint="@color/white"
+                android:fontFamily="@font/pretendard_medium"
+                android:text="5"
+                android:textColor="@color/title"
+                android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/btn_six"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_angular"
+                app:backgroundTint="@color/white"
+                android:fontFamily="@font/pretendard_medium"
+                android:text="6"
+                android:textColor="@color/title"
+                android:textSize="30sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_third"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/linear_forth"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <Button
+                android:id="@+id/btn_seven"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_angular"
+                app:backgroundTint="@color/white"
+                android:fontFamily="@font/pretendard_medium"
+                android:text="7"
+                android:textColor="@color/title"
+                android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/btn_eight"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_angular"
+                app:backgroundTint="@color/white"
+                android:fontFamily="@font/pretendard_medium"
+                android:text="8"
+                android:textColor="@color/title"
+                android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/btn_nine"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_angular"
+                app:backgroundTint="@color/white"
+                android:fontFamily="@font/pretendard_medium"
+                android:text="9"
+                android:textColor="@color/title"
+                android:textSize="30sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_forth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <Button
+                android:id="@+id/btn_double_zero"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_angular"
+                app:backgroundTint="@color/white"
+                android:fontFamily="@font/pretendard_medium"
+                android:text="00"
+                android:textColor="@color/title"
+                android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/btn_zero"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_angular"
+                app:backgroundTint="@color/white"
+                android:fontFamily="@font/pretendard_medium"
+                android:text="0"
+                android:textColor="@color/title"
+                android:textSize="30sp" />
+
+            <ImageButton
+                android:id="@+id/btn_back_space"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:contentDescription="back_slash"
+                android:src="@drawable/ic_arrow_backspace" />
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_warning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginStart="24dp"
+            android:visibility="invisible"
+            android:fontFamily="@font/pretendard_semibold"
+            android:text="잔액이 ...코인이에요."
+            android:textSize="14sp"
+            android:textColor="@color/warning"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_how_much_send" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

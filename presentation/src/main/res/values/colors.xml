@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!--  -->
+    <color name="light_black">#FF1A1E27</color> <!-- 아주 중요 내용 (보내는 돈, 페이지 타이틀) -->
+    <color name="title">#FF353C49</color> <!-- 중요 내용 (내 돈, 타이틀) -->
+    <color name="sub_title">#FF505866</color> <!-- 부가적 타이틀 -->
+    <color name="gray">#FF969FA8</color> <!-- 큰 글자의 힌트 텍스트 -->
+    <color name="light_gray">#FFB1B8C0</color> <!-- 버튼 색상 1 -->
+    <color name="button">#FFDBDEE2</color> <!-- 버튼 색상 2 -->
+    <color name="container">#FFF2F4F6</color> <!--콘테이너 색상 -->
+
+    <!-- Accent Color -->
+    <color name="main_blue">#FF3250FF</color>
+    <color name="blue_400">#FF5B73FF</color>
+    <color name="blue_100">#FFBFC9FF</color>
+    <color name="blue_50">#FFEBEEFF</color>
+    <color name="secondary_blue">#FFEBEEFF</color>
+
+    <!-- State Color -->
+    <color name="warning">#FFF25950</color>
+
+    <!-- Temp Color -->
+    <color name="activity_background">#FFF2F4F6</color>
+    <color name="button_small_background_gray">#FFF2F3F4</color>
+    <color name="button_gray">#FFDBDEE2</color>
+    <color name="line_gray">#FFEFEFEF</color>
+    <color name="transparent">#00000000</color>
+
+    <!-- Clicked Color -->
+    <color name="white_clicked">#FFDBDEE2</color>
+    <color name="blue400_clicked">#FF495AC0</color>
+    <color name="blue50_clicked">#FFC8D0FF</color>
+
+</resources>

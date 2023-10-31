@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".feature.accounts.BankbookDetailFragment">
+
+        <!-- Toolbar -->
+
+        <LinearLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/white"
+            android:paddingStart="8dp"
+            android:paddingEnd="16dp"
+            android:gravity="center_vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/ib_back_arrow"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/button_ripple_white_oval"
+                app:srcCompat="@drawable/ic_arrow_back" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/edit_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pretendard_medium"
+                android:text="편집"
+                android:textColor="@color/light_black"
+                android:textSize="17sp" />
+
+        </LinearLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:paddingHorizontal="7dp"
+                    android:paddingTop="40dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/total_balance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/pretendard_semibold"
+                        android:text="총 잔액"
+                        android:layout_marginStart="17dp"
+                        android:textColor="@color/sub_title"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_my_coin_big"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginStart="17dp"
+                        android:fontFamily="@font/pretendard_semibold"
+                        android:text="...코인"
+                        android:textColor="@color/title"
+                        android:textSize="32sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/total_balance" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/account"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:fontFamily="@font/pretendard_bold"
+                        android:text="계좌"
+                        android:layout_marginStart="17dp"
+                        android:textColor="@color/sub_title"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_my_coin_big" />
+
+                    <!-- My Account -->
+
+                    <RelativeLayout
+                        android:id="@+id/my_bankbook_button"
+                        android:layout_width="0dp"
+                        android:layout_height="70dp"
+                        android:layout_marginTop="12dp"
+                        android:paddingHorizontal="17dp"
+                        android:background="@drawable/button_ripple_white_small"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/account">
+
+                        <!-- My Account Icon -->
+
+                        <RelativeLayout
+                            android:id="@+id/my_icon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/icon"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/circle" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/appCompatImageView4"
+                                android:layout_width="12dp"
+                                android:layout_height="12dp"
+                                android:layout_alignEnd="@+id/icon"
+                                android:layout_alignParentTop="true"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginEnd="0dp"
+                                android:src="@drawable/ic_my" />
+
+                        </RelativeLayout>
+
+                        <!-- My Account Content -->
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_centerVertical="true"
+                            android:layout_toEndOf="@+id/my_icon"
+                            android:orientation="vertical">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tv_my_account"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/pretendard_medium"
+                                android:text="내 통장"
+                                android:textColor="#505866"
+                                android:textSize="13sp" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tv_my_coin"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/pretendard_semibold"
+                                android:text="0코인"
+                                android:textSize="17sp"
+                                android:textColor="#353C49"/>
+
+                        </LinearLayout>
+
+                        <!-- My Account Send Button -->
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/btn_send"
+                            android:layout_width="53dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="0dp"
+                            android:background="@drawable/button_ripple_mini"
+                            android:backgroundTint="#F2F3F4"
+                            android:fontFamily="@font/pretendard_medium"
+                            android:outlineProvider="none"
+                            android:text="송금"
+                            android:textColor="#505866"
+                            android:textSize="13sp" />
+
+                    </RelativeLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerview_group_bankbook"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:overScrollMode="never"
+                        android:nestedScrollingEnabled="false"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/my_bankbook_button" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    android:id="@+id/line"
+                    android:layout_width="match_parent"
+                    android:layout_height="16dp"
+                    android:background="#F2F4F6"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+
+                <LinearLayout
+                    android:id="@+id/create_bankbook_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="66dp"
+                    android:layout_marginTop="12dp"
+                    android:gravity="center_vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/line">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="24dp"
+                        android:src="@drawable/ic_circle_add"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/create_group_bankbook_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:fontFamily="@font/pretendard_bold"
+                        android:text="모임통장 만들기"
+                        android:textColor="#353C49"
+                        android:textSize="17sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/appCompatImageView3"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/next_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="24dp"
+                        android:src="@drawable/ic_arrow_mini"
+                        app:layout_constraintBottom_toBottomOf="@+id/appCompatImageView3"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/appCompatImageView3" />
+
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/create_bankbook_button" />
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

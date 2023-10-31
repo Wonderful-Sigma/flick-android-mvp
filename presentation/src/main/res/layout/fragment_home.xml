@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="home"
+            type="com.sigma.flick.feature.home.viewmodel.HomeViewModel" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F2F4F6"
+        tools:context=".feature.home.HomeFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@id/home"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/appCompatImageView"
+                android:layout_width="104dp"
+                android:layout_height="26dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="20dp"
+                android:src="@drawable/ic_app"
+                app:layout_constraintBottom_toBottomOf="@+id/view"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/view" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/alarm_button"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="end"
+                android:background="@drawable/button_ripple_gray_oval"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/ic_alarm"
+                app:layout_constraintBottom_toBottomOf="@+id/view"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/view" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/home"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/payment_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginTop="0dp"
+                    android:background="@drawable/button_ripple_white"
+                    android:backgroundTint="@color/white"
+                    android:paddingHorizontal="25dp"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/pretendard_bold"
+                        android:text="결제"
+                        android:textColor="@color/light_black"
+                        android:textSize="22sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="8dp"
+                        android:layout_height="17dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_arrow_mini"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- Account -->
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/bankbook_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="66dp"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/button_ripple_white_top_radius"
+                    android:paddingHorizontal="25dp"
+                    android:paddingTop="22dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/payment_button">
+
+                    <TextView
+                        android:id="@+id/bankbook_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:fontFamily="@font/pretendard_bold"
+                        android:text="계좌"
+                        android:textColor="@color/light_black"
+                        android:textSize="22sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="8dp"
+                        android:layout_height="17dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_arrow_mini"
+                        app:layout_constraintBottom_toBottomOf="@+id/bankbook_textView"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/bankbook_textView" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- Account List -->
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/bankbook_frame"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="15dp"
+                    android:background="@drawable/layout_bottom_rounded"
+                    android:paddingHorizontal="8dp"
+                    android:paddingBottom="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/bankbook_button">
+
+                    <!-- My Account -->
+
+                    <RelativeLayout
+                        android:id="@+id/linear_my_account"
+                        android:layout_width="0dp"
+                        android:layout_height="70dp"
+                        android:layout_marginTop="8dp"
+                        android:paddingHorizontal="17dp"
+                        android:background="@drawable/button_ripple_white_small"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <!-- My Account Icon -->
+
+                        <RelativeLayout
+                            android:id="@+id/my_icon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/icon"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/circle" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/appCompatImageView4"
+                                android:layout_width="12dp"
+                                android:layout_height="12dp"
+                                android:layout_alignEnd="@+id/icon"
+                                android:layout_alignParentTop="true"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginEnd="0dp"
+                                android:src="@drawable/ic_my" />
+
+                        </RelativeLayout>
+
+                        <!-- My Account Content -->
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_centerVertical="true"
+                            android:layout_toEndOf="@+id/my_icon"
+                            android:orientation="vertical">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tv_my_account"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/pretendard_medium"
+                                android:text="내 통장"
+                                android:textColor="#505866"
+                                android:textSize="13sp" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tv_my_coin"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/pretendard_semibold"
+                                android:text="0코인"
+                                android:textSize="17sp"
+                                android:textColor="#353C49"/>
+
+                        </LinearLayout>
+
+                        <!-- My Account Send Button -->
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/btn_send"
+                            android:layout_width="53dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="0dp"
+                            android:background="@drawable/button_ripple_mini"
+                            android:backgroundTint="#F2F3F4"
+                            android:fontFamily="@font/pretendard_medium"
+                            android:outlineProvider="none"
+                            android:text="송금"
+                            android:textColor="#505866"
+                            android:textSize="13sp" />
+
+                    </RelativeLayout>
+
+                    <!-- My Collection Account-->
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerview_group_bankbook"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:overScrollMode="never"
+                        android:layout_marginTop="12dp"
+                        tools:listitem="@layout/item_group_bankbook"
+                        tools:itemCount="3"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/linear_my_account" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/consumption_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="66dp"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/button_ripple_white_top_radius"
+                    android:paddingHorizontal="24dp"
+                    android:paddingTop="22dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/bankbook_frame">
+
+                    <TextView
+                        android:id="@+id/consumption_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginBottom="30dp"
+                        android:fontFamily="@font/pretendard_bold"
+                        android:text="소비"
+                        android:textColor="@color/light_black"
+                        android:textSize="22sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/Consumption_frame"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="15dp"
+                    android:background="@drawable/layout_bottom_rounded"
+                    android:paddingHorizontal="24dp"
+                    android:paddingBottom="35dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/consumption_button">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="18dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:layout_editor_absoluteX="24dp">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/appCompatImageView2"
+                            android:layout_width="42dp"
+                            android:layout_height="42dp"
+                            android:src="@drawable/ic_pr_image" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="15dp"
+                            android:orientation="vertical">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/pretendard_medium"
+                                android:text="이번 달 쓴 금액"
+                                android:textColor="@color/sub_title"
+                                android:textSize="13sp"
+                                app:layout_constraintStart_toEndOf="@+id/appCompatImageView2"
+                                app:layout_constraintTop_toTopOf="@+id/appCompatImageView2" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/consumption_coin"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/pretendard_semibold"
+                                android:text="0코인"
+                                android:textColor="@color/title"
+                                android:textSize="17sp"
+                                app:layout_constraintBottom_toBottomOf="@+id/appCompatImageView2"
+                                app:layout_constraintStart_toEndOf="@+id/appCompatImageView2" />
+
+                        </LinearLayout>
+
+                        <Space
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1" />
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/history_button"
+                            android:layout_width="90dp"
+                            android:layout_height="30dp"
+                            android:background="@drawable/button_mini_rounded"
+                            android:backgroundTint="#ECEFFF"
+                            android:fontFamily="@font/pretendard_medium"
+                            android:gravity="center"
+                            android:outlineProvider="none"
+                            android:text="새 내역 10건 +"
+                            android:textColor="#3250FF"
+                            android:textSize="13sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/appCompatImageView2"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/appCompatImageView2" />
+
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- Sub RecyclerView -->
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerview_explanation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="100dp"
+                    android:overScrollMode="never"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/Consumption_frame" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "712786738685",
+    "project_id": "test-3a489",
+    "storage_bucket": "test-3a489.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:712786738685:android:de9cba3dc30595108ead94",
+        "android_client_info": {
+          "package_name": "com.sigma.flick"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "712786738685-e7opemah3ojprekpkp1arr1i5uemjftr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcdU0mFbseJ3KtjOxdlJ6_Vt_mDzx_PjE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "712786738685-e7opemah3ojprekpkp1arr1i5uemjftr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/ic_home"
+        android:title="홈"
+        app:showAsAction="withText" />
+
+    <item
+        android:id="@+id/eventFragment"
+        android:icon="@drawable/ic_box"
+        android:title="이벤트"
+        app:showAsAction="withText" />
+
+    <item
+        android:id="@+id/paymentFragment"
+        android:icon="@drawable/ic_pr"
+        android:title="결제"
+        app:showAsAction="withText" />
+
+    <item
+        android:id="@+id/stockFragment"
+        android:icon="@drawable/ic_calculate"
+        android:title="주식"
+        app:showAsAction="withText" />
+
+    <item
+        android:id="@+id/allFragment"
+        android:icon="@drawable/ic_entire"
+        android:title="전체"
+        app:showAsAction="withText" />
+
+</menu>
