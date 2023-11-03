@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.sigma.flick.base.BaseViewModel
 import com.sigma.main.model.account.Account
-import com.sigma.flick.feature.home.adapter.data.ItemGroupBankBookData
+import com.sigma.flick.feature.tabs.home.adapter.data.ItemGroupBankBookData
 import com.sigma.main.model.user.UserResponseModel
 import com.sigma.main.repository.QRCodeRepository
 import com.sigma.main.repository.AccountRepository

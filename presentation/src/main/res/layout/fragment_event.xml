@@ -7,7 +7,7 @@
 
         <variable
             name="event"
-            type="com.sigma.flick.feature.event.viewmodel.EventViewModel" />
+            type="com.sigma.flick.feature.tabs.event.viewmodel.EventViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,8 +29,8 @@
             android:id="@+id/event_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
             android:layout_marginStart="26dp"
+            android:layout_marginTop="6dp"
             android:fontFamily="@font/pretendard_bold"
             android:text="이벤트"
             android:textColor="@color/light_black"
@@ -39,12 +39,15 @@
             app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
         <LinearLayout
-            android:id="@+id/linear_my_point"
+            android:id="@+id/btn_my_coins"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/button_ripple_white_small"
             android:gravity="center_vertical"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
@@ -71,19 +74,17 @@
                 android:src="@drawable/ic_arrow_mini" />
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/event_recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="30dp"
-            android:overScrollMode="never"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="지금은 이벤트 기간이 아니에요"
+            android:fontFamily="@font/pretendard_regular"
+            android:textSize="16sp"
+            android:textColor="@color/light_gray"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/event_text"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,6 +1,5 @@
 package com.sigma.data.repository
 
-import android.util.Log
 import com.sigma.data.mapper.toDto
 import com.sigma.data.mapper.toModel
 import com.sigma.data.network.api.DauthApi
@@ -13,7 +12,7 @@ class DauthRepositoryImpl @Inject constructor(
     private val dauthApi: DauthApi
 ) : DauthRepository {
 
-    override suspend fun login(dauthRequestModel: DauthRequestModel): DauthResponseModel =
-        dauthApi.login(dauthRequestModel.toDto()).toModel()
+    override suspend fun login(dauthRequestDto: DauthRequestModel): DauthResponseModel =
+        dauthApi.login(dauthRequestDto.toDto()).toModel()
 
 }

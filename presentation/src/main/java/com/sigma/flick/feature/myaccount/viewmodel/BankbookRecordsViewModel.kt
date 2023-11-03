@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.sigma.flick.base.BaseViewModel
-import com.sigma.flick.feature.home.viewmodel.HomeViewModel
+import com.sigma.flick.feature.tabs.home.viewmodel.HomeViewModel
 import com.sigma.main.model.account.SpendResponseModel
 import com.sigma.main.model.account.WalletResponseModel
 import com.sigma.main.repository.AccountRepository

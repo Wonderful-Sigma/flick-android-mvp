@@ -43,11 +43,6 @@ class FragmentBankbookRecords : BaseFragment<FragmentBankbookRecordsBinding, Ban
     override fun start() {
         setStatusBarColorWhite(requireActivity(), requireContext())
 
-        binding.tvSetting.setOnClickListener {
-            val action = FragmentBankbookRecordsDirections.toMyAccountSettingFragment()
-            findNavController().navigate(action)
-        }
-
         /** Set My Info */
         val myAccount = userViewModel.myInfo.value!!.account[0]
         binding.tvMyAccountName.text = "내 통장"
@@ -105,9 +100,6 @@ class FragmentBankbookRecords : BaseFragment<FragmentBankbookRecordsBinding, Ban
         bottomSheetDialog.setContentView(bottomSheetFill)
 
         with(binding){
-            btnFill.setOnClickListener {
-                bottomSheetDialog.show()
-            }
             btnBackArrow.setOnClickListener { findNavController().popBackStack() }
             btnSend.setOnClickListener {
                 val action = FragmentBankbookRecordsDirections.actionFragmentBankbookRecordsToSendWhereFragment()

@@ -111,7 +111,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.sigma.flick.feature.home.HomeFragment"
+        android:name="com.sigma.flick.feature.tabs.home.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home">
         <action
@@ -340,7 +340,7 @@
     <!--        tools:layout="@layout/fragment_payment" />-->
     <fragment
         android:id="@+id/allFragment"
-        android:name="com.sigma.flick.feature.all.AllFragment"
+        android:name="com.sigma.flick.feature.tabs.all.AllFragment"
         android:label="fragment_all"
         tools:layout="@layout/fragment_all">
         <action
@@ -354,15 +354,23 @@
 
     <fragment
         android:id="@+id/stockFragment"
-        android:name="com.sigma.flick.feature.stock.StockFragment"
+        android:name="com.sigma.flick.feature.tabs.stock.StockFragment"
         android:label="fragment_stock"
         tools:layout="@layout/fragment_stock" />
 
     <fragment
         android:id="@+id/eventFragment"
-        android:name="com.sigma.flick.feature.event.screen.EventFragment"
+        android:name="com.sigma.flick.feature.tabs.event.screen.EventFragment"
         android:label="EventFragment"
-        tools:layout="@layout/fragment_event" />
+        tools:layout="@layout/fragment_event" >
+        <action
+            android:id="@+id/to_fragmentBankbookRecords"
+            app:destination="@id/fragmentBankbookRecords"
+            app:enterAnim="@anim/animation_enter"
+            app:exitAnim="@anim/animation_exit"
+            app:popEnterAnim="@anim/animation_pop_enter"
+            app:popExitAnim="@anim/animation_pop_exit"/>
+    </fragment>
 
     <fragment
         android:id="@+id/settingFragment"

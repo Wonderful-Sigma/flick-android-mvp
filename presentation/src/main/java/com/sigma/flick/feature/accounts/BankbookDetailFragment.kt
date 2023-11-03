@@ -8,7 +8,7 @@ import com.sigma.flick.R
 import com.sigma.flick.base.BaseFragment
 import com.sigma.flick.databinding.FragmentBankbookDetailBinding
 import com.sigma.flick.feature.accounts.viewmodel.BankbookDetailViewModel
-import com.sigma.flick.feature.home.adapter.GroupBankBookListAdapter
+import com.sigma.flick.feature.tabs.home.adapter.GroupBankBookListAdapter
 import com.sigma.flick.feature.user.viewmodel.UserViewModel
 import java.text.DecimalFormat
 
@@ -27,25 +27,22 @@ class BankbookDetailFragment : BaseFragment<FragmentBankbookDetailBinding, Bankb
             tvMyCoin.text = getDecimalFormat(myCoin)
         }
 
-        binding.myBankbookButton.setOnClickListener {
-            findNavController().navigate(R.id.action_accountDetailFragment_to_fragmentBankbookRecords)
-        }
-
-        val groupBankBookListAdapter = GroupBankBookListAdapter()
-
-        groupBankBookListAdapter.submitList(userViewModel.collectionData)
-        groupBankBookListAdapter.setItemClickListener(groupBankBookListAdapter)
-
-        binding.recyclerviewGroupBankbook.layoutManager = LinearLayoutManager(context)
-        binding.recyclerviewGroupBankbook.adapter = groupBankBookListAdapter
-
-        with(binding){
-            ibBackArrow.setOnClickListener{ findNavController().popBackStack() }
-            createBankbookButton.setOnClickListener { findNavController().navigate(R.id.to_collectionInputNameFragment) }
-            btnSend.setOnClickListener { findNavController().navigate(R.id.action_accountDetailFragment_to_sendWhereFragment) }
-        }
+        setNavigation()
     }
 
+    private fun setNavigation() {
+        with(binding){
+            ibBackArrow.setOnClickListener{
+                findNavController().popBackStack()
+            }
+            binding.myBankbookButton.setOnClickListener {
+                findNavController().navigate(R.id.action_accountDetailFragment_to_fragmentBankbookRecords)
+            }
+            btnSend.setOnClickListener {
+                findNavController().navigate(R.id.action_accountDetailFragment_to_sendWhereFragment)
+            }
+        }
+    }
     private fun getDecimalFormat(number: Long): String {
         val decimalFormat = DecimalFormat("#,###")
         return decimalFormat.format(number)+"코인"
