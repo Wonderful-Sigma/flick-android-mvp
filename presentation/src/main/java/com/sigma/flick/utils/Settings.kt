@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.navigation.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.sigma.flick.R
-import com.sigma.flick.feature.main.MainActivity
+import com.sigma.flick.main.MainActivity
 
 fun setDeleteBottomNav(activity: FragmentActivity?) {
     val bottomNavigationBar = activity?.findViewById<BottomNavigationView>(R.id.bnv)

@@ -7,7 +7,7 @@ import androidx.activity.viewModels
 import com.sigma.flick.R
 import com.sigma.flick.base.BaseActivity
 import com.sigma.flick.databinding.ActivityStartBinding
-import com.sigma.flick.feature.main.MainActivity
+import com.sigma.flick.main.MainActivity
 import com.sigma.flick.utils.clientId
 import com.sigma.flick.utils.clientSecret
 import com.sigma.flick.utils.onButtonClick

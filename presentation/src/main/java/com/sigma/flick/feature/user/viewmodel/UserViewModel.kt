@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.sigma.flick.base.BaseViewModel
 import com.sigma.main.model.account.Account
-import com.sigma.flick.feature.home.adapter.data.ItemGroupBankBookData
 import com.sigma.main.model.user.UserResponseModel
 import com.sigma.main.repository.QRCodeRepository
 import com.sigma.main.repository.AccountRepository
@@ -30,7 +29,7 @@ class UserViewModel @Inject constructor(
     private var _jwt = MutableLiveData<String>()
     val jwt: LiveData<String> = _jwt
 
-    var collectionData: MutableList<ItemGroupBankBookData> = mutableListOf()
+//    var collectionData: MutableList<ItemGroupBankBookData> = mutableListOf()
 
     fun getUserInfo() = viewModelScope.launch {
         kotlin.runCatching {

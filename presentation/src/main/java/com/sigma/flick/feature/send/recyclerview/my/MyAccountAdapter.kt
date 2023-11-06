@@ -25,7 +25,6 @@ class MyAccountAdapter(
 
         holder.accountName.text = item.accountName
         holder.accountNumber.text = item.accountNumber
-        holder.starIcon.setColorFilter(item.starColor)
     }
 
     override fun getItemCount(): Int = itemList.size
@@ -40,7 +39,6 @@ class MyAccountAdapter(
 //        val accountImage: ImageView = itemView.findViewById(R.id.iv_account)
         val accountName: TextView = itemView.findViewById(R.id.tv_account_name)
         val accountNumber: TextView = itemView.findViewById(R.id.tv_account_number)
-        val starIcon: ImageView = itemView.findViewById(R.id.iv_btn_star)
 
         override fun onClick(p0: View?) {
             onItemClickListener.onMyAccountItemClick(adapterPosition)

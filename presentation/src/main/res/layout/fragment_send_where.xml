@@ -4,9 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".feature.send.screen.SendWhereFragment">
 
-    <data>
-
-    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -53,8 +50,7 @@
             <LinearLayout
                 android:id="@+id/relative_layout"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginHorizontal="24dp"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <EditText
@@ -63,51 +59,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:hint="계좌번호 입력"
+                    android:layout_marginHorizontal="24dp"
                     android:textColorHint="@color/gray"
                     android:textSize="20sp"
                     android:fontFamily="@font/pretendard_semibold"
                     android:backgroundTint="@color/button_gray"
                     android:focusable="false"
                     android:inputType="text" />
-
-                <LinearLayout
-                    android:id="@+id/linear_my_accounts"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="25dp"
-                    android:gravity="center_vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/pretendard_semibold"
-                        android:text="내 계좌"
-                        android:textColor="@color/title"
-                        android:textSize="16sp" />
-
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"/>
-
-                    <TextView
-                        android:id="@+id/tv_my_account_count"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/pretendard_regular"
-                        android:text="+0개"
-                        android:textColor="@color/gray"
-                        android:textSize="13sp" />
-
-                    <ImageView
-                        android:id="@+id/iv_arrow_mini"
-                        android:layout_width="wrap_content"
-                        android:layout_height="10dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="0.5dp"
-                        android:src="@drawable/ic_arrow_mini" />
-
-                </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerview_my_accounts"
@@ -123,6 +81,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="35dp"
+                    android:layout_marginStart="24dp"
                     android:fontFamily="@font/pretendard_semibold"
                     android:text="최근 보낸 계좌"
                     android:textColor="@color/title"
@@ -132,6 +91,8 @@
                     android:id="@+id/recyclerview_recent_account"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginHorizontal="8dp"
+                    tools:listitem="@layout/item_account"
                     android:layout_marginTop="20dp"
                     android:overScrollMode="never"
                     android:nestedScrollingEnabled="false" />

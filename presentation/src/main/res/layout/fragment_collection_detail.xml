@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".feature.collection.screen.start.CollectionDetailFragment">
 
-    <data/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
