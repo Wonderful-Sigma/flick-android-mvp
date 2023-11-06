@@ -126,8 +126,8 @@ fun settingOptions(
         padding = .10f
 
         logo {
-//            drawable = ContextCompat
-//                .getDrawable(context, R.drawable.img_flick_gray)
+            drawable = ContextCompat
+                .getDrawable(context, R.drawable.ic_flick_gray_png) // todo : 이미지 바꾸기
             size = .25f
             padding = QrVectorLogoPadding.Natural(.2f)
             shape = QrVectorLogoShape
