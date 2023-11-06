@@ -4,7 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".feature.tabs.stock.StockFragment">
 
-    <data/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

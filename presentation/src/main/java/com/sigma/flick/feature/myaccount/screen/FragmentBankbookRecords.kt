@@ -95,7 +95,7 @@ class FragmentBankbookRecords : BaseFragment<FragmentBankbookRecordsBinding, Ban
         /** Navigation */
 
         bottomSheetDialog = BottomSheetDialog(requireContext())
-        val bottomSheetFill: View = layoutInflater.inflate(R.layout.layout_fill_bottom_sheet, null)
+        val bottomSheetFill: View = layoutInflater.inflate(R.layout.layout_bottom_sheet, null)
 
         bottomSheetDialog.setContentView(bottomSheetFill)
 

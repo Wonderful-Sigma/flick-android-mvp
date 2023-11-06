@@ -68,7 +68,8 @@ class MainActivity : AppCompatActivity() {
                 binding.root.setBackgroundColor(Color.WHITE)
             }
 
-            if (destination.id == R.id.homeFragment || destination.id == R.id.allFragment || destination.id == R.id.stockFragment || destination.id == R.id.paymentFragment || destination.id == R.id.eventFragment) {
+            if (destination.id == R.id.homeFragment || destination.id == R.id.allFragment || destination.id == R.id.stockFragment ||
+                destination.id == R.id.paymentFragment || destination.id == R.id.eventFragment) {
                 Log.d("상태", "보이기")
                 binding.bnv.visibility = View.VISIBLE
             } else {

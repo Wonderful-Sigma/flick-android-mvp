@@ -3,9 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".feature.collection.screen.sell.CollectionSellFragment">
 
-    <data>
-
-    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

@@ -3,12 +3,10 @@ package com.sigma.flick.feature.accounts
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.sigma.flick.R
 import com.sigma.flick.base.BaseFragment
 import com.sigma.flick.databinding.FragmentBankbookDetailBinding
 import com.sigma.flick.feature.accounts.viewmodel.BankbookDetailViewModel
-import com.sigma.flick.feature.tabs.home.adapter.GroupBankBookListAdapter
 import com.sigma.flick.feature.user.viewmodel.UserViewModel
 import java.text.DecimalFormat
 

@@ -10,7 +10,6 @@ import androidx.navigation.fragment.findNavController
 import com.sigma.flick.R
 import com.sigma.flick.base.BaseFragment
 import com.sigma.flick.databinding.FragmentAllBinding
-import com.sigma.flick.feature.all.AllFragmentDirections
 import com.sigma.flick.utils.setStatusBarColorWhite
 
 class AllFragment: BaseFragment<FragmentAllBinding, AllViewModel>(R.layout.fragment_all) {
