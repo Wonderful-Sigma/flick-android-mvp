@@ -20,6 +20,8 @@ import com.sigma.flick.R.id.fragment_container
 import com.sigma.flick.databinding.ActivityMainBinding
 import com.sigma.flick.feature.qrcode.QRCode
 import com.sigma.flick.feature.user.viewmodel.UserViewModel
+import com.sigma.flick.utils.setStatusBarColorBackground
+import com.sigma.flick.utils.setStatusBarColorWhite
 
 @Suppress("DEPRECATION")
 @AndroidEntryPoint
@@ -62,12 +64,16 @@ class MainActivity : AppCompatActivity() {
 
         /** Bottom Navigation */
         navController.addOnDestinationChangedListener { _, destination, _ ->
+            /** Background Color & Status Bar Color */
             if (destination.id == R.id.homeFragment) {
                 binding.root.setBackgroundColor(resources.getColor(R.color.activity_background))
+                setStatusBarColorBackground(this, this)
             } else {
                 binding.root.setBackgroundColor(Color.WHITE)
+                setStatusBarColorWhite(this, this)
             }
 
+            /** Bottom Nav */
             if (destination.id == R.id.homeFragment || destination.id == R.id.allFragment || destination.id == R.id.stockFragment ||
                 destination.id == R.id.paymentFragment || destination.id == R.id.eventFragment) {
                 Log.d("상태", "보이기")

@@ -51,9 +51,8 @@ class FragmentBankbookRecords : BaseFragment<FragmentBankbookRecordsBinding, Ban
         viewModel.allSpend(myAccount.id)
         viewModel.getWallet(myAccount.id)
 
-
         viewModel.spendList.observe(this){
-            val allSpendList = it
+//            val allSpendList = it
         }
 
 
