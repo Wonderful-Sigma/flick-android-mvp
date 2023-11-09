@@ -13,4 +13,7 @@ class UserRepositoryImpl @Inject constructor(
     override suspend fun getUser(): UserResponseModel
         = userApi.getUser().toModel()
 
+    override suspend fun getAccessToken(refreshToken: String) =
+        userApi.getAccessToken(refreshToken)
+
 }

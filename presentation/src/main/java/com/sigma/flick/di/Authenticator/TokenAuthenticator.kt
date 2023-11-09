@@ -5,7 +5,9 @@ import com.ggd.network.api.AuthApi
 import com.ggd.repository.AuthRepository
 import com.ggd.zendee.di.utils.BASE_URL
 import com.ggd.zendee.utils.HiltApplication
+import com.sigma.data.network.api.UserApi
 import com.sigma.flick.utils.BASE_URL
+import com.sigma.flick.utils.HiltApplication
 import dagger.hilt.InstallIn
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.HiltAndroidApp
@@ -24,6 +26,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.lang.Exception
 import javax.inject.Inject
 
+// todo 1. userApi에 Url이 ToKen으로 작성된 묹[
+// todo 2. 스웨거에 작성된 response값이 string으로만 되어있음;;
+
 class TokenAuthenticator: Authenticator {
 
     private val refreshRetrofit = Retrofit.Builder()
@@ -37,7 +42,7 @@ class TokenAuthenticator: Authenticator {
 //        .addConverterFactory(MoshiConverterFactory.create())
         .build()
 
-    private val authService = refreshRetrofit.create(AuthApi::class.java)
+    private val userService = refreshRetrofit.create(UserApi::class.java)
 
     override fun authenticate(route: Route?, response: Response): Request? {
         Log.i("Authenticator", response.toString())
@@ -48,9 +53,11 @@ class TokenAuthenticator: Authenticator {
         GlobalScope.launch {
             try {
                 Log.i("Authenticator", "orgToken: ${HiltApplication.prefs.accessToken}")
-                newAccessToken = authService.getAccessToken(
-                    HiltApplication.prefs.refreshToken
-                ).data
+
+//                newAccessToken = userService.getAccessToken(
+//                    HiltApplication.prefs.refreshToken
+//                )
+
                 Log.i("Authenticator", "토큰 재발급 성공 : $newAccessToken")
                 HiltApplication.prefs.deleteAccessToken()
                 HiltApplication.prefs.accessToken = newAccessToken

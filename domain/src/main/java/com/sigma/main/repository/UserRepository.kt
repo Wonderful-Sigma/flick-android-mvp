@@ -6,4 +6,8 @@ interface UserRepository {
 
     suspend fun getUser(): UserResponseModel
 
+    suspend fun getAccessToken(
+        refreshToken: String
+    )
+
 }
