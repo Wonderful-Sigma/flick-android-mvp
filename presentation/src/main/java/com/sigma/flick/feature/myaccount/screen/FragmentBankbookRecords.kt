@@ -1,6 +1,8 @@
 package com.sigma.flick.feature.myaccount.screen
 
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -15,6 +17,7 @@ import com.sigma.flick.feature.myaccount.adapter.decoration.DetailedRecordsItemD
 import com.sigma.flick.feature.myaccount.viewmodel.BankbookRecordsViewModel
 import com.sigma.flick.feature.user.viewmodel.UserViewModel
 import com.sigma.flick.utils.setStatusBarColorWhite
+import com.sigma.main.model.account.Account
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.DecimalFormat
 
@@ -44,17 +47,25 @@ class FragmentBankbookRecords : BaseFragment<FragmentBankbookRecordsBinding, Ban
         setStatusBarColorWhite(requireActivity(), requireContext())
 
         /** Set My Info */
-        val myAccount = userViewModel.myInfo.value!!.account[0]
+
+        var myAccount = userViewModel.myInfo.value!!.account[0]
+
+        userViewModel.myInfo.observe(viewLifecycleOwner) {
+            myAccount = userViewModel.myInfo.value!!.account[0]
+            binding.tvMyCoinBig.text = getDecimalFormat(myAccount.money)
+        }
+
         binding.tvMyAccountName.text = "내 통장"
-        binding.tvMyAccountNumber.text = "대소코인 " + myAccount.number
-        binding.tvMyCoinBig.text = getDecimalFormat(myAccount.money)
+        binding.tvMyAccountNumber.text = "대소코인 ${myAccount.number}"
+
         viewModel.allSpend(myAccount.id)
         viewModel.getWallet(myAccount.id)
+
+        /** Spend List */
 
         viewModel.spendList.observe(this){
 //            val allSpendList = it
         }
-
 
         /** Set RecyclerView */
         recordsDateListData = mutableListOf() // 특정 날짜의 리스트
@@ -104,6 +115,13 @@ class FragmentBankbookRecords : BaseFragment<FragmentBankbookRecordsBinding, Ban
                 val action = FragmentBankbookRecordsDirections.actionFragmentBankbookRecordsToSendWhereFragment()
                 findNavController().navigate(action)
             }
+        }
+
+        binding.home.setOnRefreshListener {
+            Handler(Looper.getMainLooper()).postDelayed({
+                userViewModel.getUserInfo()
+                binding.home.isRefreshing = false
+            },1000)
         }
     }
 

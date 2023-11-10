@@ -1,6 +1,8 @@
 package com.sigma.flick.feature.tabs.home
 
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
@@ -39,6 +41,13 @@ class HomeFragment: BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.fr
 
         //** navigation */
         setNavigation()
+
+        binding.home.setOnRefreshListener {
+            Handler(Looper.getMainLooper()).postDelayed({
+                userViewModel.getUserInfo()
+                binding.home.isRefreshing = false
+            },1000)
+        }
     }
 
     private fun observeMyInfo() {

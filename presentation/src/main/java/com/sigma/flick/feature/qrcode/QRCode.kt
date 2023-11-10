@@ -37,9 +37,6 @@ class QRCode(
 
     private val qrViewModel = ViewModelProvider(owner)[QRViewModel::class.java]
 
-    // viewModel을 MainActivity에서 만들고, 갖다 쓰면 안되나?
-    // todo ; 하나의 인스턴스로 만들기
-
     val bottomSheetView: View = layoutInflater.inflate(R.layout.layout_bottom_sheet, null)
 
     private val qrCode: ImageView = bottomSheetView.findViewById(R.id.iv_qr_code)
@@ -88,7 +85,7 @@ class QRCode(
             linearLeftTime.visibility = View.VISIBLE
             btnGenerate.isEnabled = false
 
-            Log.d("QRCode", "myData: $myData") // todo . 로그가 여러번 뜨는 문제..
+            Log.d("QRCode", "myData: $myData") // todo . 로그가 여러번 뜨는 문제.. 생성 함수 안에 있어서?
             qrCode.setImageDrawable(qrCodeDrawable)
 
             qrViewModel.startTimer()
