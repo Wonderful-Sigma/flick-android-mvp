@@ -1,6 +1,7 @@
 package com.sigma.flick.feature.myaccount.screen
 
 import android.content.Context
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -10,6 +11,7 @@ import com.sigma.flick.R
 import com.sigma.flick.base.BaseFragment
 import com.sigma.flick.databinding.FragmentBankbookRecordsBinding
 import com.sigma.flick.feature.myaccount.adapter.RecordsDateListAdapter
+import com.sigma.flick.feature.myaccount.adapter.data.DetailedData
 import com.sigma.flick.feature.myaccount.adapter.data.RecordsDateData
 import com.sigma.flick.feature.myaccount.adapter.decoration.DetailedRecordsItemDecoration
 import com.sigma.flick.feature.myaccount.viewmodel.BankbookRecordsViewModel
@@ -17,6 +19,8 @@ import com.sigma.flick.feature.user.viewmodel.UserViewModel
 import com.sigma.flick.utils.setStatusBarColorWhite
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.DecimalFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 @AndroidEntryPoint
 class FragmentBankbookRecords : BaseFragment<FragmentBankbookRecordsBinding, BankbookRecordsViewModel>(R.layout.fragment_bankbook_records) {
@@ -26,7 +30,6 @@ class FragmentBankbookRecords : BaseFragment<FragmentBankbookRecordsBinding, Ban
 
     companion object {
         lateinit var instance: FragmentBankbookRecords
-
         fun applicationContext(): Context {
             return instance.requireContext()
         }
@@ -51,9 +54,29 @@ class FragmentBankbookRecords : BaseFragment<FragmentBankbookRecordsBinding, Ban
         viewModel.allSpend(myAccount.id)
         viewModel.getWallet(myAccount.id)
 
+        val recordsDateListAdapter = RecordsDateListAdapter()
+
+        val detailedRecordsItemDecoration = DetailedRecordsItemDecoration()
+
+        binding.recyclerviewRecordsDate.layoutManager = LinearLayoutManager(context)
+        binding.recyclerviewRecordsDate.adapter = recordsDateListAdapter
+        binding.recyclerviewRecordsDate.addItemDecoration(detailedRecordsItemDecoration)
+
+        recordsDateListAdapter.setItemClickListener(recordsDateListAdapter)
+
+
 
         viewModel.spendList.observe(this){
+            Log.d("통장",it.toString())
             val allSpendList = it
+            allSpendList.map {
+                val detailedData: MutableList<DetailedData> = mutableListOf()
+                it.map {
+                    detailedData.add(DetailedData(it.targetMember, isoToTime(it.createdDate), getDecimalFormat(it.balance), getDecimalFormat(it.money), R.drawable.ic_my))
+                }
+                recordsDateListData.add(RecordsDateData(isoToDate(it[0].createdDate),detailedData))
+            }
+            recordsDateListAdapter.submitList(recordsDateListData)
         }
 
 
@@ -79,17 +102,6 @@ class FragmentBankbookRecords : BaseFragment<FragmentBankbookRecordsBinding, Ban
 //                }
 //            }
 //        }
-
-        val recordsDateListAdapter = RecordsDateListAdapter()
-
-        recordsDateListAdapter.submitList(recordsDateListData)
-        recordsDateListAdapter.setItemClickListener(recordsDateListAdapter)
-
-        val detailedRecordsItemDecoration = DetailedRecordsItemDecoration()
-
-        binding.recyclerviewRecordsDate.layoutManager = LinearLayoutManager(context)
-        binding.recyclerviewRecordsDate.adapter = recordsDateListAdapter
-        binding.recyclerviewRecordsDate.addItemDecoration(detailedRecordsItemDecoration)
 
 
         /** Navigation */
@@ -135,5 +147,19 @@ class FragmentBankbookRecords : BaseFragment<FragmentBankbookRecordsBinding, Ban
     private fun getDecimalFormat(number: Long): String {
         val decimalFormat = DecimalFormat("#,###")
         return decimalFormat.format(number)+"코인"
+    }
+
+    // ISO 8601 형식의 문자열을 날짜로 변환하는 함수
+    fun isoToDate(isoString: String): String {
+        val formatter = DateTimeFormatter.ISO_DATE_TIME
+        val dateTime = LocalDateTime.parse(isoString, formatter)
+        return dateTime.format(DateTimeFormatter.ofPattern("MM월 dd일"))
+    }
+
+    // ISO 8601 형식의 문자열을 시간으로 변환하는 함수
+    fun isoToTime(isoString: String): String {
+        val formatter = DateTimeFormatter.ISO_DATE_TIME
+        val dateTime = LocalDateTime.parse(isoString, formatter)
+        return dateTime.format(DateTimeFormatter.ofPattern("HH:mm"))
     }
 }
