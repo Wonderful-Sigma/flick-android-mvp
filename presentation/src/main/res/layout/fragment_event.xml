@@ -50,7 +50,7 @@
                 android:layout_height="20dp"
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
-                android:src="@drawable/ic_my" />
+                android:src="@drawable/ic_my_mini" />
 
             <TextView
                 android:layout_width="wrap_content"
