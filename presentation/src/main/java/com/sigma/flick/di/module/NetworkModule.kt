@@ -1,5 +1,7 @@
 package com.sigma.flick.di.module
 
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.sigma.data.network.api.AccountApi
 import com.sigma.data.network.api.DauthApi
 import com.sigma.data.network.api.QRCodeApi
@@ -54,12 +56,14 @@ class NetworkModule {
 
     /* Retrofit Object 생성 */
 
+    private var gson = GsonBuilder().setLenient().create()
+
     @Provides
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .client(okHttpClient)
             .build()
     }

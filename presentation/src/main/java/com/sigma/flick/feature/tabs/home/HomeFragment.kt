@@ -76,12 +76,10 @@ class HomeFragment: BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.fr
         bottomSheetDialog.setContentView(qrCodeClass.bottomSheetView)
 
         binding.paymentButton.setOnClickListener {
+            qrCodeClass.setQRCode()
             bottomSheetDialog.show()
             qrCodeClass.generateQRCode()
-            qrCodeClass.observeMyCoin() // todo : 계속 null 코인이 뜸
         }
-        qrCodeClass.observeQRCode(viewLifecycleOwner)
-
     }
 
     private fun getDecimalFormat(number: Long): String {
