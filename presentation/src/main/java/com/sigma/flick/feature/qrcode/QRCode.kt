@@ -73,7 +73,7 @@ class QRCode(
 
     private fun setReGenerate() {
         btnGenerate.setOnClickListener {
-            userViewModel.generateJwt(userId) // TODO : 계속 401이 뜨는지 getNewAccessToken 을 실행함
+            userViewModel.generateJwt(userId)
         }
     }
 
