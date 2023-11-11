@@ -32,7 +32,7 @@
         android:label="fragment_send_where_input"
         tools:layout="@layout/fragment_send_where_input">
         <action
-            android:id="@+id/action_sendWhereInputFragment_to_sendPointFragment"
+            android:id="@+id/to_sendPointFragment"
             app:destination="@id/sendPointFragment"
             app:enterAnim="@anim/animation_enter"
             app:exitAnim="@anim/animation_exit"
@@ -64,6 +64,9 @@
             app:exitAnim="@anim/animation_exit"
             app:popEnterAnim="@anim/animation_pop_enter"
             app:popExitAnim="@anim/animation_pop_exit"/>
+        <action
+            android:id="@+id/to_sendLoadFragment"
+            app:destination="@id/sendLoadFragment" />
     </fragment>
     <fragment
         android:id="@+id/sendFinishFragment"
@@ -71,7 +74,7 @@
         android:label="SendFinishFragment"
         tools:layout="@layout/fragment_send_finish" >
         <action
-            android:id="@+id/action_sendFinishFragment_to_homeFragment"
+            android:id="@+id/to_homeFragment"
             app:destination="@id/homeFragment"
             app:popUpTo="@id/homeFragment"
             app:enterAnim="@anim/animation_enter"
@@ -79,35 +82,6 @@
             app:popEnterAnim="@anim/animation_pop_enter"
             app:popExitAnim="@anim/animation_pop_exit"/>
     </fragment>
-
-
-    <fragment
-        android:id="@+id/collectionInputNameFragment"
-        android:name="com.sigma.flick.feature.collection.screen.start.CollectionInputNameFragment"
-        android:label="fragment_collection_input_name"
-        tools:layout="@layout/fragment_collection_input_name">
-        <action
-            android:id="@+id/to_collectionCompletionFragment"
-            app:destination="@id/collectionCompletionFragment"
-            app:enterAnim="@anim/animation_enter"
-            app:exitAnim="@anim/animation_exit"
-            app:popEnterAnim="@anim/animation_pop_enter"
-            app:popExitAnim="@anim/animation_pop_exit"/>
-    </fragment>
-    <fragment
-        android:id="@+id/collectionCompletionFragment"
-        android:name="com.sigma.flick.feature.collection.screen.start.CollectionCompletionFragment"
-        android:label="fragment_collection_completion"
-        tools:layout="@layout/fragment_collection_completion">
-        <action
-            android:id="@+id/to_collectionDetailFragment"
-            app:destination="@id/collectionDetailFragment"
-            app:enterAnim="@anim/animation_enter"
-            app:exitAnim="@anim/animation_exit"
-            app:popEnterAnim="@anim/animation_pop_enter"
-            app:popExitAnim="@anim/animation_pop_exit"/>
-    </fragment>
-
 
     <fragment
         android:id="@+id/homeFragment"
@@ -165,21 +139,6 @@
             app:popEnterAnim="@anim/animation_pop_enter"
             app:popExitAnim="@anim/animation_pop_exit" />
         <action
-            android:id="@+id/action_homeFragment_to_collectionDetailFragment"
-            app:destination="@id/collectionDetailFragment"
-            app:enterAnim="@anim/animation_enter"
-            app:exitAnim="@anim/animation_exit"
-            app:popEnterAnim="@anim/animation_pop_enter"
-            app:popExitAnim="@anim/animation_pop_exit"/>
-
-        <action
-            android:id="@+id/action_homeFragment_to_spendFragment"
-            app:destination="@id/spendFragment"
-            app:enterAnim="@anim/animation_enter"
-            app:exitAnim="@anim/animation_exit"
-            app:popEnterAnim="@anim/animation_pop_enter"
-            app:popExitAnim="@anim/animation_pop_exit"/>
-        <action
             android:id="@+id/action_homeFragment_to_fragmentBankbookRecords"
             app:destination="@id/fragmentBankbookRecords"
             app:enterAnim="@anim/animation_enter"
@@ -201,26 +160,12 @@
             app:exitAnim="@anim/animation_exit"
             app:popEnterAnim="@anim/animation_pop_enter"
             app:popExitAnim="@anim/animation_pop_exit"/>
-        <action
-            android:id="@+id/to_myAccountSettingFragment"
-            app:destination="@id/myAccountSettingFragment"
-            app:enterAnim="@anim/animation_enter"
-            app:exitAnim="@anim/animation_exit"
-            app:popEnterAnim="@anim/animation_pop_enter"
-            app:popExitAnim="@anim/animation_pop_exit"/>
     </fragment>
     <fragment
         android:id="@+id/accountDetailFragment"
         android:name="com.sigma.flick.feature.accounts.BankbookDetailFragment"
         android:label="AccountDetailFragment"
         tools:layout="@layout/fragment_bankbook_detail">
-        <action
-            android:id="@+id/to_collectionInputNameFragment"
-            app:destination="@id/collectionInputNameFragment"
-            app:enterAnim="@anim/animation_enter"
-            app:exitAnim="@anim/animation_exit"
-            app:popEnterAnim="@anim/animation_pop_enter"
-            app:popExitAnim="@anim/animation_pop_exit"/>
         <action
             android:id="@+id/action_accountDetailFragment_to_sendWhereFragment"
             app:destination="@id/sendWhereFragment"
@@ -239,13 +184,6 @@
         <action
             android:id="@+id/action_accountDetailFragment_to_homeFragment"
             app:destination="@id/homeFragment"
-            app:enterAnim="@anim/animation_enter"
-            app:exitAnim="@anim/animation_exit"
-            app:popEnterAnim="@anim/animation_pop_enter"
-            app:popExitAnim="@anim/animation_pop_exit"/>
-        <action
-            android:id="@+id/action_accountDetailFragment_to_collectionDetailFragment"
-            app:destination="@id/collectionDetailFragment"
             app:enterAnim="@anim/animation_enter"
             app:exitAnim="@anim/animation_exit"
             app:popEnterAnim="@anim/animation_pop_enter"
@@ -271,73 +209,6 @@
     <!--            app:popEnterAnim="@android:anim/fade_in"-->
     <!--            app:popExitAnim="@android:anim/fade_out"/>-->
     <!--    </fragment>-->
-
-    <fragment
-        android:id="@+id/collectionDetailFragment"
-        android:name="com.sigma.flick.feature.collection.screen.start.CollectionDetailFragment"
-        android:label="fragment_collection_detail"
-        tools:layout="@layout/fragment_collection_detail">
-        <action
-            android:id="@+id/to_collectionSettingFragment"
-            app:destination="@id/collectionSettingFragment"
-            app:enterAnim="@anim/animation_enter"
-            app:exitAnim="@anim/animation_exit"
-            app:popEnterAnim="@anim/animation_pop_enter"
-            app:popExitAnim="@anim/animation_pop_exit"/>
-        <action
-            android:id="@+id/to_collectionSettingSellFragment"
-            app:destination="@id/collectionSettingSellFragment"
-            app:enterAnim="@anim/animation_enter"
-            app:exitAnim="@anim/animation_exit"
-            app:popEnterAnim="@anim/animation_pop_enter"
-            app:popExitAnim="@anim/animation_pop_exit"/>
-        <action
-            android:id="@+id/action_collectionDetailFragment_to_homeFragment"
-            app:destination="@id/homeFragment"
-            app:enterAnim="@anim/animation_enter"
-            app:exitAnim="@anim/animation_exit"
-            app:popEnterAnim="@anim/animation_pop_enter"
-            app:popExitAnim="@anim/animation_pop_exit"/>
-    </fragment>
-    <fragment
-        android:id="@+id/collectionSettingSellFragment"
-        android:name="com.sigma.flick.feature.collection.screen.sell.CollectionSettingSellFragment"
-        android:label="fragment_collection_setting_sell"
-        tools:layout="@layout/fragment_collection_setting_sell">
-        <action
-            android:id="@+id/to_collectionSellFragment"
-            app:destination="@id/collectionSellFragment"
-            app:popUpTo="@id/collectionDetailFragment"
-            app:popUpToInclusive="false"
-            app:enterAnim="@anim/animation_enter"
-            app:exitAnim="@anim/animation_exit"
-            app:popEnterAnim="@anim/animation_pop_enter"
-            app:popExitAnim="@anim/animation_pop_exit"/>
-    </fragment>
-    <fragment
-        android:id="@+id/collectionSellFragment"
-        android:name="com.sigma.flick.feature.collection.screen.sell.CollectionSellFragment"
-        android:label="fragment_collection_sell"
-        tools:layout="@layout/fragment_collection_sell" />
-    <fragment
-        android:id="@+id/sendLoadFragment"
-        android:name="com.sigma.flick.feature.send.screen.SendLoadFragment"
-        android:label="fragment_send_load"
-        tools:layout="@layout/fragment_send_load">
-        <action
-            android:id="@+id/to_sendFinishFragment"
-            app:popUpTo="@id/homeFragment"
-            app:destination="@id/sendFinishFragment"
-            app:enterAnim="@anim/animation_enter"
-            app:exitAnim="@anim/animation_exit"
-            app:popEnterAnim="@anim/animation_pop_enter"
-            app:popExitAnim="@anim/animation_pop_exit"/>
-    </fragment>
-    <!--    <fragment-->
-    <!--        android:id="@+id/paymentFragment"-->
-    <!--        android:name="com.sigma.flick.feature.payment.PaymentFragment"-->
-    <!--        android:label="fragment_payment"-->
-    <!--        tools:layout="@layout/fragment_payment" />-->
     <fragment
         android:id="@+id/allFragment"
         android:name="com.sigma.flick.feature.tabs.all.AllFragment"
@@ -378,34 +249,18 @@
         android:label="fragment_setting"
         tools:layout="@layout/fragment_setting" />
     <fragment
-        android:id="@+id/spendFragment"
-        android:name="com.sigma.flick.feature.spend.SpendFragment"
-        android:label="fragment_spend"
-        tools:layout="@layout/fragment_spend" />
-    <fragment
-        android:id="@+id/myAccountSettingFragment"
-        android:name="com.sigma.flick.feature.myaccount.screen.MyAccountSettingFragment"
-        android:label="MyAccountSettingFragment"
-        tools:layout="@layout/fragment_my_account_setting"/>
-
-    <fragment
-        android:id="@+id/collectionSettingFragment"
-        android:name="com.sigma.flick.feature.collection.screen.start.CollectionSettingFragment"
-        android:label="CollectionSettingFragment"
-        tools:layout="@layout/fragment_collection_setting">
+        android:id="@+id/sendLoadFragment"
+        android:name="com.sigma.flick.feature.send.screen.SendLoadFragment"
+        android:label="fragment_send_load"
+        tools:layout="@layout/fragment_send_load" >
         <action
-            android:id="@+id/to_collectionPeopleFragment"
-            app:destination="@id/collectionPeopleFragment"
-            app:enterAnim="@anim/animation_enter"
-            app:exitAnim="@anim/animation_exit"
-            app:popEnterAnim="@anim/animation_pop_enter"
-            app:popExitAnim="@anim/animation_pop_exit"/>
+            android:id="@+id/to_sendFinishFragment"
+            app:destination="@id/sendFinishFragment"
+            app:enterAnim="@anim/animation_fade_in"
+            app:exitAnim="@anim/animation_fade_out"
+            app:popEnterAnim="@anim/animation_fade_in"
+            app:popExitAnim="@anim/animation_fade_out"/>
     </fragment>
-    <fragment
-        android:id="@+id/collectionPeopleFragment"
-        android:name="com.sigma.flick.feature.collection.screen.start.CollectionPeopleFragment"
-        android:label="CollectionPeopleFragment"
-        tools:layout="@layout/fragment_collection_people"/>
 
 
 </navigation>

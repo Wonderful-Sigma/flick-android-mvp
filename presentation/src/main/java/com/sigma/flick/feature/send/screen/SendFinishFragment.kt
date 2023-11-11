@@ -64,7 +64,8 @@ class SendFinishFragment : BaseFragment<FragmentSendFinishBinding, SendViewModel
         binding.btnComplete.fadeIn(context)
 
         binding.btnComplete.setOnClickListener {
-            findNavController().navigate(R.id.action_sendFinishFragment_to_homeFragment)
+            val action = SendFinishFragmentDirections.toHomeFragment()
+            findNavController().navigate(action)
         }
     }
 }
