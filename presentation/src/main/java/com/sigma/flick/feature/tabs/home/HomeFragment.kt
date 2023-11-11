@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.room.util.query
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.messaging.FirebaseMessaging
 import com.sigma.flick.R
@@ -29,6 +30,7 @@ class HomeFragment: BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.fr
     val userViewModel: UserViewModel by activityViewModels()
 
     private lateinit var context: Context
+    private lateinit var qrCodeClass: QRCode
 
     override fun start() {
         context = requireContext()
@@ -55,6 +57,7 @@ class HomeFragment: BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.fr
             val myAccount = myInfo?.account!![0]
             binding.tvMyAccount.text = myAccount.name
             binding.tvMyCoin.text = getDecimalFormat(myAccount.money)
+            qrCodeClass.setUserId()
         }
     }
 
@@ -70,15 +73,15 @@ class HomeFragment: BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.fr
     }
 
     private fun showQRCode(context: Context) {
-        val qrCodeClass = QRCode(userViewModel, context, viewLifecycleOwner, this@HomeFragment, layoutInflater)
+        qrCodeClass = QRCode(userViewModel, context, viewLifecycleOwner, this@HomeFragment, layoutInflater)
 
         val bottomSheetDialog = BottomSheetDialog(requireContext())
         bottomSheetDialog.setContentView(qrCodeClass.bottomSheetView)
 
         binding.paymentButton.setOnClickListener {
+            qrCodeClass.generateQRCode()
             qrCodeClass.setQRCode()
             bottomSheetDialog.show()
-            qrCodeClass.generateQRCode()
         }
     }
 

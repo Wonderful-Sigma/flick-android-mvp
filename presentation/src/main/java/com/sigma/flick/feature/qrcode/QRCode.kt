@@ -54,19 +54,19 @@ class QRCode(
     private lateinit var myAccount: Account
     private var userId by Delegates.notNull<Long>()
 
+
     fun generateQRCode() {
         userViewModel.generateJwt(userId)
     }
 
     fun setQRCode() {
-        setUserId()
         observeMyCoin()
         observeJwt()
         observeQRCode(viewLifecycleOwner)
         setReGenerate()
     }
 
-    private fun setUserId() {
+    fun setUserId() {
         myAccount = userViewModel.myInfo.value!!.account[0]
         userId = myAccount.id
     }
