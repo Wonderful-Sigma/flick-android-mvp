@@ -12,6 +12,7 @@ import com.sigma.flick.R
 import com.sigma.flick.base.BaseFragment
 import com.sigma.flick.databinding.FragmentBankbookRecordsBinding
 import com.sigma.flick.feature.myaccount.adapter.RecordsDateListAdapter
+import com.sigma.flick.feature.myaccount.adapter.data.DetailedData
 import com.sigma.flick.feature.myaccount.adapter.data.RecordsDateData
 import com.sigma.flick.feature.myaccount.adapter.decoration.DetailedRecordsItemDecoration
 import com.sigma.flick.feature.myaccount.viewmodel.BankbookRecordsViewModel
@@ -20,6 +21,8 @@ import com.sigma.flick.utils.setStatusBarColorWhite
 import com.sigma.main.model.account.Account
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.DecimalFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 @AndroidEntryPoint
 class FragmentBankbookRecords : BaseFragment<FragmentBankbookRecordsBinding, BankbookRecordsViewModel>(R.layout.fragment_bankbook_records) {
@@ -29,7 +32,6 @@ class FragmentBankbookRecords : BaseFragment<FragmentBankbookRecordsBinding, Ban
 
     companion object {
         lateinit var instance: FragmentBankbookRecords
-
         fun applicationContext(): Context {
             return instance.requireContext()
         }
@@ -61,45 +63,32 @@ class FragmentBankbookRecords : BaseFragment<FragmentBankbookRecordsBinding, Ban
         viewModel.allSpend(myAccount.id)
         viewModel.getWallet(myAccount.id)
 
-        /** Spend List */
-
-        viewModel.spendList.observe(this){
-//            val allSpendList = it
-        }
-
-        /** Set RecyclerView */
-        recordsDateListData = mutableListOf() // 특정 날짜의 리스트
-
-//        myAccount.spendLists.asReversed().forEach { spendCoin ->
-//            val dateTime = spendCoin.createdDate.slice(0..9)
-//
-//            makeNewRecordsDateData(dateTime)
-//
-//            val detailedData = DetailedData(
-//                spendCoin.targetMember,
-//                dateTime,
-//                spendCoin.balance.toString() + "코인",
-//                spendCoin.money.toString() + "코인",
-//                R.drawable.ic_my_large
-//            )
-//
-//            recordsDateListData.forEach { recordsDateData ->
-//                if (recordsDateData.date == detailedData.time) {
-//                    recordsDateData.detailedData.add(detailedData)
-//                }
-//            }
-//        }
-
         val recordsDateListAdapter = RecordsDateListAdapter()
-
-        recordsDateListAdapter.submitList(recordsDateListData)
-        recordsDateListAdapter.setItemClickListener(recordsDateListAdapter)
 
         val detailedRecordsItemDecoration = DetailedRecordsItemDecoration()
 
+        /** Set RecyclerView */
         binding.recyclerviewRecordsDate.layoutManager = LinearLayoutManager(context)
         binding.recyclerviewRecordsDate.adapter = recordsDateListAdapter
         binding.recyclerviewRecordsDate.addItemDecoration(detailedRecordsItemDecoration)
+
+        recordsDateListAdapter.setItemClickListener(recordsDateListAdapter)
+
+
+        /** Spend List */
+        viewModel.spendList.observe(this){
+            val allSpendList = it
+            recordsDateListData = mutableListOf()
+            allSpendList.map {
+                val detailedData: MutableList<DetailedData> = mutableListOf()
+                it.map {
+                    detailedData.add(DetailedData(it.targetMember, isoToTime(it.createdDate), getDecimalFormat(it.balance), getDecimalFormat(it.money), R.drawable.ic_my))
+                }
+                recordsDateListData.add(RecordsDateData(isoToDate(it[0].createdDate),detailedData))
+            }
+            recordsDateListAdapter.submitList(recordsDateListData)
+        }
+
 
 
         /** Navigation */
@@ -152,5 +141,17 @@ class FragmentBankbookRecords : BaseFragment<FragmentBankbookRecordsBinding, Ban
     private fun getDecimalFormat(number: Long): String {
         val decimalFormat = DecimalFormat("#,###")
         return decimalFormat.format(number)+"코인"
+    }
+
+    fun isoToDate(isoString: String): String {
+        val formatter = DateTimeFormatter.ISO_DATE_TIME
+        val dateTime = LocalDateTime.parse(isoString, formatter)
+        return dateTime.format(DateTimeFormatter.ofPattern("MM월 dd일"))
+    }
+
+    fun isoToTime(isoString: String): String {
+        val formatter = DateTimeFormatter.ISO_DATE_TIME
+        val dateTime = LocalDateTime.parse(isoString, formatter)
+        return dateTime.format(DateTimeFormatter.ofPattern("HH:mm"))
     }
 }
