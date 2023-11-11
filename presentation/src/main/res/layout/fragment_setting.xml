@@ -70,7 +70,7 @@
                 android:layout_height="40dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="30dp"
-                android:src="@drawable/ic_my_large" />
+                android:src="@drawable/ic_flick_circle" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -106,31 +106,42 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_marginTop="16dp"
+            android:paddingVertical="2dp"
+            android:paddingHorizontal="8dp"
             android:background="@color/white"
             android:gravity="center_vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:fontFamily="@font/pretendard_medium"
-                android:text="약관 및 개인정보 처리 동의"
-                android:textSize="17sp"
-                android:textColor="@color/sub_title"/>
+            <LinearLayout
+                android:id="@+id/btn_rule"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingHorizontal="16dp"
+                android:background="@drawable/button_ripple_white_small"
+                android:gravity="center_vertical">
 
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:text="약관 및 개인정보 처리 동의"
+                    android:textSize="17sp"
+                    android:textColor="@color/sub_title"/>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="24dp"
-                android:src="@drawable/ic_arrow_mini" />
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_arrow_mini" />
+
+            </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
@@ -138,41 +149,51 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_marginTop="16dp"
+            android:paddingVertical="2dp"
+            android:paddingHorizontal="8dp"
             android:background="@color/white"
             android:gravity="center_vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linear_rule">
 
-            <TextView
-                android:id="@+id/tv_version"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:fontFamily="@font/pretendard_medium"
-                android:text="앱 버전"
-                android:textSize="17sp"
-                android:textColor="@color/sub_title"/>
+            <LinearLayout
+                android:id="@+id/btn_version"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingHorizontal="16dp"
+                android:background="@drawable/button_ripple_white_small"
+                android:gravity="center_vertical">
 
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                <TextView
+                    android:id="@+id/tv_version"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:text="앱 버전"
+                    android:textSize="17sp"
+                    android:textColor="@color/sub_title"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="20dp"
-                android:fontFamily="@font/pretendard_medium"
-                android:text="업데이트 하기"
-                android:textSize="17sp"
-                android:textColor="@color/light_gray"/>
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="24dp"
-                android:src="@drawable/ic_arrow_mini" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:text="업데이트 하기"
+                    android:textSize="17sp"
+                    android:textColor="@color/light_gray"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_arrow_mini" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -181,31 +202,41 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_marginTop="16dp"
-            android:gravity="center_vertical"
+            android:paddingVertical="2dp"
+            android:paddingHorizontal="8dp"
             android:background="@color/white"
+            android:gravity="center_vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linear_version">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:fontFamily="@font/pretendard_medium"
-                android:text="로그아웃"
-                android:textSize="17sp"
-                android:textColor="@color/warning"/>
+            <LinearLayout
+                android:id="@+id/btn_logout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingHorizontal="16dp"
+                android:background="@drawable/button_ripple_white_small"
+                android:gravity="center_vertical">
 
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:text="로그아웃"
+                    android:textSize="17sp"
+                    android:textColor="@color/warning"/>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="24dp"
-                android:src="@drawable/ic_arrow_mini" />
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_arrow_mini" />
+
+            </LinearLayout>
 
         </LinearLayout>
 

@@ -1,5 +1,7 @@
 package com.sigma.flick.feature.accounts
 
+import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -8,6 +10,7 @@ import com.sigma.flick.base.BaseFragment
 import com.sigma.flick.databinding.FragmentBankbookDetailBinding
 import com.sigma.flick.feature.accounts.viewmodel.BankbookDetailViewModel
 import com.sigma.flick.feature.user.viewmodel.UserViewModel
+import com.sigma.main.model.account.Account
 import java.text.DecimalFormat
 
 
@@ -17,15 +20,27 @@ class BankbookDetailFragment : BaseFragment<FragmentBankbookDetailBinding, Bankb
     private val userViewModel: UserViewModel by activityViewModels()
 
     override fun start() {
-        val myInfo = userViewModel.myInfo.value!!.account[0]
-        val myCoin = myInfo.money
+        var myInfo: Account
+        var myCoin: Long
 
-        with(binding){
-            tvMyCoinBig.text = getDecimalFormat(myCoin)
-            tvMyCoin.text = getDecimalFormat(myCoin)
+        userViewModel.myInfo.observe(viewLifecycleOwner) {
+            myInfo = userViewModel.myInfo.value!!.account[0]
+            myCoin = myInfo.money
+
+            with(binding){
+                tvMyCoinBig.text = getDecimalFormat(myCoin)
+                tvMyCoin.text = getDecimalFormat(myCoin)
+            }
         }
 
         setNavigation()
+
+        binding.refreshLayout.setOnRefreshListener {
+            Handler(Looper.getMainLooper()).postDelayed({
+                userViewModel.getUserInfo()
+                binding.refreshLayout.isRefreshing = false
+            },1000)
+        }
     }
 
     private fun setNavigation() {

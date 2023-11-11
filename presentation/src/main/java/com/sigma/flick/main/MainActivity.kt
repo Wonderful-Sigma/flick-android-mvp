@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -20,8 +21,9 @@ import com.sigma.flick.R.id.fragment_container
 import com.sigma.flick.databinding.ActivityMainBinding
 import com.sigma.flick.feature.qrcode.QRCode
 import com.sigma.flick.feature.user.viewmodel.UserViewModel
+import com.sigma.flick.utils.setStatusBarColorBackground
+import com.sigma.flick.utils.setStatusBarColorWhite
 
-@Suppress("DEPRECATION")
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
@@ -31,51 +33,25 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
+    private lateinit var navController: NavController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(binding.root)
 
-        getFCMToken()
+//        getFCMToken()  // TODO : 나중에 추가 예정
 
-        userViewModel.getUserInfo()
+        userViewModel.getUserInfo() // TODO : 다 받아오고 뷰 그리기
 
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(fragment_container) as NavHostFragment
-        val navController = navHostFragment.findNavController()
+        val navHostFragment = supportFragmentManager.findFragmentById(fragment_container) as NavHostFragment
+        navController = navHostFragment.findNavController()
 
         binding.bnv.setupWithNavController(navController)
 
-        /** QR Code */
-        val qrCodeClass = QRCode(userViewModel, this, this, this, layoutInflater)
-
-        val bottomSheetDialog = BottomSheetDialog(this)
-        bottomSheetDialog.setContentView(qrCodeClass.bottomSheetView)
-
-        binding.bnv.menu.findItem(R.id.paymentFragment).setOnMenuItemClickListener {
-            bottomSheetDialog.show()
-            qrCodeClass.generateQRCode()
-            qrCodeClass.observeMyCoin()
-            return@setOnMenuItemClickListener false
-        }
-        qrCodeClass.observeQRCode(this)
-
-
-        /** Bottom Navigation */
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.homeFragment) {
-                binding.root.setBackgroundColor(resources.getColor(R.color.activity_background))
-            } else {
-                binding.root.setBackgroundColor(Color.WHITE)
-            }
-
-            if (destination.id == R.id.homeFragment || destination.id == R.id.allFragment || destination.id == R.id.stockFragment ||
-                destination.id == R.id.paymentFragment || destination.id == R.id.eventFragment) {
-                Log.d("상태", "보이기")
-                binding.bnv.visibility = View.VISIBLE
-            } else {
-                Log.d("상태", "숨기기")
-                binding.bnv.visibility = View.GONE
-            }
+        userViewModel.myInfo.observe(this) {
+            setQRCode()
+            setBottomNavigation()
         }
     }
 
@@ -92,6 +68,45 @@ class MainActivity : AppCompatActivity() {
         })
 
         return token
+    }
+
+    private fun setQRCode() {
+        /** QR Code */
+        val qrCodeClass = QRCode(userViewModel, this, this, this, layoutInflater)
+
+        val bottomSheetDialog = BottomSheetDialog(this)
+        bottomSheetDialog.setContentView(qrCodeClass.bottomSheetView)
+
+        binding.bnv.menu.findItem(R.id.paymentFragment).setOnMenuItemClickListener {
+            qrCodeClass.setQRCode()
+            bottomSheetDialog.show()
+            qrCodeClass.generateQRCode()
+            return@setOnMenuItemClickListener false
+        }
+    }
+
+    private fun setBottomNavigation() {
+        /** Bottom Navigation */
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            /** Background Color & Status Bar Color */
+            if (destination.id == R.id.homeFragment) {
+                binding.root.setBackgroundColor(resources.getColor(R.color.activity_background))
+                setStatusBarColorBackground(this, this)
+            } else {
+                binding.root.setBackgroundColor(Color.WHITE)
+                setStatusBarColorWhite(this, this)
+            }
+
+            /** Bottom Nav */
+            if (destination.id == R.id.homeFragment || destination.id == R.id.allFragment || destination.id == R.id.stockFragment ||
+                destination.id == R.id.paymentFragment || destination.id == R.id.eventFragment) {
+                Log.d("상태", "보이기")
+                binding.bnv.visibility = View.VISIBLE
+            } else {
+                Log.d("상태", "숨기기")
+                binding.bnv.visibility = View.GONE
+            }
+        }
     }
 
     companion object {

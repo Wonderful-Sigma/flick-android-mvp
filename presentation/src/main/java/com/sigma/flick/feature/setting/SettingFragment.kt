@@ -25,15 +25,15 @@ class SettingFragment: BaseFragment<FragmentSettingBinding, SettingViewModel>(R.
 
         with(binding) {
             btnBackArrow.setOnClickListener { findNavController().popBackStack() }
-            linearRule.setOnClickListener {
+            btnRule.setOnClickListener {
                 Toast.makeText(requireContext(), "약관 및 개인정보 처리 동의", Toast.LENGTH_SHORT).show()
                 // todo :
             }
-            linearVersion.setOnClickListener {
+            btnVersion.setOnClickListener {
                 Toast.makeText(requireContext(), "앱 버전", Toast.LENGTH_SHORT).show()
                 // todo :
             }
-            linearLogout.setOnClickListener {
+            btnLogout.setOnClickListener {
                 Toast.makeText(requireContext(), "로그아웃 되었어요", Toast.LENGTH_SHORT).show()
                 HiltApplication.prefs.deleteToken()
                 startActivity(Intent(activity, StartActivity::class.java))

@@ -11,7 +11,7 @@
         <!-- Toolbar -->
 
         <LinearLayout
-            android:id="@+id/appBarLayout"
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@color/white"
@@ -58,112 +58,122 @@
                 android:layout_width="32dp"
                 android:layout_height="match_parent"/>
 
-
-
         </LinearLayout>
 
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/scrollview"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/home"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
-            app:layout_constraintVertical_bias="0.0">
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_constraintBottom_toBottomOf="parent">
 
-            <LinearLayout
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/scrollview"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:backgroundTint="@color/white"
-                android:orientation="vertical"
-                android:paddingHorizontal="24dp"
-                android:paddingTop="60dp"
-                android:paddingBottom="100dp">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_my_account_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/pretendard_regular"
-                    android:text="대소코인 ..."
-                    android:textColor="@color/sub_title"
-                    android:textSize="13sp" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_my_coin_big"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:fontFamily="@font/pretendard_semibold"
-                    android:text=""
-                    android:textColor="@color/title"
-                    android:textSize="28sp"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_my_account_number" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_send"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:layout_marginTop="40dp"
-                    android:stateListAnimator="@null"
-                    android:background="@drawable/button_ripple_blue400"
-                    android:backgroundTint="@color/blue_400"
-                    android:fontFamily="@font/pretendard_semibold"
-                    android:text="보내기"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/appCompatButton"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/appCompatButton" />
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar"
+                app:layout_constraintVertical_bias="0.0">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="38dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1" />
+                    android:layout_height="match_parent"
+                    android:backgroundTint="@color/white"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="24dp"
+                    android:paddingTop="60dp"
+                    android:paddingBottom="100dp">
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/appCompatTextView"
+                        android:id="@+id/tv_my_account_number"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/pretendard_regular"
-                        android:text="방금 전"
-                        android:textColor="@color/light_gray"
-                        android:textSize="13sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/appCompatTextView11"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/appCompatTextView11" />
+                        android:text="대소코인 ..."
+                        android:textColor="@color/sub_title"
+                        android:textSize="13sp" />
 
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_my_coin_big"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:src="@drawable/ic_reload"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        tools:layout_editor_absoluteY="60dp" />
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/pretendard_semibold"
+                        android:text=""
+                        android:textColor="@color/title"
+                        android:textSize="28sp"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_my_account_number" />
 
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_send"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:layout_marginTop="40dp"
+                        android:stateListAnimator="@null"
+                        android:background="@drawable/button_ripple_blue400"
+                        android:backgroundTint="@color/blue_400"
+                        android:fontFamily="@font/pretendard_semibold"
+                        android:text="보내기"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/appCompatButton"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/appCompatButton" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="38dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <Space
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/appCompatTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/pretendard_regular"
+                            android:text="방금 전"
+                            android:textColor="@color/light_gray"
+                            android:textSize="13sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/appCompatTextView11"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/appCompatTextView11" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:src="@drawable/ic_reload"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            tools:layout_editor_absoluteY="60dp" />
+
+
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerview_records_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="30dp"
+                        android:nestedScrollingEnabled="false"
+                        android:overScrollMode="never"/>
 
                 </LinearLayout>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerview_records_date"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="30dp"
-                    android:nestedScrollingEnabled="false"
-                    android:overScrollMode="never"/>
+            </androidx.core.widget.NestedScrollView>
 
-            </LinearLayout>
-
-        </androidx.core.widget.NestedScrollView>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

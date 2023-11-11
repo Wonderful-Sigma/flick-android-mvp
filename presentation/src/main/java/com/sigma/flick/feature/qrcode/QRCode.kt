@@ -25,6 +25,7 @@ import com.github.alexzhirkevich.customqrgenerator.vector.style.QrVectorPixelSha
 import com.sigma.flick.R
 import com.sigma.flick.feature.user.viewmodel.UserViewModel
 import com.sigma.main.model.account.Account
+import kotlin.properties.Delegates
 
 class QRCode(
     private val userViewModel: UserViewModel,
@@ -37,9 +38,6 @@ class QRCode(
 
     private val qrViewModel = ViewModelProvider(owner)[QRViewModel::class.java]
 
-    // viewModel을 MainActivity에서 만들고, 갖다 쓰면 안되나?
-    // todo ; 하나의 인스턴스로 만들기
-
     val bottomSheetView: View = layoutInflater.inflate(R.layout.layout_bottom_sheet, null)
 
     private val qrCode: ImageView = bottomSheetView.findViewById(R.id.iv_qr_code)
@@ -49,35 +47,43 @@ class QRCode(
     private val tvPleaseClickBtn: TextView = bottomSheetView.findViewById(R.id.tv_please_generate)
     private val linearLeftTime: LinearLayout = bottomSheetView.findViewById(R.id.linear_left_time)
 
-    private lateinit var myAccount: Account
-
     private lateinit var myData: QrData
     private lateinit var myOptions: QrVectorOptions
     private lateinit var qrCodeDrawable: Drawable
 
-    fun observeMyCoin() {
+    private lateinit var myAccount: Account
+    private var userId by Delegates.notNull<Long>()
+
+    fun generateQRCode() {
+        userViewModel.generateJwt(userId)
+    }
+
+    fun setQRCode() {
+        setUserId()
+        observeMyCoin()
+        observeJwt()
+        observeQRCode(viewLifecycleOwner)
+        setReGenerate()
+    }
+
+    private fun setUserId() {
+        myAccount = userViewModel.myInfo.value!!.account[0]
+        userId = myAccount.id
+    }
+
+    private fun setReGenerate() {
+        btnGenerate.setOnClickListener {
+            userViewModel.generateJwt(userId) // TODO : 계속 401이 뜨는지 getNewAccessToken 을 실행함
+        }
+    }
+
+    /** Observe Data */
+
+    private fun observeMyCoin() {
         myCoin.text = myAccount.money.toString() + "코인"
     }
 
-    fun generateQRCode() {
-        myAccount = userViewModel.myInfo.value!!.account[0]
-        val userId = myAccount.id
-
-        userViewModel.generateJwt(userId)
-
-        // 다시 생성
-        btnGenerate.setOnClickListener {
-            userViewModel.generateJwt(userId)
-
-            tvPleaseClickBtn.visibility = View.INVISIBLE
-            linearLeftTime.visibility = View.VISIBLE
-            btnGenerate.isEnabled = false
-
-            qrCode.setImageDrawable(qrCodeDrawable)
-
-            qrViewModel.startTimer()
-        }
-
+    private fun observeJwt() {
         userViewModel.jwt.observe(viewLifecycleOwner) {
             myData = settingQRText()
             myOptions = settingOptions(context)
@@ -88,15 +94,14 @@ class QRCode(
             linearLeftTime.visibility = View.VISIBLE
             btnGenerate.isEnabled = false
 
-            Log.d("QRCode", "myData: $myData") // todo . 로그가 여러번 뜨는 문제..
+            Log.d("QRCode", "myData: $myData") // todo . 로그가 여러번 뜨는 문제.. 생성 함수 안에 있어서?
             qrCode.setImageDrawable(qrCodeDrawable)
 
             qrViewModel.startTimer()
         }
     }
 
-
-    fun observeQRCode(lifecycleOwner: LifecycleOwner) {
+    private fun observeQRCode(lifecycleOwner: LifecycleOwner) {
         with(qrViewModel) {
             currentTime.observe(lifecycleOwner) { currentTime ->
                 tvLeftTime.text = android.text.format.DateUtils.formatElapsedTime(currentTime).slice(3..4) + "초"
@@ -113,45 +118,49 @@ class QRCode(
         }
     }
 
+    /** Design QRCode */
+
     private fun settingQRText(): QrData {
         val jwt = userViewModel.jwt.value.toString()
         return QrData.Text(jwt)
     }
-}
 
-fun settingOptions(
-    context: Context,
-): QrVectorOptions {
-    val myOptions = createQrVectorOptions { // todo : qr code size 키우는 법 없나...
-        padding = .10f
+    private fun settingOptions(
+        context: Context,
+    ): QrVectorOptions {
+        val myOptions = createQrVectorOptions { // todo : qr code size 키우는 법 없나...
+            padding = .10f
 
-        logo {
-//            drawable = ContextCompat
-//                .getDrawable(context, R.drawable.img_flick_gray)
-            size = .25f
-            padding = QrVectorLogoPadding.Natural(.2f)
-            shape = QrVectorLogoShape
-                .Circle
+            logo {
+                drawable = ContextCompat
+                    .getDrawable(context, R.drawable.ic_flick_gray_png) // todo : 이미지 바꾸기
+                size = .25f
+                padding = QrVectorLogoPadding.Natural(.2f)
+                shape = QrVectorLogoShape
+                    .Circle
+            }
+            colors {
+                dark = QrVectorColor.Solid(
+                    ContextCompat.getColor(context, R.color.sub_title)
+                ) // 가장 작은 점?
+                ball = QrVectorColor.Solid(
+                    ContextCompat.getColor(context, R.color.sub_title)
+                ) // 네모 안에 있는 사각형
+                frame = QrVectorColor.Solid(
+                    ContextCompat.getColor(context, R.color.sub_title)
+                ) // 큰 네모
+            }
+            shapes {
+                darkPixel = QrVectorPixelShape
+                    .RoundCorners(.5f)
+                ball = QrVectorBallShape
+                    .RoundCorners(.35f)
+                frame = QrVectorFrameShape
+                    .RoundCorners(.35f)
+            }
         }
-        colors {
-            dark = QrVectorColor.Solid(
-                ContextCompat.getColor(context, R.color.sub_title)
-            ) // 가장 작은 점?
-            ball = QrVectorColor.Solid(
-                ContextCompat.getColor(context, R.color.sub_title)
-            ) // 네모 안에 있는 사각형
-            frame = QrVectorColor.Solid(
-                ContextCompat.getColor(context, R.color.sub_title)
-            ) // 큰 네모
-        }
-        shapes {
-            darkPixel = QrVectorPixelShape
-                .RoundCorners(.5f)
-            ball = QrVectorBallShape
-                .RoundCorners(.35f)
-            frame = QrVectorFrameShape
-                .RoundCorners(.35f)
-        }
+        return myOptions
     }
-    return myOptions
 }
+
+

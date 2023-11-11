@@ -1,7 +1,8 @@
 package com.sigma.flick.feature.myaccount.screen
 
 import android.content.Context
-import android.util.Log
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -17,6 +18,7 @@ import com.sigma.flick.feature.myaccount.adapter.decoration.DetailedRecordsItemD
 import com.sigma.flick.feature.myaccount.viewmodel.BankbookRecordsViewModel
 import com.sigma.flick.feature.user.viewmodel.UserViewModel
 import com.sigma.flick.utils.setStatusBarColorWhite
+import com.sigma.main.model.account.Account
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.DecimalFormat
 import java.time.LocalDateTime
@@ -47,10 +49,17 @@ class FragmentBankbookRecords : BaseFragment<FragmentBankbookRecordsBinding, Ban
         setStatusBarColorWhite(requireActivity(), requireContext())
 
         /** Set My Info */
-        val myAccount = userViewModel.myInfo.value!!.account[0]
+
+        var myAccount = userViewModel.myInfo.value!!.account[0]
+
+        userViewModel.myInfo.observe(viewLifecycleOwner) {
+            myAccount = userViewModel.myInfo.value!!.account[0]
+            binding.tvMyCoinBig.text = getDecimalFormat(myAccount.money)
+        }
+
         binding.tvMyAccountName.text = "내 통장"
-        binding.tvMyAccountNumber.text = "대소코인 " + myAccount.number
-        binding.tvMyCoinBig.text = getDecimalFormat(myAccount.money)
+        binding.tvMyAccountNumber.text = "대소코인 ${myAccount.number}"
+
         viewModel.allSpend(myAccount.id)
         viewModel.getWallet(myAccount.id)
 
@@ -58,6 +67,7 @@ class FragmentBankbookRecords : BaseFragment<FragmentBankbookRecordsBinding, Ban
 
         val detailedRecordsItemDecoration = DetailedRecordsItemDecoration()
 
+        /** Set RecyclerView */
         binding.recyclerviewRecordsDate.layoutManager = LinearLayoutManager(context)
         binding.recyclerviewRecordsDate.adapter = recordsDateListAdapter
         binding.recyclerviewRecordsDate.addItemDecoration(detailedRecordsItemDecoration)
@@ -65,10 +75,10 @@ class FragmentBankbookRecords : BaseFragment<FragmentBankbookRecordsBinding, Ban
         recordsDateListAdapter.setItemClickListener(recordsDateListAdapter)
 
 
-
+        /** Spend List */
         viewModel.spendList.observe(this){
-            Log.d("통장",it.toString())
             val allSpendList = it
+            recordsDateListData = mutableListOf()
             allSpendList.map {
                 val detailedData: MutableList<DetailedData> = mutableListOf()
                 it.map {
@@ -79,29 +89,6 @@ class FragmentBankbookRecords : BaseFragment<FragmentBankbookRecordsBinding, Ban
             recordsDateListAdapter.submitList(recordsDateListData)
         }
 
-
-        /** Set RecyclerView */
-        recordsDateListData = mutableListOf() // 특정 날짜의 리스트
-
-//        myAccount.spendLists.asReversed().forEach { spendCoin ->
-//            val dateTime = spendCoin.createdDate.slice(0..9)
-//
-//            makeNewRecordsDateData(dateTime)
-//
-//            val detailedData = DetailedData(
-//                spendCoin.targetMember,
-//                dateTime,
-//                spendCoin.balance.toString() + "코인",
-//                spendCoin.money.toString() + "코인",
-//                R.drawable.ic_my_large
-//            )
-//
-//            recordsDateListData.forEach { recordsDateData ->
-//                if (recordsDateData.date == detailedData.time) {
-//                    recordsDateData.detailedData.add(detailedData)
-//                }
-//            }
-//        }
 
 
         /** Navigation */
@@ -117,6 +104,13 @@ class FragmentBankbookRecords : BaseFragment<FragmentBankbookRecordsBinding, Ban
                 val action = FragmentBankbookRecordsDirections.actionFragmentBankbookRecordsToSendWhereFragment()
                 findNavController().navigate(action)
             }
+        }
+
+        binding.home.setOnRefreshListener {
+            Handler(Looper.getMainLooper()).postDelayed({
+                userViewModel.getUserInfo()
+                binding.home.isRefreshing = false
+            },1000)
         }
     }
 
@@ -149,14 +143,12 @@ class FragmentBankbookRecords : BaseFragment<FragmentBankbookRecordsBinding, Ban
         return decimalFormat.format(number)+"코인"
     }
 
-    // ISO 8601 형식의 문자열을 날짜로 변환하는 함수
     fun isoToDate(isoString: String): String {
         val formatter = DateTimeFormatter.ISO_DATE_TIME
         val dateTime = LocalDateTime.parse(isoString, formatter)
         return dateTime.format(DateTimeFormatter.ofPattern("MM월 dd일"))
     }
 
-    // ISO 8601 형식의 문자열을 시간으로 변환하는 함수
     fun isoToTime(isoString: String): String {
         val formatter = DateTimeFormatter.ISO_DATE_TIME
         val dateTime = LocalDateTime.parse(isoString, formatter)
