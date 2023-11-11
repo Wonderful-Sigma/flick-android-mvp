@@ -125,46 +125,11 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/appCompatButton" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="38dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <Space
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1" />
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/appCompatTextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/pretendard_regular"
-                            android:text="방금 전"
-                            android:textColor="@color/light_gray"
-                            android:textSize="13sp"
-                            app:layout_constraintBottom_toBottomOf="@+id/appCompatTextView11"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="@+id/appCompatTextView11" />
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:src="@drawable/ic_reload"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            tools:layout_editor_absoluteY="60dp" />
-
-
-                    </LinearLayout>
-
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerview_records_date"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="30dp"
+                        android:layout_marginTop="50dp"
                         android:nestedScrollingEnabled="false"
                         android:overScrollMode="never"/>
 
