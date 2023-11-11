@@ -18,7 +18,6 @@ import com.sigma.flick.feature.myaccount.adapter.decoration.DetailedRecordsItemD
 import com.sigma.flick.feature.myaccount.viewmodel.BankbookRecordsViewModel
 import com.sigma.flick.feature.user.viewmodel.UserViewModel
 import com.sigma.flick.utils.setStatusBarColorWhite
-import com.sigma.main.model.account.Account
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.DecimalFormat
 import java.time.LocalDateTime
@@ -64,6 +63,7 @@ class FragmentBankbookRecords : BaseFragment<FragmentBankbookRecordsBinding, Ban
         viewModel.getWallet(myAccount.id)
 
         val recordsDateListAdapter = RecordsDateListAdapter()
+        recordsDateListAdapter.setItemClickListener(recordsDateListAdapter)
 
         val detailedRecordsItemDecoration = DetailedRecordsItemDecoration()
 
@@ -72,7 +72,6 @@ class FragmentBankbookRecords : BaseFragment<FragmentBankbookRecordsBinding, Ban
         binding.recyclerviewRecordsDate.adapter = recordsDateListAdapter
         binding.recyclerviewRecordsDate.addItemDecoration(detailedRecordsItemDecoration)
 
-        recordsDateListAdapter.setItemClickListener(recordsDateListAdapter)
 
 
         /** Spend List */

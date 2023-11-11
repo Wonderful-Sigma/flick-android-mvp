@@ -15,6 +15,7 @@ class RecordsDateListAdapter: BaseListAdapter<RecordsDateData,ItemRecordsDateBin
     R.layout.item_records_date), BaseListAdapter.OnItemClickListener {
     override fun action(data: RecordsDateData, binding: ItemRecordsDateBinding) {
         val detailedRecordsListAdapter = DetailedRecordsListAdapter()
+        detailedRecordsListAdapter.setItemClickListener(detailedRecordsListAdapter)
         binding.date.text = data.date
         val recordsDateItemDecoration = RecordsDateItemDecoration()
         binding.recyclerView.layoutManager = LinearLayoutManager(FragmentBankbookRecords.applicationContext())
