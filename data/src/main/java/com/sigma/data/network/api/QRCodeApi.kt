@@ -11,7 +11,7 @@ interface QRCodeApi {
     @GET("/api/approval/{walletId}")
     suspend fun generateJwt(
         @Path("walletId") walletId: Long
-    ): JWTGenerateResponseDto
+    ): String // TODO : 객체로 수정
 
     @GET("/api/search/qr")
     suspend fun decodingJwt(

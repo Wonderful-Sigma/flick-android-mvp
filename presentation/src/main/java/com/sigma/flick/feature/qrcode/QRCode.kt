@@ -54,26 +54,26 @@ class QRCode(
     private lateinit var myAccount: Account
     private var userId by Delegates.notNull<Long>()
 
+
     fun generateQRCode() {
         userViewModel.generateJwt(userId)
     }
 
     fun setQRCode() {
-        setUserId()
         observeMyCoin()
         observeJwt()
         observeQRCode(viewLifecycleOwner)
         setReGenerate()
     }
 
-    private fun setUserId() {
+    fun setUserId() {
         myAccount = userViewModel.myInfo.value!!.account[0]
         userId = myAccount.id
     }
 
     private fun setReGenerate() {
         btnGenerate.setOnClickListener {
-            userViewModel.generateJwt(userId) // TODO : 계속 401이 뜨는지 getNewAccessToken 을 실행함
+            userViewModel.generateJwt(userId)
         }
     }
 

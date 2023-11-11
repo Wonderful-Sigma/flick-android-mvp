@@ -47,7 +47,7 @@ class UserViewModel @Inject constructor(
             qrCodeRepository.generateJwt(walletId)
         }.onSuccess {
             Log.d(TAG, "generateJwt: success!! $it")
-            _jwt.value = it.jwt
+            _jwt.value = it
         }.onFailure { e ->
             Log.d(TAG, "generateJwt: failed.. $e")
         }

@@ -12,6 +12,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.sigma.flick.base.BaseViewModel
 import com.sigma.flick.feature.send.state.AccountNumberState
+import com.sigma.flick.feature.send.state.CheckAccountState
 import com.sigma.flick.feature.send.state.SendState
 import com.sigma.flick.utils.fadeIn
 import com.sigma.flick.utils.fadeOut
@@ -34,6 +35,9 @@ class SendViewModel @Inject constructor(
     private val accountRepository : AccountRepository,
     private val spendListRepository: SpendListRepository
 ): BaseViewModel() {
+
+    private var _checkAccountState = MutableSharedFlow<CheckAccountState>()
+    val checkAccountState: SharedFlow<CheckAccountState> = _checkAccountState
 
     private var _accountNumberState = MutableSharedFlow<AccountNumberState>()
     val accountNumberState: SharedFlow<AccountNumberState> = _accountNumberState
@@ -68,6 +72,16 @@ class SendViewModel @Inject constructor(
         _depositAccountNumber.value = ""
     }
 
+    fun checkAccountNumber(accountNumber: String) = viewModelScope.launch {
+        kotlin.runCatching {
+            accountRepository.getAccount(accountNumber)
+        }.onSuccess {
+            _checkAccountState.emit(CheckAccountState(isSuccess = true))
+        }.onFailure { e ->
+            _checkAccountState.emit(CheckAccountState(error = "$e"))
+        }
+    }
+
     fun getAccount(accountNumber: String) = viewModelScope.launch {
         kotlin.runCatching {
             accountRepository.getAccount(accountNumber)
@@ -81,6 +95,7 @@ class SendViewModel @Inject constructor(
             _accountNumberState.emit(AccountNumberState(error = "$e"))
         }
     }
+
     fun remit(remitRequestModel: RemitRequestModel) = viewModelScope.launch {
         kotlin.runCatching {
             accountRepository.remit(remitRequestModel)

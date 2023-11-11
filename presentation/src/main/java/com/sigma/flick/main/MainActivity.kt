@@ -33,13 +33,13 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
+    private lateinit var qrCodeClass: QRCode
+
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(binding.root)
-
 //        getFCMToken()  // TODO : 나중에 추가 예정
 
         userViewModel.getUserInfo() // TODO : 다 받아오고 뷰 그리기
@@ -51,36 +51,37 @@ class MainActivity : AppCompatActivity() {
 
         userViewModel.myInfo.observe(this) {
             setQRCode()
+            qrCodeClass.setUserId()
             setBottomNavigation()
         }
     }
 
-    private fun getFCMToken(): String?{
-        var token: String? = null
-        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
-            if (!task.isSuccessful) {
-                Log.w(TAG, "Fetching FCM registration token failed", task.exception)
-                return@OnCompleteListener
-            }
-            token = task.result
-            Log.d(TAG, "FCM Token is ${token}")
-            Toast.makeText(this, "success to get token", Toast.LENGTH_SHORT).show()
-        })
-
-        return token
-    }
+//    private fun getFCMToken(): String?{
+//        var token: String? = null
+//        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+//            if (!task.isSuccessful) {
+//                Log.w(TAG, "Fetching FCM registration token failed", task.exception)
+//                return@OnCompleteListener
+//            }
+//            token = task.result
+//            Log.d(TAG, "FCM Token is ${token}")
+//            Toast.makeText(this, "success to get token", Toast.LENGTH_SHORT).show()
+//        })
+//
+//        return token
+//    }
 
     private fun setQRCode() {
         /** QR Code */
-        val qrCodeClass = QRCode(userViewModel, this, this, this, layoutInflater)
+        qrCodeClass = QRCode(userViewModel, this, this, this, layoutInflater)
 
         val bottomSheetDialog = BottomSheetDialog(this)
         bottomSheetDialog.setContentView(qrCodeClass.bottomSheetView)
 
         binding.bnv.menu.findItem(R.id.paymentFragment).setOnMenuItemClickListener {
+            qrCodeClass.generateQRCode()
             qrCodeClass.setQRCode()
             bottomSheetDialog.show()
-            qrCodeClass.generateQRCode()
             return@setOnMenuItemClickListener false
         }
     }
@@ -106,6 +107,14 @@ class MainActivity : AppCompatActivity() {
                 Log.d("상태", "숨기기")
                 binding.bnv.visibility = View.GONE
             }
+
+            if (destination.id == R.id.settingFragment) {
+                window.navigationBarColor = resources.getColor(R.color.activity_background)
+            } else {
+                window.navigationBarColor = resources.getColor(R.color.white)
+            }
+
+
         }
     }
 

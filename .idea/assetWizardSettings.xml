@@ -14,8 +14,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_flick_circle" />
-                            <entry key="sourceFile" value="$PROJECT_DIR$/../../../../../../Image/Project/Flick/SVG/ic_flick_circle.svg" />
+                            <entry key="outputName" value="ic_stock" />
+                            <entry key="sourceFile" value="$PROJECT_DIR$/../../../../../../Image/Project/Flick/SVG/bottom nav/ic_stock.svg" />
                           </map>
                         </option>
                       </PersistentState>
