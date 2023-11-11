@@ -37,9 +37,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(binding.root)
-
 //        getFCMToken()  // TODO : 나중에 추가 예정
 
         userViewModel.getUserInfo() // TODO : 다 받아오고 뷰 그리기
@@ -106,6 +104,14 @@ class MainActivity : AppCompatActivity() {
                 Log.d("상태", "숨기기")
                 binding.bnv.visibility = View.GONE
             }
+
+            if (destination.id == R.id.settingFragment) {
+                window.navigationBarColor = resources.getColor(R.color.activity_background)
+            } else {
+                window.navigationBarColor = resources.getColor(R.color.white)
+            }
+
+
         }
     }
 
