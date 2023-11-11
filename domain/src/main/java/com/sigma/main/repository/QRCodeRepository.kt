@@ -7,7 +7,7 @@ interface QRCodeRepository {
 
     suspend fun generateJwt(
         walletId: Long
-    ): JWTGenerateResponseModel
+    ): String
 
     suspend fun decodingJwt(
         jwt: String

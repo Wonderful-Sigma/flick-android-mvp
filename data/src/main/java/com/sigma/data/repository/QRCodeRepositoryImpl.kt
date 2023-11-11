@@ -11,8 +11,8 @@ class QRCodeRepositoryImpl @Inject constructor(
     private val qrCodeApi: QRCodeApi
 ): QRCodeRepository {
 
-    override suspend fun generateJwt(walletId: Long): JWTGenerateResponseModel =
-        qrCodeApi.generateJwt(walletId).toModel()
+    override suspend fun generateJwt(walletId: Long): String =
+        qrCodeApi.generateJwt(walletId)
 
     override suspend fun decodingJwt(jwt: String): JwtDecodingResponseModel =
         qrCodeApi.decodingJwt(jwt).toModel()
