@@ -23,6 +23,7 @@ import com.sigma.main.model.account.Account
 import com.sigma.main.model.account.RemitRequestModel
 import com.sigma.main.repository.AccountRepository
 import com.sigma.main.repository.SpendListRepository
+import com.sigma.main.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -33,7 +34,8 @@ import javax.inject.Inject
 @HiltViewModel
 class SendViewModel @Inject constructor(
     private val accountRepository : AccountRepository,
-    private val spendListRepository: SpendListRepository
+    private val spendListRepository: SpendListRepository,
+    private val userRepository: UserRepository
 ): BaseViewModel() {
 
     private var _checkAccountState = MutableSharedFlow<CheckAccountState>()
@@ -88,7 +90,8 @@ class SendViewModel @Inject constructor(
         }.onSuccess {
             Log.d(TAG, "getAccount Success!! $it")
             _depositAccountId.value = it.id
-            _depositAccountName.value = it.name
+            val of = it.name.indexOf("의")
+            _depositAccountName.value = it.name.slice(0 until of)
             _accountNumberState.emit(AccountNumberState(isSuccess = true))
         }.onFailure { e ->
             Log.d(TAG, "getAccount Failed.. $e")
@@ -191,4 +194,3 @@ class SendViewModel @Inject constructor(
         const val TAG = "SendViewModel"
     }
 }
-

@@ -18,6 +18,7 @@ import com.sigma.flick.feature.myaccount.adapter.decoration.DetailedRecordsItemD
 import com.sigma.flick.feature.myaccount.viewmodel.BankbookRecordsViewModel
 import com.sigma.flick.feature.user.viewmodel.UserViewModel
 import com.sigma.flick.utils.setStatusBarColorWhite
+import com.sigma.main.model.account.Account
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.DecimalFormat
 import java.time.LocalDateTime
@@ -41,26 +42,16 @@ class FragmentBankbookRecords : BaseFragment<FragmentBankbookRecordsBinding, Ban
     }
 
     private var recordsDateListData: MutableList<RecordsDateData> = mutableListOf()
-
     private lateinit var bottomSheetDialog: BottomSheetDialog
+    private lateinit var myAccount: Account
 
     override fun start() {
         setStatusBarColorWhite(requireActivity(), requireContext())
 
         /** Set My Info */
 
-        var myAccount = userViewModel.myInfo.value!!.account[0]
+        setMyAccountInfo()
 
-        userViewModel.myInfo.observe(viewLifecycleOwner) {
-            myAccount = userViewModel.myInfo.value!!.account[0]
-            binding.tvMyCoinBig.text = getDecimalFormat(myAccount.money)
-        }
-
-        binding.tvMyAccountName.text = "내 통장"
-        binding.tvMyAccountNumber.text = "대소코인 ${myAccount.number}"
-
-        viewModel.allSpend(myAccount.id)
-        viewModel.getWallet(myAccount.id)
 
         val recordsDateListAdapter = RecordsDateListAdapter()
         recordsDateListAdapter.setItemClickListener(recordsDateListAdapter)
@@ -73,21 +64,19 @@ class FragmentBankbookRecords : BaseFragment<FragmentBankbookRecordsBinding, Ban
         binding.recyclerviewRecordsDate.addItemDecoration(detailedRecordsItemDecoration)
 
 
-
         /** Spend List */
-        viewModel.spendList.observe(this){
-            val allSpendList = it
+        viewModel.spendList.observe(this){ spendList ->
+            val allSpendList = spendList
             recordsDateListData = mutableListOf()
-            allSpendList.map {
+            allSpendList.map { spend ->
                 val detailedData: MutableList<DetailedData> = mutableListOf()
-                it.map {
+                spend.map {
                     detailedData.add(DetailedData(it.targetMember, isoToTime(it.createdDate), getDecimalFormat(it.balance), getDecimalFormat(it.money), R.drawable.ic_my))
                 }
-                recordsDateListData.add(RecordsDateData(isoToDate(it[0].createdDate),detailedData))
+                recordsDateListData.add(RecordsDateData(isoToDate(spend[0].createdDate),detailedData))
             }
             recordsDateListAdapter.submitList(recordsDateListData)
         }
-
 
 
         /** Navigation */
@@ -105,37 +94,29 @@ class FragmentBankbookRecords : BaseFragment<FragmentBankbookRecordsBinding, Ban
             }
         }
 
+
         binding.home.setOnRefreshListener {
             Handler(Looper.getMainLooper()).postDelayed({
                 userViewModel.getUserInfo()
+                viewModel.allSpend(myAccount.id)
                 binding.home.isRefreshing = false
             },1000)
         }
     }
 
-    private fun makeNewRecordsDateData(dateTime: String) {
-        if (recordsDateListData.isEmpty()) {
-            recordsDateListData.add(
-                RecordsDateData(
-                    dateTime,
-                    mutableListOf()
-                )
-            )
+    fun setMyAccountInfo() {
+        myAccount = userViewModel.myInfo.value!!.account[0]
+
+        userViewModel.myInfo.observe(viewLifecycleOwner) {
+            myAccount = userViewModel.myInfo.value!!.account[0]
+            binding.tvMyCoinBig.text = getDecimalFormat(myAccount.money)
         }
-        var isSame = 0
-        recordsDateListData.forEach { recordsDateData ->
-            if (recordsDateData.date == dateTime) {
-                isSame = 1
-            }
-        }
-        if (isSame == 0) {
-            recordsDateListData.add(
-                RecordsDateData(
-                    dateTime,
-                    mutableListOf()
-                )
-            )
-        }
+
+        binding.tvMyAccountName.text = "내 통장"
+        binding.tvMyAccountNumber.text = "대소코인 ${myAccount.number}"
+
+        viewModel.allSpend(myAccount.id)
+        viewModel.getWallet(myAccount.id)
     }
     private fun getDecimalFormat(number: Long): String {
         val decimalFormat = DecimalFormat("#,###")
