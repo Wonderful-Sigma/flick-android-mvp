@@ -1,6 +1,9 @@
 package com.sigma.flick.feature.qrcode
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,11 +11,13 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import com.github.alexzhirkevich.customqrgenerator.QrData
+import com.github.alexzhirkevich.customqrgenerator.style.Color
 import com.github.alexzhirkevich.customqrgenerator.vector.QrCodeDrawable
 import com.github.alexzhirkevich.customqrgenerator.vector.QrVectorOptions
 import com.github.alexzhirkevich.customqrgenerator.vector.createQrVectorOptions
@@ -46,6 +51,9 @@ class QRCode(
     private val tvLeftTime: TextView = bottomSheetView.findViewById(R.id.tv_left_time)
     private val tvPleaseClickBtn: TextView = bottomSheetView.findViewById(R.id.tv_please_generate)
     private val linearLeftTime: LinearLayout = bottomSheetView.findViewById(R.id.linear_left_time)
+
+    private val tvReload: TextView = bottomSheetView.findViewById(R.id.tv_reload)
+    private val ivReload: ImageView = bottomSheetView.findViewById(R.id.iv_reload)
 
     private lateinit var myData: QrData
     private lateinit var myOptions: QrVectorOptions
@@ -92,6 +100,8 @@ class QRCode(
 
             tvPleaseClickBtn.visibility = View.INVISIBLE
             linearLeftTime.visibility = View.VISIBLE
+            tvReload.setTextColor(Color.parseColor("#FFB1B8C0"))
+            ivReload.setImageResource(R.drawable.ic_reload_gray)
             btnGenerate.isEnabled = false
 
             Log.d("QRCode", "myData: $myData") // todo . 로그가 여러번 뜨는 문제.. 생성 함수 안에 있어서?
@@ -110,6 +120,8 @@ class QRCode(
                 if (isFinished) {
                     tvPleaseClickBtn.visibility = View.VISIBLE
                     linearLeftTime.visibility = View.INVISIBLE
+                    tvReload.setTextColor(Color.parseColor("#FF505866"))
+                    ivReload.setImageResource(R.drawable.ic_reload)
                     btnGenerate.isEnabled = true
 
                     qrCode.setImageDrawable(null)

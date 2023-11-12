@@ -194,11 +194,3 @@ class SendViewModel @Inject constructor(
         const val TAG = "SendViewModel"
     }
 }
-
-
-fun main() {
-    val string = "이학의 통장"
-    val of = string.indexOf("의") // 3
-    val answer = string.slice(0 until of)
-    print(answer)
-}
