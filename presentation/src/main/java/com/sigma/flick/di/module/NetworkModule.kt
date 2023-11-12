@@ -8,7 +8,6 @@ import com.sigma.data.network.api.QRCodeApi
 import com.sigma.data.network.api.SpendListApi
 import com.sigma.data.network.api.UserApi
 import com.sigma.flick.di.authenticator.AuthAuthenticator
-import com.sigma.flick.di.authenticator.AuthInterceptor
 import com.sigma.flick.utils.BASE_URL
 import com.sigma.flick.utils.HiltApplication
 import dagger.Module

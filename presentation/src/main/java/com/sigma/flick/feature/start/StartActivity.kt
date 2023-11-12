@@ -30,7 +30,9 @@ class StartActivity : BaseActivity<ActivityStartBinding, StartViewModel>(R.layou
 
         viewModel.autoLogin.observe(this) { autoLogin ->
             if (autoLogin) {
-                startActivity(Intent(this, MainActivity::class.java))
+                val intent = Intent(this, MainActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                startActivity(intent)
                 finish()
             }
         }
