@@ -1,13 +1,13 @@
 package com.sigma.main.repository
 
-import com.sigma.main.model.qrcode.JWTGenerateResponseModel
 import com.sigma.main.model.qrcode.JwtDecodingResponseModel
+import com.sigma.main.model.qrcode.JwtGenerateResponseModel
 
 interface QRCodeRepository {
 
     suspend fun generateJwt(
         walletId: Long
-    ): String
+    ): JwtGenerateResponseModel
 
     suspend fun decodingJwt(
         jwt: String

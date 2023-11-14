@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.sigma.flick.R
@@ -30,6 +31,14 @@ class SendLoadFragment: BaseFragment<FragmentSendLoadBinding, SendViewModel>(R.l
             val action = SendLoadFragmentDirections.toSendFinishFragment()
             findNavController().navigate(action)
         }, 1000L)
+
+        requireActivity()
+            .onBackPressedDispatcher
+            .addCallback(this, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    /** 뒤로가기 막기 */
+                }
+            })
     }
 
 }

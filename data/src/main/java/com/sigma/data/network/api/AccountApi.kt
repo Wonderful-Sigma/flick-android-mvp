@@ -30,6 +30,11 @@ interface AccountApi {
         @Path("walletId") walletId: Long
     ): List<List<SpendResponseDto>>
 
+    @GET("/api/spend/recent/remit/{memberId}")
+    suspend fun getRecentAccount(
+        @Path("memberId") memberId: String
+    ): List<Account>
+
     @GET("/api/spend/{memberName}/{walletId}")
     suspend fun memberSpend(
         @Path("memberName") memberName: String,
@@ -40,6 +45,7 @@ interface AccountApi {
     suspend fun spendCalculate(
         @Body spendCalculateRequestDto: SpendCalculateRequestDto
     ): StatusResponseDto
+
 
 
 
@@ -58,7 +64,7 @@ interface AccountApi {
         @Body fixMemberRequestDto: FixMemberRequestDto
     ): StatusResponseDto
 
-    @PATCH("/api/remit")
+    @PATCH("/api/wallet/management/remit")
     suspend fun remit(
         @Body remitRequestDto: RemitRequestDto
     ): StatusResponseDto
@@ -104,17 +110,6 @@ interface AccountApi {
         @Path("memberId") memberId: String
     ): CheckAlarmDto
 
-
-    //QR Code
-    @GET("/api/search/qr")
-    suspend fun encodingJwt(
-        @Header("jwt") jwt: String
-    ): AccountResponseDto
-
-    @GET("/api/approval/{walletId}")
-    suspend fun createJwt(
-        @Path("walletId") walletId: Long
-    ): JwtResponseDto
 
 
     //Wallet

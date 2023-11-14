@@ -2,13 +2,15 @@ package com.sigma.flick.di.authenticator
 
 import android.util.Log
 import com.google.gson.GsonBuilder
-import com.sigma.data.network.api.UserApi
+import com.sigma.data.network.api.MemberApi
+import com.sigma.data.network.api.QRCodeApi
 import com.sigma.data.network.dto.user.NewAccessTokenResponseDto
+import com.sigma.flick.utils.BASE_URL
 import com.sigma.flick.utils.HiltApplication
-import com.sigma.main.model.user.UserResponseModel
+import dagger.Provides
 import kotlinx.coroutines.runBlocking
-import kr.hs.dgsw.smartschool.dodamdodam.dauth.model.response.LoginResponse
 import okhttp3.Authenticator
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
@@ -16,43 +18,48 @@ import okhttp3.Route
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
+import javax.inject.Inject
+import javax.inject.Singleton
 
 class AuthAuthenticator: Authenticator {
 
-    private val preferenceManager = HiltApplication.prefs
+    private val memberApi = createMemberApi()
 
     override fun authenticate(route: Route?, response: Response): Request? {
-        val token = preferenceManager.refreshToken
-
-        if (token == null) {
-            Log.i("FAILED", "NULL : refreshToken is null ")
-        }
-
         return runBlocking {
-            val newToken = getNewToken(token).newAccess
-
-            newToken?.let {
-                preferenceManager.accessToken = it
+            var newToken = ""
+            kotlin.runCatching {
+                newToken = memberApi.getAccessToken(HiltApplication.prefs.refreshToken).newAccess
+            }.onSuccess {
+                HiltApplication.prefs.accessToken = newToken
                 response.request.newBuilder()
-                    .header("Authorization", "Bearer $it")
+                    .header("Authorization","Bearer $newToken")
                     .build()
+            }.onFailure {
+                Log.i("ERROR", "authenticate: getAccessToken is FAILED..")
             }
+            null
         }
     }
 
-    private suspend fun getNewToken(refreshToken: String): NewAccessTokenResponseDto {
-        val loggingInterceptor = HttpLoggingInterceptor()
-        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-        val okHttpClient = OkHttpClient.Builder().addInterceptor(loggingInterceptor).build()
+    private fun createMemberApi(): MemberApi {
+        val okHttpClient = OkHttpClient().newBuilder()
+            .connectTimeout(60, TimeUnit.SECONDS)
+            .readTimeout(60, TimeUnit.SECONDS)
+            .writeTimeout(60, TimeUnit.SECONDS)
+            .addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY })
+            .build()
 
         val gson = GsonBuilder().setLenient().create()
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://jwt-test-api.onrender.com/api/")
+            .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(okHttpClient)
             .build()
-        val userService = retrofit.create(UserApi::class.java)
-        return userService.getAccessToken(refreshToken)
+
+        return retrofit.create(MemberApi::class.java)
     }
+
 }
