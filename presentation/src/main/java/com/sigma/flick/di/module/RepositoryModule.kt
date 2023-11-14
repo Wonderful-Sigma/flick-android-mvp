@@ -3,11 +3,9 @@ package com.sigma.flick.di.module
 import com.sigma.data.repository.AccountRepositoryImpl
 import com.sigma.data.repository.MemberRepositoryImpl
 import com.sigma.data.repository.QRCodeRepositoryImpl
-import com.sigma.data.repository.SpendListRepositoryImpl
 import com.sigma.main.repository.AccountRepository
 import com.sigma.main.repository.MemberRepository
 import com.sigma.main.repository.QRCodeRepository
-import com.sigma.main.repository.SpendListRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,11 +27,6 @@ class RepositoryModule {
     fun provideUserRepository(
         memberRepositoryImpl: MemberRepositoryImpl
     ) : MemberRepository = memberRepositoryImpl
-
-    @Provides
-    @Singleton
-    fun provideSpendListRepository(spendListRepositoryImpl: SpendListRepositoryImpl) : SpendListRepository
-        = spendListRepositoryImpl
 
     @Provides
     @Singleton

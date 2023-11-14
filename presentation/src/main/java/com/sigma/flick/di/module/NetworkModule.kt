@@ -4,7 +4,6 @@ import com.google.gson.GsonBuilder
 import com.sigma.data.network.api.AccountApi
 import com.sigma.data.network.api.MemberApi
 import com.sigma.data.network.api.QRCodeApi
-import com.sigma.data.network.api.SpendListApi
 import com.sigma.flick.di.authenticator.AuthAuthenticator
 import com.sigma.flick.utils.BASE_URL
 import com.sigma.flick.utils.HiltApplication
@@ -33,12 +32,6 @@ class NetworkModule {
     @Singleton
     fun provideAccountApi(retrofit: Retrofit): AccountApi =
         retrofit.create(AccountApi::class.java)
-
-
-    @Provides
-    @Singleton
-    fun provideSpendListApi(retrofit: Retrofit): SpendListApi =
-        retrofit.create(SpendListApi::class.java)
 
     @Provides
     @Singleton

@@ -22,6 +22,10 @@ interface AccountRepository {
         walletId: Long
     ): List<List<SpendResponseModel>>
 
+    suspend fun getRecentAccount(
+        memberId: String
+    ): List<Account>
+
     suspend fun memberSpend(
         memberName: String,
         walletId: Long
@@ -82,15 +86,6 @@ interface AccountRepository {
         memberId: String
     ): CheckAlarmModel
 
-
-    //QR Code
-    suspend fun encodingJwt(
-        jwt: String
-    ): AccountResponseModel
-
-    suspend fun createJwt(
-        walletId: Long
-    ): JwtResponseModel
 
 
     //Wallet

@@ -20,7 +20,6 @@ import com.sigma.main.model.account.Account
 import com.sigma.main.model.account.RemitRequestModel
 import com.sigma.main.repository.AccountRepository
 import com.sigma.main.repository.MemberRepository
-import com.sigma.main.repository.SpendListRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -30,8 +29,6 @@ import javax.inject.Inject
 @HiltViewModel
 class SendViewModel @Inject constructor(
     private val accountRepository : AccountRepository,
-    private val spendListRepository: SpendListRepository,
-    private val memberRepository: MemberRepository
 ): BaseViewModel() {
 
     private var _checkAccountState = MutableSharedFlow<CheckAccountState>()
@@ -117,7 +114,7 @@ class SendViewModel @Inject constructor(
 
     fun getRecentSpendList(memberId: String) = viewModelScope.launch {
         kotlin.runCatching {
-            spendListRepository.getRecentSpendList(memberId)
+            accountRepository.getRecentAccount(memberId)
         }.onSuccess {
             Log.d(TAG, "getRecentSpendList Success!! $it")
             _recentSpendList.value = it

@@ -50,6 +50,9 @@ class AccountRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun getRecentAccount(memberId: String): List<Account> =
+        accountApi.getRecentAccount(memberId)
+
     override suspend fun getWallet(walletId: Long): WalletResponseModel {
         val data = accountApi.getWallet(walletId)
         Log.d(TAG, "getWallet: $data")
@@ -148,18 +151,6 @@ class AccountRepositoryImpl @Inject constructor(
     override suspend fun checkAlarm(memberId: String): CheckAlarmModel {
         val data = accountApi.checkAlarm(memberId)
         Log.d(TAG, "checkAlarm: $data")
-        return data.toModel()
-    }
-
-    override suspend fun encodingJwt(jwt: String): AccountResponseModel {
-        val data = accountApi.encodingJwt(jwt)
-        Log.d(TAG, "encodingJwt: $data")
-        return data.toModel()
-    }
-
-    override suspend fun createJwt(walletId: Long): JwtResponseModel {
-        val data = accountApi.createJwt(walletId)
-        Log.d(TAG, "createJwt: $data")
         return data.toModel()
     }
 
