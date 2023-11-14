@@ -1,11 +1,11 @@
 package com.sigma.data.mapper
 
-import com.sigma.data.network.dto.qrcode.JWTGenerateResponseDto
+import com.sigma.data.network.dto.qrcode.JwtGenerateResponseDto
 import com.sigma.data.network.dto.qrcode.JwtDecodingResponseDto
-import com.sigma.main.model.qrcode.JWTGenerateResponseModel
+import com.sigma.main.model.qrcode.JwtGenerateResponseModel
 import com.sigma.main.model.qrcode.JwtDecodingResponseModel
 
-fun JWTGenerateResponseDto.toModel() = JWTGenerateResponseModel(
+fun JwtGenerateResponseDto.toModel() = JwtGenerateResponseModel(
     jwt = this.jwt
 )
 

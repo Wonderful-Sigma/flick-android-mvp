@@ -9,14 +9,14 @@ import com.sigma.main.model.account.Account
 import com.sigma.main.model.user.UserResponseModel
 import com.sigma.main.repository.QRCodeRepository
 import com.sigma.main.repository.AccountRepository
-import com.sigma.main.repository.UserRepository
+import com.sigma.main.repository.MemberRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class UserViewModel @Inject constructor(
-    private val userRepository: UserRepository,
+    private val memberRepository: MemberRepository,
     private val qrCodeRepository: QRCodeRepository,
     private val accountRepository: AccountRepository
 ) : BaseViewModel() {
@@ -33,7 +33,7 @@ class UserViewModel @Inject constructor(
 
     fun getUserInfo() = viewModelScope.launch {
         kotlin.runCatching {
-            userRepository.getUser()
+            memberRepository.getUser()
         }.onSuccess {
             Log.d(TAG, "getUser Success!!: $it")
             _myInfo.value = it
@@ -47,7 +47,7 @@ class UserViewModel @Inject constructor(
             qrCodeRepository.generateJwt(walletId)
         }.onSuccess {
             Log.d(TAG, "generateJwt: success!! $it")
-            _jwt.value = it
+            _jwt.value = it.jwt
         }.onFailure { e ->
             Log.d(TAG, "generateJwt: failed.. $e")
         }

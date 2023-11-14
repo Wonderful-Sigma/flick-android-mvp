@@ -2,11 +2,9 @@ package com.sigma.flick.feature.send.viewmodel
 
 import android.content.Context
 import android.util.Log
-import android.util.LogPrinter
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -15,27 +13,25 @@ import com.sigma.flick.feature.send.state.AccountNumberState
 import com.sigma.flick.feature.send.state.CheckAccountState
 import com.sigma.flick.feature.send.state.SendState
 import com.sigma.flick.utils.fadeIn
-import com.sigma.flick.utils.fadeOut
 import com.sigma.flick.utils.fastFadeOut
 import com.sigma.flick.utils.slideDown
 import com.sigma.flick.utils.slideUp
 import com.sigma.main.model.account.Account
 import com.sigma.main.model.account.RemitRequestModel
 import com.sigma.main.repository.AccountRepository
+import com.sigma.main.repository.MemberRepository
 import com.sigma.main.repository.SpendListRepository
-import com.sigma.main.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
-import java.security.PrivateKey
 import javax.inject.Inject
 
 @HiltViewModel
 class SendViewModel @Inject constructor(
     private val accountRepository : AccountRepository,
     private val spendListRepository: SpendListRepository,
-    private val userRepository: UserRepository
+    private val memberRepository: MemberRepository
 ): BaseViewModel() {
 
     private var _checkAccountState = MutableSharedFlow<CheckAccountState>()
