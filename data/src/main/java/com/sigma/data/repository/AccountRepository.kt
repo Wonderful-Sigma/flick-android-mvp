@@ -1,7 +1,6 @@
 package com.sigma.data.repository
 
 import com.sigma.data.network.api.AccountApi
-import com.sigma.data.network.dto.account.Account
 import com.sigma.data.network.dto.account.AccountObject
 import com.sigma.data.network.dto.account.FixMemberRequest
 import com.sigma.data.network.dto.account.RemitRequest
@@ -25,7 +24,7 @@ class AccountRepository @Inject constructor(
 
     suspend fun getAccount(accountNumber: String): AccountObject
         = accountApi.getAccount(accountNumber)
-        
+
     suspend fun allSpend(walletId: Long): List<List<SpendResponse>> {
         val data = accountApi.allSpend(walletId)
         return data.map { SpendList ->

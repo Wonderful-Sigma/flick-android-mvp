@@ -26,7 +26,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SendViewModel @Inject constructor(
+class SendViewModel(
     private val accountRepository : AccountRepository,
 ): BaseViewModel() {
 
