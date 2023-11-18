@@ -30,13 +30,6 @@ class FragmentBankbookRecords : BaseFragment<FragmentBankbookRecordsBinding, Ban
     override val viewModel: BankbookRecordsViewModel by activityViewModels()
     private val userViewModel: UserViewModel by activityViewModels()
 
-    companion object {
-        lateinit var instance: FragmentBankbookRecords
-        fun applicationContext(): Context {
-            return instance.requireContext()
-        }
-    }
-
     init {
         instance = this
     }
@@ -118,6 +111,7 @@ class FragmentBankbookRecords : BaseFragment<FragmentBankbookRecordsBinding, Ban
         viewModel.allSpend(myAccount.id)
         viewModel.getWallet(myAccount.id)
     }
+
     private fun getDecimalFormat(number: Long): String {
         val decimalFormat = DecimalFormat("#,###")
         return decimalFormat.format(number)+"코인"
@@ -133,5 +127,12 @@ class FragmentBankbookRecords : BaseFragment<FragmentBankbookRecordsBinding, Ban
         val formatter = DateTimeFormatter.ISO_DATE_TIME
         val dateTime = LocalDateTime.parse(isoString, formatter)
         return dateTime.format(DateTimeFormatter.ofPattern("HH:mm"))
+    }
+
+    companion object {
+        lateinit var instance: FragmentBankbookRecords
+        fun applicationContext(): Context {
+            return instance.requireContext()
+        }
     }
 }

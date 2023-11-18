@@ -37,6 +37,12 @@ class PreferenceManager(context: Context) {
         prefs.edit().remove(ACCESS_TOKEN).apply()
     }
 
+    fun putTokens(accessToken: String, refreshToken: String) {
+        this.accessToken = accessToken
+        this.refreshToken = refreshToken
+        autoLogin = true
+    }
+
     fun deleteToken() {
         prefs.edit().remove(AUTO_LOGIN_KEY).apply()
         prefs.edit().remove(ACCESS_TOKEN).apply()

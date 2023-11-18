@@ -40,26 +40,8 @@ class StartViewModel @Inject constructor(
             memberRepository.login(dauthRequestDto)
         }.onSuccess {
             Log.d(TAG, "LoginSuccess! $it")
-
-            HiltApplication.prefs.autoLogin = true
+            HiltApplication.prefs.putTokens(it.accessToken, it.refreshToken)
             _autoLogin.value = true
-            HiltApplication.prefs.accessToken = it.accessToken
-            HiltApplication.prefs.refreshToken = it.refreshToken
-        }.onFailure { e ->
-            Log.d(TAG, "LoginFailed.. $e")
-        }
-    }
-
-    /** TEST */
-    fun getNewAccessToken(refreshToken: String) = viewModelScope.launch {
-        kotlin.runCatching {
-            memberRepository.getAccessToken(refreshToken)
-        }.onSuccess {
-            Log.d(TAG, "SUCCESS! $it")
-//            HiltApplication.prefs.autoLogin = true
-//            _autoLogin.value = true
-//            HiltApplication.prefs.accessToken = it.accessToken
-//            HiltApplication.prefs.refreshToken = it.refreshToken
         }.onFailure { e ->
             Log.d(TAG, "LoginFailed.. $e")
         }
