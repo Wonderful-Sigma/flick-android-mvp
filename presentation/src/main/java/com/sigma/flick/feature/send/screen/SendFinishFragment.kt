@@ -6,6 +6,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.sigma.data.network.dto.account.RemitRequest
 import com.sigma.flick.R
 import com.sigma.flick.base.BaseFragment
 import com.sigma.flick.databinding.FragmentSendFinishBinding
@@ -14,7 +15,6 @@ import com.sigma.flick.feature.user.viewmodel.UserViewModel
 import com.sigma.flick.utils.fadeIn
 import com.sigma.flick.utils.setDeleteBottomNav
 import com.sigma.flick.utils.slideUpAndFadeIn
-import com.sigma.main.model.account.RemitRequestModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -47,7 +47,7 @@ class SendFinishFragment : BaseFragment<FragmentSendFinishBinding, SendViewModel
             delay(1000)
         }
 
-        viewModel.remit(RemitRequestModel(remittanceAccount, sendMoney, depositAccount))
+        viewModel.remit(RemitRequest(remittanceAccount, sendMoney, depositAccount))
 
         lifecycleScope.launch {
             viewModel.sendState.collect {

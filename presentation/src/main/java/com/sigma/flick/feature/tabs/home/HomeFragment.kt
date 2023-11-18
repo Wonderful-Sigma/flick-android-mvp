@@ -19,7 +19,6 @@ import com.sigma.flick.main.MainActivity
 import com.sigma.flick.feature.user.viewmodel.UserViewModel
 import com.sigma.flick.feature.qrcode.QRCode
 import com.sigma.flick.utils.setStatusBarColorBackground
-import com.sigma.main.model.account.Account
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.DecimalFormat
 

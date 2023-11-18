@@ -6,11 +6,10 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.sigma.data.network.api.MemberApi
+import com.sigma.data.network.dto.dauth.DauthRequest
+import com.sigma.data.repository.MemberRepository
 import com.sigma.flick.base.BaseViewModel
 import com.sigma.flick.utils.HiltApplication
-import com.sigma.main.model.dauth.DauthRequestModel
-import com.sigma.main.repository.MemberRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import kr.hs.dgsw.smartschool.dodamdodam.dauth.DAuth
@@ -27,7 +26,7 @@ class StartViewModel @Inject constructor(
     fun getCode(context: Context) {
         DAuth.getCode(context, { code ->
             Log.d(TAG, "getCodeSuccess!! $code")
-            login(DauthRequestModel(code))
+            login(DauthRequest(code))
             Toast.makeText(context, "로그인 되었어요, 잠시만 기다려주세요", Toast.LENGTH_SHORT).show()
         }, { e ->
             Log.d(TAG, "getCodeFailed.. $e")
@@ -35,7 +34,7 @@ class StartViewModel @Inject constructor(
         })
     }
 
-    private fun login(dauthRequestDto: DauthRequestModel) = viewModelScope.launch {
+    private fun login(dauthRequestDto: DauthRequest) = viewModelScope.launch {
         kotlin.runCatching {
             memberRepository.login(dauthRequestDto)
         }.onSuccess {

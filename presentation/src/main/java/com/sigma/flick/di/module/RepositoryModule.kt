@@ -1,11 +1,9 @@
 package com.sigma.flick.di.module
 
-import com.sigma.data.repository.AccountRepositoryImpl
-import com.sigma.data.repository.MemberRepositoryImpl
-import com.sigma.data.repository.QRCodeRepositoryImpl
-import com.sigma.main.repository.AccountRepository
-import com.sigma.main.repository.MemberRepository
-import com.sigma.main.repository.QRCodeRepository
+import com.sigma.data.network.dto.account.Account
+import com.sigma.data.repository.AccountRepository
+import com.sigma.data.repository.MemberRepository
+import com.sigma.data.repository.QRCodeRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,20 +16,21 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideAccountRepository(accountRepositoryImpl: AccountRepositoryImpl) : AccountRepository {
-        return accountRepositoryImpl
-    }
+    fun provideAccountRepository(
+        accountRepository: AccountRepository
+    ): AccountRepository = accountRepository
 
     @Provides
     @Singleton
     fun provideUserRepository(
-        memberRepositoryImpl: MemberRepositoryImpl
-    ) : MemberRepository = memberRepositoryImpl
+        memberRepository: MemberRepository
+    ) : MemberRepository = memberRepository
 
     @Provides
     @Singleton
-    fun provideQRCodeRepository(impl: QRCodeRepositoryImpl): QRCodeRepository =
-        impl
+    fun provideQRCodeRepository(
+        impl: QRCodeRepository
+    ): QRCodeRepository = impl
 
 
 }

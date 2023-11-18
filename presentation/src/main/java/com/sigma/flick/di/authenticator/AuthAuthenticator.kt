@@ -3,14 +3,10 @@ package com.sigma.flick.di.authenticator
 import android.util.Log
 import com.google.gson.GsonBuilder
 import com.sigma.data.network.api.MemberApi
-import com.sigma.data.network.api.QRCodeApi
-import com.sigma.data.network.dto.user.NewAccessTokenResponseDto
 import com.sigma.flick.utils.BASE_URL
 import com.sigma.flick.utils.HiltApplication
-import dagger.Provides
 import kotlinx.coroutines.runBlocking
 import okhttp3.Authenticator
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
@@ -19,8 +15,6 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
-import javax.inject.Inject
-import javax.inject.Singleton
 
 class AuthAuthenticator: Authenticator {
 

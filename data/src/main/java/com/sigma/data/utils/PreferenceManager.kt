@@ -2,7 +2,6 @@ package com.sigma.data.utils
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.sigma.main.model.user.UserResponseModel
 
 class PreferenceManager(context: Context) {
     private val prefs: SharedPreferences =

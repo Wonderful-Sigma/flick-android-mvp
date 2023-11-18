@@ -27,9 +27,9 @@ import com.github.alexzhirkevich.customqrgenerator.vector.style.QrVectorFrameSha
 import com.github.alexzhirkevich.customqrgenerator.vector.style.QrVectorLogoPadding
 import com.github.alexzhirkevich.customqrgenerator.vector.style.QrVectorLogoShape
 import com.github.alexzhirkevich.customqrgenerator.vector.style.QrVectorPixelShape
+import com.sigma.data.network.dto.account.AccountObject
 import com.sigma.flick.R
 import com.sigma.flick.feature.user.viewmodel.UserViewModel
-import com.sigma.main.model.account.Account
 import kotlin.properties.Delegates
 
 class QRCode(
@@ -59,7 +59,7 @@ class QRCode(
     private lateinit var myOptions: QrVectorOptions
     private lateinit var qrCodeDrawable: Drawable
 
-    private lateinit var myAccount: Account
+    private lateinit var myAccount: AccountObject
     private var userId by Delegates.notNull<Long>()
 
 

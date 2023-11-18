@@ -8,6 +8,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.sigma.data.network.dto.account.Account
+import com.sigma.data.network.dto.account.AccountObject
 import com.sigma.flick.R
 import com.sigma.flick.base.BaseFragment
 import com.sigma.flick.databinding.FragmentBankbookRecordsBinding
@@ -18,7 +20,6 @@ import com.sigma.flick.feature.myaccount.adapter.decoration.DetailedRecordsItemD
 import com.sigma.flick.feature.myaccount.viewmodel.BankbookRecordsViewModel
 import com.sigma.flick.feature.user.viewmodel.UserViewModel
 import com.sigma.flick.utils.setStatusBarColorWhite
-import com.sigma.main.model.account.Account
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.DecimalFormat
 import java.time.LocalDateTime
@@ -43,7 +44,7 @@ class FragmentBankbookRecords : BaseFragment<FragmentBankbookRecordsBinding, Ban
 
     private var recordsDateListData: MutableList<RecordsDateData> = mutableListOf()
     private lateinit var bottomSheetDialog: BottomSheetDialog
-    private lateinit var myAccount: Account
+    private lateinit var myAccount: AccountObject
 
     override fun start() {
         setStatusBarColorWhite(requireActivity(), requireContext())

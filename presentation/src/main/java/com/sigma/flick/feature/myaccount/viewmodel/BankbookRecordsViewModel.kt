@@ -4,11 +4,11 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.sigma.data.network.dto.account.SpendResponse
+import com.sigma.data.network.dto.account.WalletResponse
+import com.sigma.data.repository.AccountRepository
 import com.sigma.flick.base.BaseViewModel
 import com.sigma.flick.feature.tabs.home.viewmodel.HomeViewModel
-import com.sigma.main.model.account.SpendResponseModel
-import com.sigma.main.model.account.WalletResponseModel
-import com.sigma.main.repository.AccountRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -18,12 +18,12 @@ class BankbookRecordsViewModel @Inject constructor(
     private val accountRepository: AccountRepository
 ) : BaseViewModel() {
 
-    private val _spendList = MutableLiveData<List<List<SpendResponseModel>>>()
-    val spendList: LiveData<List<List<SpendResponseModel>>>
+    private val _spendList = MutableLiveData<List<List<SpendResponse>>>()
+    val spendList: LiveData<List<List<SpendResponse>>>
         get() = _spendList
 
-    private val _accountData = MutableLiveData<WalletResponseModel>()
-    val accountData: LiveData<WalletResponseModel>
+    private val _accountData = MutableLiveData<WalletResponse>()
+    val accountData: LiveData<WalletResponse>
         get() = _accountData
 
 

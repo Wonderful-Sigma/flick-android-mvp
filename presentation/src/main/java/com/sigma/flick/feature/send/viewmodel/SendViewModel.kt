@@ -8,6 +8,9 @@ import android.widget.TextView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.sigma.data.network.dto.account.AccountObject
+import com.sigma.data.network.dto.account.RemitRequest
+import com.sigma.data.repository.AccountRepository
 import com.sigma.flick.base.BaseViewModel
 import com.sigma.flick.feature.send.state.AccountNumberState
 import com.sigma.flick.feature.send.state.CheckAccountState
@@ -16,10 +19,6 @@ import com.sigma.flick.utils.fadeIn
 import com.sigma.flick.utils.fastFadeOut
 import com.sigma.flick.utils.slideDown
 import com.sigma.flick.utils.slideUp
-import com.sigma.main.model.account.Account
-import com.sigma.main.model.account.RemitRequestModel
-import com.sigma.main.repository.AccountRepository
-import com.sigma.main.repository.MemberRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -43,8 +42,8 @@ class SendViewModel @Inject constructor(
     private var _sendCoin = MutableLiveData<String>()
     val sendCoin: LiveData<String> = _sendCoin
 
-    private var _recentSpendList = MutableLiveData<List<Account>>()
-    val recentSpendList: LiveData<List<Account>> = _recentSpendList
+    private var _recentSpendList = MutableLiveData<List<AccountObject>>()
+    val recentSpendList: LiveData<List<AccountObject>> = _recentSpendList
 
     private var _depositAccountId = MutableLiveData<Long>()
     val depositAccountId: LiveData<Long> = _depositAccountId
@@ -92,7 +91,7 @@ class SendViewModel @Inject constructor(
         }
     }
 
-    fun remit(remitRequestModel: RemitRequestModel) = viewModelScope.launch {
+    fun remit(remitRequestModel: RemitRequest) = viewModelScope.launch {
         kotlin.runCatching {
             accountRepository.remit(remitRequestModel)
         }.onSuccess {
