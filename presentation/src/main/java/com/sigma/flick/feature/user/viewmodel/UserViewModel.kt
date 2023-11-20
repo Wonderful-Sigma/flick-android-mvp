@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class UserViewModel(
+class UserViewModel @Inject constructor(
     private val memberRepository: MemberRepository,
     private val qrCodeRepository: QRCodeRepository,
     private val accountRepository: AccountRepository

@@ -16,7 +16,7 @@ import kr.hs.dgsw.smartschool.dodamdodam.dauth.DAuth
 import javax.inject.Inject
 
 @HiltViewModel
-class StartViewModel(
+class StartViewModel @Inject constructor(
     private val memberRepository: MemberRepository
 ): BaseViewModel() {
 
