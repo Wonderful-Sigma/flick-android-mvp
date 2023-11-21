@@ -92,7 +92,7 @@ interface AccountApi {
         @Header("authorization") authorization: String
     ): MemberResponseDto
 
-    @GET("/api/member/setFirebase/{memberId}")
+    @POST("/api/member/setFirebase/{memberId}")
     suspend fun setFirebaseToken(
         @Path("memberId") memberId: String,
         @Body memberSetFirebaseRequestDto: MemberSetFirebaseRequestDto
