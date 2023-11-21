@@ -1,14 +1,14 @@
 package com.sigma.flick.main
 
 import android.graphics.Color
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.Settings.Global.getString
 import dagger.hilt.android.AndroidEntryPoint
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.core.app.ActivityCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
@@ -35,8 +35,11 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        checkPermission()
 
         setContentView(binding.root)
 
@@ -44,7 +47,8 @@ class MainActivity : AppCompatActivity() {
 
         userViewModel.getUserInfo() // TODO : 다 받아오고 뷰 그리기
 
-        val navHostFragment = supportFragmentManager.findFragmentById(fragment_container) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(fragment_container) as NavHostFragment
         navController = navHostFragment.findNavController()
 
         binding.bnv.setupWithNavController(navController)
@@ -55,8 +59,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun getFCMToken(): String?{
-        var token: String? = null
+    private fun checkPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            val permission: Array<String> = arrayOf(
+                android.Manifest.permission.POST_NOTIFICATIONS
+            )
+            // 노티 권한 활성화 체크
+            ActivityCompat.requestPermissions(this@MainActivity, permission, 0)
+        }
+    }
+
+    private fun getFCMToken(uuid: String) {
+        var token: String?
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {
                 Log.w(TAG, "Fetching FCM registration token failed", task.exception)
@@ -66,8 +80,6 @@ class MainActivity : AppCompatActivity() {
             Log.d(TAG, "FCM Token is ${token}")
             Toast.makeText(this, "success to get token", Toast.LENGTH_SHORT).show()
         })
-
-        return token
     }
 
     private fun setQRCode() {
@@ -99,11 +111,10 @@ class MainActivity : AppCompatActivity() {
 
             /** Bottom Nav */
             if (destination.id == R.id.homeFragment || destination.id == R.id.allFragment || destination.id == R.id.stockFragment ||
-                destination.id == R.id.paymentFragment || destination.id == R.id.eventFragment) {
-                Log.d("상태", "보이기")
+                destination.id == R.id.paymentFragment || destination.id == R.id.eventFragment
+            ) {
                 binding.bnv.visibility = View.VISIBLE
             } else {
-                Log.d("상태", "숨기기")
                 binding.bnv.visibility = View.GONE
             }
         }
