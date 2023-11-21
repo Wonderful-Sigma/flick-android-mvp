@@ -10,9 +10,12 @@ import com.sigma.main.model.account.MakeZeroRequestModel
 import com.sigma.main.model.account.SpendResponseModel
 import com.sigma.main.model.account.RemitRequestModel
 import com.sigma.main.model.account.MemberResponseModel
+import com.sigma.main.model.account.MemberSetFirebaseRequestModel
 import com.sigma.main.model.account.MessageBodyRequestModel
 import com.sigma.main.model.account.SpendCalculateRequestModel
+import com.sigma.main.model.account.SpendCalculateResponseModel
 import com.sigma.main.model.account.StatusResponseModel
+import com.sigma.main.model.account.UpdatePictureRequestModel
 import com.sigma.main.model.account.WalletResponseModel
 
 interface AccountRepository {
@@ -27,9 +30,13 @@ interface AccountRepository {
         walletId: Long
     ): List<SpendResponseModel>
 
-    suspend fun spendCalculate(
+    suspend fun spendCalculateDay(
         spendCalculateRequestModel: SpendCalculateRequestModel
-    ): StatusResponseModel
+    ): SpendCalculateResponseModel
+
+    suspend fun spendCalculateMonth(
+        spendCalculateRequestModel: SpendCalculateRequestModel
+    ): SpendCalculateResponseModel
 
 
     //Wallet Management
@@ -66,6 +73,11 @@ interface AccountRepository {
     suspend fun authorizationSearchMember(
         authorization: String
     ): MemberResponseModel
+
+    suspend fun setFirebaseToken(
+        memberId: String,
+        memberSetFirebaseRequestModel: MemberSetFirebaseRequestModel
+    )
 
 
     //Alarm
@@ -110,6 +122,13 @@ interface AccountRepository {
     suspend fun getWallet(
         accountNumber: String
     ): WalletResponseModel
+
+    suspend fun updatePicture(
+        walletId: String,
+        updatePicture: UpdatePictureRequestModel
+    ): StatusResponseModel
+
+
 
     suspend fun deleteWallet(
         memberId: String,

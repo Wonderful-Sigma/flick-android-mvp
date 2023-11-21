@@ -7,10 +7,10 @@ import retrofit2.http.Header
 
 interface UserApi {
 
-    @GET("/api/member")
+    @GET("/api/member/member")
     suspend fun getUser(): UserResponseDto
 
-    @GET("/api/newAccessToken")
+    @GET("/api/member/newAccessToken")
     suspend fun getAccessToken(
         @Header("refreshToken") refreshToken: String
     ): NewAccessTokenResponseDto

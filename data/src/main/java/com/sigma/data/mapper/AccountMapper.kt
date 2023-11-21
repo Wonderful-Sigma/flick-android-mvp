@@ -9,9 +9,12 @@ import com.sigma.data.network.dto.account.MakeZeroRequestDto
 import com.sigma.data.network.dto.account.SpendResponseDto
 import com.sigma.data.network.dto.account.RemitRequestDto
 import com.sigma.data.network.dto.account.MemberResponseDto
+import com.sigma.data.network.dto.account.MemberSetFirebaseRequestDto
 import com.sigma.data.network.dto.account.MessageBodyRequestDto
 import com.sigma.data.network.dto.account.SpendCalculateRequestDto
+import com.sigma.data.network.dto.account.SpendCalculateResponseDto
 import com.sigma.data.network.dto.account.StatusResponseDto
+import com.sigma.data.network.dto.account.UpdatePictureRequestDto
 import com.sigma.data.network.dto.account.WalletResponseDto
 import com.sigma.main.model.account.Account
 import com.sigma.main.model.account.AccountResponseModel
@@ -23,9 +26,12 @@ import com.sigma.main.model.account.MakeZeroRequestModel
 import com.sigma.main.model.account.SpendResponseModel
 import com.sigma.main.model.account.RemitRequestModel
 import com.sigma.main.model.account.MemberResponseModel
+import com.sigma.main.model.account.MemberSetFirebaseRequestModel
 import com.sigma.main.model.account.MessageBodyRequestModel
 import com.sigma.main.model.account.SpendCalculateRequestModel
+import com.sigma.main.model.account.SpendCalculateResponseModel
 import com.sigma.main.model.account.StatusResponseModel
+import com.sigma.main.model.account.UpdatePictureRequestModel
 import com.sigma.main.model.account.WalletResponseModel
 
 fun RemitRequestModel.toDto() = RemitRequestDto(
@@ -43,6 +49,11 @@ fun FixMemberRequestModel.toDto() = FixMemberRequestDto(
     targetMember = this.targetMember,
     triggerMember = this.triggerMember
 )
+
+fun UpdatePictureRequestModel.toDto() = UpdatePictureRequestDto(
+    pictureIndex = this.pictureIndex
+)
+
 fun SpendCalculateRequestModel.toDto() = SpendCalculateRequestDto(
     searchDate = this.searchDate,
     accountId = this.accountId
@@ -56,6 +67,10 @@ fun EventRequestModel.toDto() = EventRequestDto(
 fun MessageBodyRequestModel.toDto() = MessageBodyRequestDto(
     title = this.title,
     body = this.body
+)
+
+fun MemberSetFirebaseRequestModel.toDto() = MemberSetFirebaseRequestDto(
+    firebaseToken = this.firebaseToken
 )
 
 fun CheckAlarmDto.toModel() = CheckAlarmModel(
@@ -92,7 +107,7 @@ fun MemberResponseDto.toModel(): MemberResponseModel {
         name = this.name,
         memberRule = memberRule,
         studentNumber = this.studentNumber,
-        accounts = this.accounts.map{
+        accounts = this.accounts.map {
             Account(
                 id = it.id,
                 number = it.number,
@@ -114,6 +129,49 @@ fun SpendResponseDto.toModel(): SpendResponseModel {
         balance = this.balance,
         targetAccount = this.targetAccount,
         money = this.money
+    )
+}
+
+fun SpendCalculateResponseDto.toModel(): SpendCalculateResponseModel {
+    return SpendCalculateResponseModel(
+        allList = this.allList.map {
+            it.map {
+                SpendResponseModel(
+                    targetMember = it.targetMember,
+                    targetAccount = it.targetAccount,
+                    money = it.money,
+                    spendType = it.spendType,
+                    balance = it.balance,
+                    createdDate = it.createdDate
+                )
+            }
+        },
+        incomeList = this.incomeList.map {
+            it.map {
+                SpendResponseModel(
+                    targetMember = it.targetMember,
+                    targetAccount = it.targetAccount,
+                    money = it.money,
+                    spendType = it.spendType,
+                    balance = it.balance,
+                    createdDate = it.createdDate
+                )
+            }
+        },
+        expenditureList = this.expenditureList.map {
+            it.map {
+                SpendResponseModel(
+                    targetMember = it.targetMember,
+                    targetAccount = it.targetAccount,
+                    money = it.money,
+                    spendType = it.spendType,
+                    balance = it.balance,
+                    createdDate = it.createdDate
+                )
+            }
+        },
+        loss = this.loss,
+        benefit = this.benefit
     )
 }
 

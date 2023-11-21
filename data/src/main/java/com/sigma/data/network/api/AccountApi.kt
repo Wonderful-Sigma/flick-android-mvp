@@ -9,19 +9,22 @@ import com.sigma.data.network.dto.account.MakeZeroRequestDto
 import com.sigma.data.network.dto.account.SpendResponseDto
 import com.sigma.data.network.dto.account.RemitRequestDto
 import com.sigma.main.model.account.Account
-import retrofit2.http.Body
-import retrofit2.http.GET
 import com.sigma.data.network.dto.account.MemberResponseDto
 import com.sigma.data.network.dto.account.MemberSetFirebaseRequestDto
 import com.sigma.data.network.dto.account.MessageBodyRequestDto
+import com.sigma.data.network.dto.account.SpendCalculateRequestDto
+import com.sigma.data.network.dto.account.SpendCalculateResponseDto
 import com.sigma.data.network.dto.account.StatusResponseDto
 import com.sigma.data.network.dto.account.UpdatePictureRequestDto
 import com.sigma.data.network.dto.account.WalletResponseDto
-import retrofit2.http.DELETE
+import retrofit2.http.Body
+import retrofit2.http.Path
 import retrofit2.http.Header
+import retrofit2.http.GET
+import retrofit2.http.DELETE
 import retrofit2.http.PATCH
 import retrofit2.http.POST
-import retrofit2.http.Path
+
 
 interface AccountApi {
 
@@ -37,17 +40,15 @@ interface AccountApi {
         @Path("walletId") walletId: Long
     ): List<SpendResponseDto>
 
-/*
     @GET("/api/spend/calculate/oneDay")
     suspend fun spendCalculateDay(
         @Body spendCalculateRequestDto: SpendCalculateRequestDto
-    ): StatusResponseDto
+    ): SpendCalculateResponseDto
 
-    @GET("/api/spend/calculate")
+    @GET("/api/spend/calculate/oneMonth")
     suspend fun spendCalculateMonth(
         @Body spendCalculateRequestDto: SpendCalculateRequestDto
-    ): StatusResponseDto
-*/
+    ): SpendCalculateResponseDto
 
 
     //Wallet Management

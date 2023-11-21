@@ -7,7 +7,7 @@ import retrofit2.http.POST
 
 interface DauthApi {
 
-    @POST("/api/login")
+    @POST("/api/member/login")
     suspend fun login(
         @Body dauthRequest: DauthRequestDto
     ): DauthResponseDto

@@ -14,9 +14,12 @@ import com.sigma.main.model.account.MakeZeroRequestModel
 import com.sigma.main.model.account.SpendResponseModel
 import com.sigma.main.model.account.RemitRequestModel
 import com.sigma.main.model.account.MemberResponseModel
+import com.sigma.main.model.account.MemberSetFirebaseRequestModel
 import com.sigma.main.model.account.MessageBodyRequestModel
 import com.sigma.main.model.account.SpendCalculateRequestModel
+import com.sigma.main.model.account.SpendCalculateResponseModel
 import com.sigma.main.model.account.StatusResponseModel
+import com.sigma.main.model.account.UpdatePictureRequestModel
 import com.sigma.main.model.account.WalletResponseModel
 import com.sigma.main.repository.AccountRepository
 import javax.inject.Inject
@@ -37,9 +40,9 @@ class AccountRepositoryImpl @Inject constructor(
         return data
     }
 
-    override suspend fun getAccount(accountNumber: String): Account
-        = accountApi.getAccount(accountNumber)
-        
+    override suspend fun getAccount(accountNumber: String): Account =
+        accountApi.getAccount(accountNumber)
+
     override suspend fun allSpend(walletId: Long): List<List<SpendResponseModel>> {
         val data = accountApi.allSpend(walletId)
         Log.d(TAG, "allSpend: $data")
@@ -68,6 +71,15 @@ class AccountRepositoryImpl @Inject constructor(
         return data.map { it.toModel() }
     }
 
+    override suspend fun updatePicture(
+        walletId: String,
+        updatePicture: UpdatePictureRequestModel
+    ): StatusResponseModel {
+        val data = accountApi.updatePicture(walletId, updatePicture.toDto())
+        Log.d(TAG, "updatePicture: $data")
+        return data.toModel()
+    }
+
     override suspend fun deleteWallet(memberId: String, walletId: Long): StatusResponseModel {
         val data = accountApi.deleteWallet(memberId, walletId)
         Log.d(TAG, "deleteWallet: $data")
@@ -87,7 +99,7 @@ class AccountRepositoryImpl @Inject constructor(
         walletId: Long,
         fixMemberRequestModel: FixMemberRequestModel
     ): StatusResponseModel {
-        val data = accountApi.deleteMember(walletId,fixMemberRequestModel.toDto())
+        val data = accountApi.deleteMember(walletId, fixMemberRequestModel.toDto())
         Log.d(TAG, "deleteMember: $data")
         return data.toModel()
     }
@@ -104,8 +116,14 @@ class AccountRepositoryImpl @Inject constructor(
         return data.map { it.toModel() }
     }
 
-    override suspend fun spendCalculate(spendCalculateRequestModel: SpendCalculateRequestModel): StatusResponseModel {
-        val data = accountApi.spendCalculate(spendCalculateRequestModel.toDto())
+    override suspend fun spendCalculateDay(spendCalculateRequestModel: SpendCalculateRequestModel): SpendCalculateResponseModel {
+        val data = accountApi.spendCalculateDay(spendCalculateRequestModel.toDto())
+        Log.d(TAG, "spendCalculate: $data")
+        return data.toModel()
+    }
+
+    override suspend fun spendCalculateMonth(spendCalculateRequestModel: SpendCalculateRequestModel): SpendCalculateResponseModel {
+        val data = accountApi.spendCalculateMonth(spendCalculateRequestModel.toDto())
         Log.d(TAG, "spendCalculate: $data")
         return data.toModel()
     }
@@ -128,6 +146,14 @@ class AccountRepositoryImpl @Inject constructor(
         val data = accountApi.authorizationSearchMember(authorization)
         Log.d(TAG, "authorizationSearchMember: $data")
         return data.toModel()
+    }
+
+    override suspend fun setFirebaseToken(
+        memberId: String,
+        memberSetFirebaseRequestModel: MemberSetFirebaseRequestModel
+    ) {
+        val data = accountApi.setFirebaseToken(memberId, memberSetFirebaseRequestModel.toDto())
+        Log.d(TAG, "setFirebaseToken: $data")
     }
 
     override suspend fun requestAlarm(
