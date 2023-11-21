@@ -42,6 +42,9 @@ class MainActivity : AppCompatActivity() {
         checkPermission()
 
         setContentView(binding.root)
+        userViewModel.myInfo.observe(this) {
+            getFCMToken(it.id)
+        }
 
 //        getFCMToken()  // TODO : 나중에 추가 예정
 
@@ -77,8 +80,10 @@ class MainActivity : AppCompatActivity() {
                 return@OnCompleteListener
             }
             token = task.result
-            Log.d(TAG, "FCM Token is ${token}")
-            Toast.makeText(this, "success to get token", Toast.LENGTH_SHORT).show()
+            if (token != null) {
+                Log.d(TAG, "FCM Token is $token")
+                userViewModel.getFCMToken(token!!, uuid)
+            }
         })
     }
 
