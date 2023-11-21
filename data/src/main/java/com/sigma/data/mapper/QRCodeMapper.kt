@@ -6,7 +6,7 @@ import com.sigma.main.model.qrcode.JWTGenerateResponseModel
 import com.sigma.main.model.qrcode.JwtDecodingResponseModel
 
 fun JWTGenerateResponseDto.toModel() = JWTGenerateResponseModel(
-    jwt = this.jwt
+    jwt = this.qrJwt
 )
 
 fun JwtDecodingResponseDto.toModel() = JwtDecodingResponseModel(

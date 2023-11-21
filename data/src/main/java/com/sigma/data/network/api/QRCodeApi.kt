@@ -8,12 +8,12 @@ import retrofit2.http.Path
 
 interface QRCodeApi {
 
-    @GET("/api/approval/{walletId}")
+    @GET("/api/QrCode/approval/{walletId}")
     suspend fun generateJwt(
         @Path("walletId") walletId: Long
     ): JWTGenerateResponseDto
 
-    @GET("/api/search/qr")
+    @GET("/api/QrCode/search/qr")
     suspend fun decodingJwt(
         @Header("jwt") jwt: String
     ): JwtDecodingResponseDto
