@@ -12,9 +12,10 @@ import com.sigma.main.model.account.Account
 import retrofit2.http.Body
 import retrofit2.http.GET
 import com.sigma.data.network.dto.account.MemberResponseDto
+import com.sigma.data.network.dto.account.MemberSetFirebaseRequestDto
 import com.sigma.data.network.dto.account.MessageBodyRequestDto
-import com.sigma.data.network.dto.account.SpendCalculateRequestDto
 import com.sigma.data.network.dto.account.StatusResponseDto
+import com.sigma.data.network.dto.account.UpdatePictureRequestDto
 import com.sigma.data.network.dto.account.WalletResponseDto
 import retrofit2.http.DELETE
 import retrofit2.http.Header
@@ -36,34 +37,38 @@ interface AccountApi {
         @Path("walletId") walletId: Long
     ): List<SpendResponseDto>
 
-    @GET("/api/spend/calculate")
-    suspend fun spendCalculate(
+/*
+    @GET("/api/spend/calculate/oneDay")
+    suspend fun spendCalculateDay(
         @Body spendCalculateRequestDto: SpendCalculateRequestDto
     ): StatusResponseDto
 
-
-
+    @GET("/api/spend/calculate")
+    suspend fun spendCalculateMonth(
+        @Body spendCalculateRequestDto: SpendCalculateRequestDto
+    ): StatusResponseDto
+*/
 
 
     //Wallet Management
-    @POST("/api/{walletId}")
+    @POST("/api/wallet/management/{walletId}")
     suspend fun addMember(
         @Path("walletId") walletId: Long,
         @Body fixMemberRequestDto: FixMemberRequestDto
     ): StatusResponseDto
 
-    @DELETE("/api/{walletId}")
+    @DELETE("/api/wallet/management/{walletId}")
     suspend fun deleteMember(
         @Path("walletId") walletId: Long,
         @Body fixMemberRequestDto: FixMemberRequestDto
     ): StatusResponseDto
 
-    @PATCH("/api/remit")
+    @PATCH("/api/wallet/management/remit")
     suspend fun remit(
         @Body remitRequestDto: RemitRequestDto
     ): StatusResponseDto
 
-    @PATCH("/api/makeZero")
+    @PATCH("/api/wallet/management/makeZero")
     suspend fun makeZero(
         @Body makeZeroRequestDto: MakeZeroRequestDto
     ): StatusResponseDto
@@ -76,15 +81,21 @@ interface AccountApi {
     ): StatusResponseDto
 
     //Member
-    @GET("/api/search/{memberName}")
+    @GET("/api/member/search/{memberName}")
     suspend fun searchMember(
         @Path("memberName") memberName: String
     ): List<MemberResponseDto>
 
-    @GET("/api/member")
+    @GET("/api/member/member")
     suspend fun authorizationSearchMember(
         @Header("authorization") authorization: String
     ): MemberResponseDto
+
+    @GET("/api/member/setFirebase/{memberId}")
+    suspend fun setFirebaseToken(
+        @Path("memberId") memberId: String,
+        @Body memberSetFirebaseRequestDto: MemberSetFirebaseRequestDto
+    )
 
 
     //Alarm
@@ -106,12 +117,12 @@ interface AccountApi {
 
 
     //QR Code
-    @GET("/api/search/qr")
+    @GET("/api/QrCode/search/qr")
     suspend fun encodingJwt(
         @Header("jwt") jwt: String
     ): AccountResponseDto
 
-    @GET("/api/approval/{walletId}")
+    @GET("/api/QrCode/approval/{walletId}")
     suspend fun createJwt(
         @Path("walletId") walletId: Long
     ): JwtResponseDto
@@ -124,16 +135,15 @@ interface AccountApi {
         @Body accountName: String
     ): Account
 
-    @GET("/api/wallet/search/accountNumber/{accountNumber}")
-    suspend fun getAccount(
-        @Path("accountNumber") accountNumber: String
-    ): Account
-
     @GET("/api/wallet/{walletId}")
     suspend fun getWallet(
         @Path("walletId") walletId: Long
     ): WalletResponseDto
 
+    @GET("/api/wallet/search/accountNumber/{accountNumber}")
+    suspend fun getAccount(
+        @Path("accountNumber") accountNumber: String
+    ): Account
 
     @GET("/api/wallet/search/{memberId}")
     suspend fun searchWallet(
@@ -144,6 +154,12 @@ interface AccountApi {
     suspend fun getWallet(
         @Path("accountNumber") accountNumber: String
     ): WalletResponseDto
+
+    @GET("/api/wallet/updatePicture/{walletId}")
+    suspend fun updatePicture(
+        @Path("walletId") walletId: String,
+        @Body updatePicture: UpdatePictureRequestDto
+    ): StatusResponseDto
 
     @DELETE("/api/wallet/{memberId}/{walletId}")
     suspend fun deleteWallet(
