@@ -64,6 +64,17 @@ class UserViewModel @Inject constructor(
         }
     }
 
+    fun getFCMToken(token: String, uuid: String) = viewModelScope.launch {
+        kotlin.runCatching {
+            accountRepository.setFirebaseToken(uuid, MemberSetFirebaseRequestModel(token))
+        }.onSuccess {
+            Log.d(TAG, "getFCMToken Success!!: $it")
+        }.onFailure { e ->
+            Log.d("정보","token: $token uuid: $uuid")
+            Log.d(TAG, "getFCMToken Failed..:  $e")
+        }
+    }
+
     companion object {
         const val TAG = "UserViewModel"
     }
