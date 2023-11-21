@@ -2,11 +2,9 @@ package com.sigma.flick.feature.send.viewmodel
 
 import android.content.Context
 import android.util.Log
-import android.util.LogPrinter
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -14,11 +12,11 @@ import com.sigma.flick.base.BaseViewModel
 import com.sigma.flick.feature.send.state.AccountNumberState
 import com.sigma.flick.feature.send.state.SendState
 import com.sigma.flick.utils.fadeIn
-import com.sigma.flick.utils.fadeOut
 import com.sigma.flick.utils.fastFadeOut
 import com.sigma.flick.utils.slideDown
 import com.sigma.flick.utils.slideUp
 import com.sigma.main.model.account.Account
+import com.sigma.main.model.account.MessageBodyRequestModel
 import com.sigma.main.model.account.RemitRequestModel
 import com.sigma.main.repository.AccountRepository
 import com.sigma.main.repository.SpendListRepository
@@ -26,14 +24,13 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
-import java.security.PrivateKey
 import javax.inject.Inject
 
 @HiltViewModel
 class SendViewModel @Inject constructor(
-    private val accountRepository : AccountRepository,
+    private val accountRepository: AccountRepository,
     private val spendListRepository: SpendListRepository
-): BaseViewModel() {
+) : BaseViewModel() {
 
     private var _accountNumberState = MutableSharedFlow<AccountNumberState>()
     val accountNumberState: SharedFlow<AccountNumberState> = _accountNumberState
@@ -57,8 +54,8 @@ class SendViewModel @Inject constructor(
     private var _sendCoinIsFilled = MutableLiveData<Boolean>()
     private var _isSent = MutableLiveData<Boolean>()
 
-    val sendCoinIsFilled : LiveData<Boolean> = _sendCoinIsFilled
-    val isSent : LiveData<Boolean> = _isSent
+    val sendCoinIsFilled: LiveData<Boolean> = _sendCoinIsFilled
+    val isSent: LiveData<Boolean> = _isSent
 
 
     init {
@@ -81,21 +78,23 @@ class SendViewModel @Inject constructor(
             _accountNumberState.emit(AccountNumberState(error = "$e"))
         }
     }
+
     fun remit(remitRequestModel: RemitRequestModel) = viewModelScope.launch {
         kotlin.runCatching {
             accountRepository.remit(remitRequestModel)
         }.onSuccess {
-            when(it.status) {
+            when (it.status) {
                 200 -> {
                     Log.d(TAG, "remit: $it")
                     _sendState.emit(SendState(isSuccess = true))
                 }
+
                 400 -> {
                     Log.d(TAG, "remit: $it")
                     _sendState.emit(SendState(error = it.message))
                 }
             }
-        }.onFailure {  e ->
+        }.onFailure { e ->
             Log.d(TAG, "remit: $e")
             _sendState.emit(SendState(error = "$e"))
         }
@@ -113,20 +112,40 @@ class SendViewModel @Inject constructor(
     }
 
 
+    fun postAlarm(memberId: String, messageBody: MessageBodyRequestModel) =
+        viewModelScope.launch {
+            kotlin.runCatching {
+                accountRepository.requestAlarm(memberId, messageBody)
+            }.onSuccess {
+                when (it.status) {
+                    202 -> {
+                        Log.d(TAG, "postAlarm Success!! $it")
+                    }
+
+                    else -> {
+                        Log.d(TAG, "postAlarm Failed.. ${it.status}")
+                    }
+                }
+            }.onFailure { e ->
+                Log.d(TAG, "postAlarm Failed.. $e")
+            }
+        }
+
+
     /* sendCoin */
 
-    fun setCoin(number : String) {
+    fun setCoin(number: String) {
         _sendCoin.value = number
     }
 
-    fun plusCoin(number : String) {
+    fun plusCoin(number: String) {
         _sendCoin.value = sendCoin.value + number
     }
 
     fun backSpaceCoin() {
         when (val length = sendCoin.value?.length!!) {
             0, 1 -> _sendCoin.value = ""
-            else -> _sendCoin.value = sendCoin.value?.substring(0, length-1)
+            else -> _sendCoin.value = sendCoin.value?.substring(0, length - 1)
         }
     }
 
@@ -136,7 +155,12 @@ class SendViewModel @Inject constructor(
         _sendCoinIsFilled.value = boolean
     }
 
-    fun ifIsNotFilledSendCoin(context : Context, tvCoin: TextView, tvHowMuchSend : TextView, btnDecide : Button) {
+    fun ifIsNotFilledSendCoin(
+        context: Context,
+        tvCoin: TextView,
+        tvHowMuchSend: TextView,
+        btnDecide: Button
+    ) {
         if (_sendCoinIsFilled.value == false) { // sendCoin이 채워져 있지 않은 상태였다면
             Log.d("TEST", "ifIsNotFilledSendCoin: if is false")
             tvCoin.visibility = View.VISIBLE
@@ -147,7 +171,12 @@ class SendViewModel @Inject constructor(
         }
     }
 
-    fun ifIsFilledSendCoin(context : Context, tvCoin: TextView, tvHowMuchSend : TextView, btnDecide : Button) {
+    fun ifIsFilledSendCoin(
+        context: Context,
+        tvCoin: TextView,
+        tvHowMuchSend: TextView,
+        btnDecide: Button
+    ) {
         if (_sendCoinIsFilled.value == true) {
             tvCoin.visibility = View.INVISIBLE
             tvHowMuchSend.fadeIn(context)
@@ -168,7 +197,7 @@ class SendViewModel @Inject constructor(
         remittanceAccount = accountNumber
     } */
 
-    fun setDepositAccountNumber(accountNumber : String) {
+    fun setDepositAccountNumber(accountNumber: String) {
         _depositAccountNumber.value = accountNumber
     }
 
