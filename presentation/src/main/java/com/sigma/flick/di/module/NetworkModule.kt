@@ -1,13 +1,12 @@
 package com.sigma.flick.di.module
 
-import com.google.gson.Gson
+import com.sigma.flick.di.authenticator.AuthAuthenticator
 import com.google.gson.GsonBuilder
 import com.sigma.data.network.api.AccountApi
 import com.sigma.data.network.api.DauthApi
 import com.sigma.data.network.api.QRCodeApi
 import com.sigma.data.network.api.SpendListApi
 import com.sigma.data.network.api.UserApi
-import com.sigma.flick.di.authenticator.TokenInterceptor
 import com.sigma.flick.utils.BASE_URL
 import com.sigma.flick.utils.HiltApplication
 import dagger.Module
@@ -75,6 +74,7 @@ class NetworkModule {
     fun provideOkHttpClient(
         headerInterceptor: Interceptor,
         loggerInterceptor: HttpLoggingInterceptor,
+        authAuthenticator: AuthAuthenticator,
     ): OkHttpClient {
         val okHttpClientBuilder = OkHttpClient().newBuilder()
         okHttpClientBuilder.connectTimeout(60, TimeUnit.SECONDS)
@@ -82,10 +82,14 @@ class NetworkModule {
         okHttpClientBuilder.writeTimeout(60, TimeUnit.SECONDS)
         okHttpClientBuilder.addInterceptor(loggerInterceptor)
         okHttpClientBuilder.addInterceptor(headerInterceptor)
-        okHttpClientBuilder.addInterceptor(TokenInterceptor())
-
+        okHttpClientBuilder.authenticator(authAuthenticator)
         return okHttpClientBuilder.build()
     }
+
+    @Provides
+    @Singleton
+    fun provideAuthAuthenticator(): AuthAuthenticator =
+        AuthAuthenticator()
 
     @Provides
     @Singleton
