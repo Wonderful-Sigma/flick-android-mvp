@@ -1,8 +1,6 @@
 package com.sigma.flick.feature.start
 
-import android.annotation.SuppressLint
 import android.content.Intent
-import android.view.View
 import androidx.activity.viewModels
 import com.sigma.flick.R
 import com.sigma.flick.base.BaseActivity
@@ -10,7 +8,6 @@ import com.sigma.flick.databinding.ActivityStartBinding
 import com.sigma.flick.main.MainActivity
 import com.sigma.flick.utils.clientId
 import com.sigma.flick.utils.clientSecret
-import com.sigma.flick.utils.onButtonClick
 import com.sigma.flick.utils.redirectUrl
 import dagger.hilt.android.AndroidEntryPoint
 import kr.hs.dgsw.smartschool.dodamdodam.dauth.DAuth.settingDAuth

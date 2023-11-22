@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.sigma.flick.base.BaseViewModel
 import com.sigma.main.model.account.Account
+import com.sigma.main.model.account.MemberSetFirebaseRequestModel
 import com.sigma.main.model.user.UserResponseModel
 import com.sigma.main.repository.QRCodeRepository
 import com.sigma.main.repository.AccountRepository
@@ -29,7 +30,6 @@ class UserViewModel @Inject constructor(
     private var _jwt = MutableLiveData<String>()
     val jwt: LiveData<String> = _jwt
 
-//    var collectionData: MutableList<ItemGroupBankBookData> = mutableListOf()
 
     fun getUserInfo() = viewModelScope.launch {
         kotlin.runCatching {
@@ -41,8 +41,8 @@ class UserViewModel @Inject constructor(
             Log.d(TAG, "getUser Failed..:  $e")
         }
     }
-    
-     fun generateJwt(walletId: Long) = viewModelScope.launch {
+
+    fun generateJwt(walletId: Long) = viewModelScope.launch {
         kotlin.runCatching {
             qrCodeRepository.generateJwt(walletId)
         }.onSuccess {
@@ -52,7 +52,7 @@ class UserViewModel @Inject constructor(
             Log.d(TAG, "generateJwt: failed.. $e")
         }
     }
-    
+
     fun getAccount(accountNumber: String) = viewModelScope.launch {
         kotlin.runCatching {
             accountRepository.getAccount(accountNumber)
@@ -70,7 +70,7 @@ class UserViewModel @Inject constructor(
         }.onSuccess {
             Log.d(TAG, "getFCMToken Success!!: $it")
         }.onFailure { e ->
-            Log.d("정보","token: $token uuid: $uuid")
+            Log.d("정보", "token: $token uuid: $uuid")
             Log.d(TAG, "getFCMToken Failed..:  $e")
         }
     }
