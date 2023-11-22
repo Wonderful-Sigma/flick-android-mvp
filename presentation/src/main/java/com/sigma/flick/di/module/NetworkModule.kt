@@ -72,11 +72,6 @@ class NetworkModule {
 
         return okHttpClientBuilder.build()
     }
-
-//    @Singleton
-//    @Provides
-//    fun provideAuthInterceptor(): AuthInterceptor = AuthInterceptor()
-
     @Singleton
     @Provides
     fun provideAuthAuthenticator(): AuthAuthenticator =
@@ -93,10 +88,8 @@ class NetworkModule {
         with(chain) {
             val newRequest = request().newBuilder()
                 .addHeader("Authorization", "Bearer ${HiltApplication.prefs.accessToken}")
-//                .addHeader("Authorization", "Bearer eyJKV1QiOiJBQ0NFU1NfVE9LRU4iLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI3NzJhZDBkMy0xYTRhLTRhNTUtYmE1MC1jNmI3ZWNlZDFmYjAiLCJuYW1lIjoi7KGw7Iq57JmEIiwicnVsZSI6IlNUVURFTlQiLCJpYXQiOjE2OTk5NjU3MjYsImV4cCI6MTY5OTk2NTczNn0.mgxPjBM64w7C_mb4I8W_Jx8us365i5-N2HKMrKEgmAaw4MH1_PJ2rkm3YYEGdF-LESrAGwcZodO5t-3PaRrviA")
                 .build()
             proceed(newRequest)
         }
     }
-
 }
