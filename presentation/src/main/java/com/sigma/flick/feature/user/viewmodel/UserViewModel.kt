@@ -4,33 +4,28 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.sigma.data.network.dto.account.AccountObject
+import com.sigma.data.network.api.AccountApi
+import com.sigma.data.network.api.QRCodeApi
+import com.sigma.data.network.api.UserApi
+import com.sigma.data.network.dto.account.Account
+import com.sigma.data.network.dto.account.MemberSetFirebaseRequest
 import com.sigma.data.network.dto.user.UserResponse
-import com.sigma.data.repository.AccountRepository
-import com.sigma.data.repository.MemberRepository
-import com.sigma.data.repository.QRCodeRepository
 import com.sigma.flick.base.BaseViewModel
-import com.sigma.main.model.account.Account
-import com.sigma.main.model.account.MemberSetFirebaseRequestModel
-import com.sigma.main.model.user.UserResponseModel
-import com.sigma.main.repository.QRCodeRepository
-import com.sigma.main.repository.AccountRepository
-import com.sigma.main.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class UserViewModel @Inject constructor(
-    private val memberRepository: MemberRepository,
-    private val qrCodeRepository: QRCodeRepository,
-    private val accountRepository: AccountRepository
+    private val userApi: UserApi,
+    private val qRCodeApi: QRCodeApi,
+    private val accountApi: AccountApi
 ) : BaseViewModel() {
 
     private var _myInfo = MutableLiveData<UserResponse>()
     val myInfo: LiveData<UserResponse> = _myInfo
-    private var _accountData = MutableLiveData<AccountObject>()
-    val accountData: LiveData<AccountObject> = _accountData
+    private var _accountData = MutableLiveData<Account>()
+    val accountData: LiveData<Account> = _accountData
 
     private var _jwt = MutableLiveData<String>()
     val jwt: LiveData<String> = _jwt
@@ -38,7 +33,7 @@ class UserViewModel @Inject constructor(
 
     fun getUserInfo() = viewModelScope.launch {
         kotlin.runCatching {
-            memberRepository.getUser()
+            userApi.getUser()
         }.onSuccess {
             Log.d(TAG, "getUser Success!!: $it")
             _myInfo.value = it
@@ -49,7 +44,7 @@ class UserViewModel @Inject constructor(
 
     fun generateJwt(walletId: Long) = viewModelScope.launch {
         kotlin.runCatching {
-            qrCodeRepository.generateJwt(walletId)
+            qRCodeApi.generateJwt(walletId)
         }.onSuccess {
             Log.d(TAG, "generateJwt: success!! $it")
             _jwt.value = it.qrJwt
@@ -60,7 +55,7 @@ class UserViewModel @Inject constructor(
 
     fun getAccount(accountNumber: String) = viewModelScope.launch {
         kotlin.runCatching {
-            accountRepository.getAccount(accountNumber)
+            accountApi.getAccount(accountNumber)
         }.onSuccess {
             Log.d(TAG, "getAccount Success!!: $it")
             _accountData.value = it
@@ -71,7 +66,7 @@ class UserViewModel @Inject constructor(
 
     fun getFCMToken(token: String, uuid: String) = viewModelScope.launch {
         kotlin.runCatching {
-            accountRepository.setFirebaseToken(uuid, MemberSetFirebaseRequestModel(token))
+            accountApi.setFirebaseToken(uuid, MemberSetFirebaseRequest(token))
         }.onSuccess {
             Log.d(TAG, "getFCMToken Success!!: $it")
         }.onFailure { e ->

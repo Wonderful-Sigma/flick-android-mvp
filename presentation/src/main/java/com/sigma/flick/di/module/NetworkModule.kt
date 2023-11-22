@@ -3,7 +3,7 @@ package com.sigma.flick.di.module
 import com.sigma.flick.di.authenticator.AuthAuthenticator
 import com.google.gson.GsonBuilder
 import com.sigma.data.network.api.AccountApi
-import com.sigma.data.network.api.MemberApi
+import com.sigma.data.network.api.DauthApi
 import com.sigma.data.network.api.QRCodeApi
 import com.sigma.data.network.api.SpendListApi
 import com.sigma.data.network.api.UserApi
@@ -25,15 +25,27 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class NetworkModule {
 
+    /* LoginApi Type의 객체 생성 */
+
     @Provides
     @Singleton
-    fun provideDauthApi(retrofit: Retrofit): MemberApi =
-        retrofit.create(MemberApi::class.java)
+    fun provideDauthApi(retrofit: Retrofit): DauthApi =
+        retrofit.create(DauthApi::class.java)
 
     @Provides
     @Singleton
     fun provideAccountApi(retrofit: Retrofit): AccountApi =
         retrofit.create(AccountApi::class.java)
+
+    @Provides
+    @Singleton
+    fun provideUserApi(retrofit: Retrofit): UserApi =
+        retrofit.create(UserApi::class.java)
+
+    @Provides
+    @Singleton
+    fun provideSpendListApi(retrofit: Retrofit): SpendListApi =
+        retrofit.create(SpendListApi::class.java)
 
     @Provides
     @Singleton
@@ -73,10 +85,6 @@ class NetworkModule {
         okHttpClientBuilder.authenticator(authAuthenticator)
         return okHttpClientBuilder.build()
     }
-    @Singleton
-    @Provides
-    fun provideAuthAuthenticator(): AuthAuthenticator =
-        AuthAuthenticator()
 
     @Provides
     @Singleton
@@ -93,7 +101,7 @@ class NetworkModule {
     fun provideHeaderInterceptor() = Interceptor { chain ->
         with(chain) {
             val newRequest = request().newBuilder()
-                .addHeader("Authorization", "Bearer ${HiltApplication.prefs.accessToken}")
+                .addHeader("Authorization", "Bearer" + HiltApplication.prefs.accessToken)
                 .build()
             proceed(newRequest)
         }

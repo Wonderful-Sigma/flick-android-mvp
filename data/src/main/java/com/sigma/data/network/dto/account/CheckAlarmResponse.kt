@@ -1,8 +1,8 @@
-package com.sigma.main.model.account
+package com.sigma.data.network.dto.account
 
 import java.time.Instant
 
-data class CheckAlarmModel (
+data class CheckAlarmResponse(
     val createdDate: Instant,
     val id: Long,
     val memberId: String,

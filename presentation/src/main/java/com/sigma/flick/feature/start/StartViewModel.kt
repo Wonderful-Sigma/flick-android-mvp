@@ -6,8 +6,8 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.sigma.data.network.api.DauthApi
 import com.sigma.data.network.dto.dauth.DauthRequest
-import com.sigma.data.repository.MemberRepository
 import com.sigma.flick.base.BaseViewModel
 import com.sigma.flick.utils.HiltApplication
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class StartViewModel @Inject constructor(
-    private val memberRepository: MemberRepository
+    private val dauthApi: DauthApi
 ): BaseViewModel() {
 
     private var _autoLogin = MutableLiveData(HiltApplication.prefs.autoLogin)
@@ -36,7 +36,7 @@ class StartViewModel @Inject constructor(
 
     private fun login(dauthRequestDto: DauthRequest) = viewModelScope.launch {
         kotlin.runCatching {
-            memberRepository.login(dauthRequestDto)
+            dauthApi.login(dauthRequestDto)
         }.onSuccess {
             Log.d(TAG, "LoginSuccess! $it")
 
@@ -44,21 +44,6 @@ class StartViewModel @Inject constructor(
             _autoLogin.value = true
             HiltApplication.prefs.accessToken = it.accessToken
             HiltApplication.prefs.refreshToken = it.refreshToken
-        }.onFailure { e ->
-            Log.d(TAG, "LoginFailed.. $e")
-        }
-    }
-
-    /** TEST */
-    fun getNewAccessToken(refreshToken: String) = viewModelScope.launch {
-        kotlin.runCatching {
-            memberRepository.getAccessToken(refreshToken)
-        }.onSuccess {
-            Log.d(TAG, "SUCCESS! $it")
-//            HiltApplication.prefs.autoLogin = true
-//            _autoLogin.value = true
-//            HiltApplication.prefs.accessToken = it.accessToken
-//            HiltApplication.prefs.refreshToken = it.refreshToken
         }.onFailure { e ->
             Log.d(TAG, "LoginFailed.. $e")
         }

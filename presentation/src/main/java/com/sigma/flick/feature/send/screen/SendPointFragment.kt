@@ -50,10 +50,10 @@ class SendPointFragment : BaseFragment<FragmentSendPointBinding, SendViewModel>(
                             binding.tvToSendAccountNumber.text = depositAccountNumber.value.toString()
                         }
                     }
-//                    if (it.error.isNotEmpty()) {
-//                        Toast.makeText(context, "계좌번호를 찾지 못했어요", Toast.LENGTH_SHORT).show()
-//                        findNavController().popBackStack()
-//                    }
+                    if (it.error.isNotEmpty()) {
+                        Toast.makeText(context, "계좌번호를 찾지 못했어요", Toast.LENGTH_SHORT).show()
+                        findNavController().popBackStack()
+                    }
                 }
             }
         }
