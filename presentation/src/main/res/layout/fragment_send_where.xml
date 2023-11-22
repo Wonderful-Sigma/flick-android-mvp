@@ -111,6 +111,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
+        <TextView
+            android:id="@+id/tv_nothing_recent_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="최근 보낸 계좌가 없어요"
+            android:fontFamily="@font/pretendard_regular"
+            android:textSize="16sp"
+            android:textColor="@color/light_gray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/nestedScrollView" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

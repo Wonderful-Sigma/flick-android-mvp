@@ -16,7 +16,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-
 class AuthAuthenticator: Authenticator {
 
     private val memberApi = createMemberApi()
@@ -38,7 +37,7 @@ class AuthAuthenticator: Authenticator {
         }
     }
 
-    fun createMemberApi(): UserApi {
+    private fun createMemberApi(): UserApi {
         val okHttpClient = OkHttpClient().newBuilder()
             .connectTimeout(60, TimeUnit.SECONDS)
             .readTimeout(60, TimeUnit.SECONDS)
@@ -53,7 +52,6 @@ class AuthAuthenticator: Authenticator {
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(okHttpClient)
             .build()
-
         return retrofit.create(UserApi::class.java)
     }
 }

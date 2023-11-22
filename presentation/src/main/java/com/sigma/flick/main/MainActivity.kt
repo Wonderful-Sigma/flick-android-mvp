@@ -33,6 +33,8 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
+    private lateinit var qrCodeClass: QRCode
+
     private lateinit var navController: NavController
 
 
@@ -46,9 +48,7 @@ class MainActivity : AppCompatActivity() {
             getFCMToken(it.id)
         }
 
-//        getFCMToken()  // TODO : 나중에 추가 예정
-
-        userViewModel.getUserInfo() // TODO : 다 받아오고 뷰 그리기
+        userViewModel.getUserInfo()
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(fragment_container) as NavHostFragment
@@ -58,6 +58,7 @@ class MainActivity : AppCompatActivity() {
 
         userViewModel.myInfo.observe(this) {
             setQRCode()
+            qrCodeClass.setUserId()
             setBottomNavigation()
         }
     }
@@ -89,15 +90,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun setQRCode() {
         /** QR Code */
-        val qrCodeClass = QRCode(userViewModel, this, this, this, layoutInflater)
+        qrCodeClass = QRCode(userViewModel, this, this, this, layoutInflater)
 
         val bottomSheetDialog = BottomSheetDialog(this)
         bottomSheetDialog.setContentView(qrCodeClass.bottomSheetView)
 
         binding.bnv.menu.findItem(R.id.paymentFragment).setOnMenuItemClickListener {
+            qrCodeClass.generateQRCode()
             qrCodeClass.setQRCode()
             bottomSheetDialog.show()
-            qrCodeClass.generateQRCode()
             return@setOnMenuItemClickListener false
         }
     }
@@ -122,6 +123,14 @@ class MainActivity : AppCompatActivity() {
             } else {
                 binding.bnv.visibility = View.GONE
             }
+
+            if (destination.id == R.id.settingFragment) {
+                window.navigationBarColor = resources.getColor(R.color.activity_background)
+            } else {
+                window.navigationBarColor = resources.getColor(R.color.white)
+            }
+
+
         }
     }
 

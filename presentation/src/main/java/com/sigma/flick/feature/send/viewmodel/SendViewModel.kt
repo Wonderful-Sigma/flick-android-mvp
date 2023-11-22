@@ -8,8 +8,12 @@ import android.widget.TextView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.sigma.data.network.dto.account.AccountObject
+import com.sigma.data.network.dto.account.RemitRequest
+import com.sigma.data.repository.AccountRepository
 import com.sigma.flick.base.BaseViewModel
 import com.sigma.flick.feature.send.state.AccountNumberState
+import com.sigma.flick.feature.send.state.CheckAccountState
 import com.sigma.flick.feature.send.state.SendState
 import com.sigma.flick.utils.fadeIn
 import com.sigma.flick.utils.fastFadeOut
@@ -32,6 +36,9 @@ class SendViewModel @Inject constructor(
     private val spendListRepository: SpendListRepository
 ) : BaseViewModel() {
 
+    private var _checkAccountState = MutableSharedFlow<CheckAccountState>()
+    val checkAccountState: SharedFlow<CheckAccountState> = _checkAccountState
+
     private var _accountNumberState = MutableSharedFlow<AccountNumberState>()
     val accountNumberState: SharedFlow<AccountNumberState> = _accountNumberState
 
@@ -41,8 +48,8 @@ class SendViewModel @Inject constructor(
     private var _sendCoin = MutableLiveData<String>()
     val sendCoin: LiveData<String> = _sendCoin
 
-    private var _recentSpendList = MutableLiveData<List<Account>>()
-    val recentSpendList: LiveData<List<Account>> = _recentSpendList
+    private var _recentSpendList = MutableLiveData<List<AccountObject>>()
+    val recentSpendList: LiveData<List<AccountObject>> = _recentSpendList
 
     private var _depositAccountId = MutableLiveData<Long>()
     val depositAccountId: LiveData<Long> = _depositAccountId
@@ -65,13 +72,24 @@ class SendViewModel @Inject constructor(
         _depositAccountNumber.value = ""
     }
 
+    fun checkAccountNumber(accountNumber: String) = viewModelScope.launch {
+        kotlin.runCatching {
+            accountRepository.getAccount(accountNumber)
+        }.onSuccess {
+            _checkAccountState.emit(CheckAccountState(isSuccess = true))
+        }.onFailure { e ->
+            _checkAccountState.emit(CheckAccountState(error = "$e"))
+        }
+    }
+
     fun getAccount(accountNumber: String) = viewModelScope.launch {
         kotlin.runCatching {
             accountRepository.getAccount(accountNumber)
         }.onSuccess {
             Log.d(TAG, "getAccount Success!! $it")
             _depositAccountId.value = it.id
-            _depositAccountName.value = it.name
+            val of = it.name.indexOf("의")
+            _depositAccountName.value = it.name.slice(0 until of)
             _accountNumberState.emit(AccountNumberState(isSuccess = true))
         }.onFailure { e ->
             Log.d(TAG, "getAccount Failed.. $e")
@@ -102,7 +120,7 @@ class SendViewModel @Inject constructor(
 
     fun getRecentSpendList(memberId: String) = viewModelScope.launch {
         kotlin.runCatching {
-            spendListRepository.getRecentSpendList(memberId)
+            accountRepository.getRecentAccount(memberId)
         }.onSuccess {
             Log.d(TAG, "getRecentSpendList Success!! $it")
             _recentSpendList.value = it
@@ -205,4 +223,3 @@ class SendViewModel @Inject constructor(
         const val TAG = "SendViewModel"
     }
 }
-

@@ -159,6 +159,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linear_left_time">
 
         <TextView
+            android:id="@+id/tv_reload"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/pretendard_regular"
@@ -167,6 +168,7 @@
             android:textSize="13sp" />
 
         <ImageView
+            android:id="@+id/iv_reload"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"

@@ -15,7 +15,7 @@ class DetailedRecordsListAdapter: BaseListAdapter<DetailedData, ItemDetailedReco
         binding.date.text = data.time
         binding.coin.text = data.changedMoney
         binding.currentMoney.text = data.currentMoney
-        binding.profileIcon.setImageResource(data.profileIcon)
+//        binding.profileIcon.setImageResource(data.profileIcon)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
