@@ -25,14 +25,14 @@ class SettingFragment: BaseFragment<FragmentSettingBinding, SettingViewModel>(R.
 
         with(binding) {
             btnBackArrow.setOnClickListener { findNavController().popBackStack() }
-            btnRule.setOnClickListener {
-                Toast.makeText(requireContext(), "약관 및 개인정보 처리 동의", Toast.LENGTH_SHORT).show()
-                // todo :
-            }
-            btnVersion.setOnClickListener {
-                Toast.makeText(requireContext(), "앱 버전", Toast.LENGTH_SHORT).show()
-                // todo :
-            }
+//            btnRule.setOnClickListener {
+//                Toast.makeText(requireContext(), "약관 및 개인정보 처리 동의", Toast.LENGTH_SHORT).show()
+//                // todo :
+//            }
+//            btnVersion.setOnClickListener {
+//                Toast.makeText(requireContext(), "앱 버전", Toast.LENGTH_SHORT).show()
+//                // todo :
+//            }
             btnLogout.setOnClickListener {
                 Toast.makeText(requireContext(), "로그아웃 되었어요", Toast.LENGTH_SHORT).show()
                 HiltApplication.prefs.deleteToken()

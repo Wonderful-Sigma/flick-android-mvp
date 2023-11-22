@@ -5,12 +5,12 @@ import android.os.Looper
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.sigma.data.network.dto.account.AccountObject
 import com.sigma.flick.R
 import com.sigma.flick.base.BaseFragment
 import com.sigma.flick.databinding.FragmentBankbookDetailBinding
 import com.sigma.flick.feature.accounts.viewmodel.BankbookDetailViewModel
 import com.sigma.flick.feature.user.viewmodel.UserViewModel
-import com.sigma.main.model.account.Account
 import java.text.DecimalFormat
 
 
@@ -20,7 +20,7 @@ class BankbookDetailFragment : BaseFragment<FragmentBankbookDetailBinding, Bankb
     private val userViewModel: UserViewModel by activityViewModels()
 
     override fun start() {
-        var myInfo: Account
+        var myInfo: AccountObject
         var myCoin: Long
 
         userViewModel.myInfo.observe(viewLifecycleOwner) {

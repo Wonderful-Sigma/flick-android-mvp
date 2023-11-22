@@ -32,13 +32,18 @@ interface AccountApi {
     @GET("/api/spend/{walletId}")
     suspend fun allSpend(
         @Path("walletId") walletId: Long
-    ): List<List<SpendResponseDto>>
+    ): List<List<SpendResponse>>
+
+    @GET("/api/spend/recent/remit/{memberId}")
+    suspend fun getRecentAccount(
+        @Path("memberId") memberId: String
+    ): List<AccountObject>
 
     @GET("/api/spend/{memberName}/{walletId}")
     suspend fun memberSpend(
         @Path("memberName") memberName: String,
         @Path("walletId") walletId: Long
-    ): List<SpendResponseDto>
+    ): List<SpendResponse>
 
     @GET("/api/spend/calculate/oneDay")
     suspend fun spendCalculateDay(
@@ -55,31 +60,31 @@ interface AccountApi {
     @POST("/api/wallet/management/{walletId}")
     suspend fun addMember(
         @Path("walletId") walletId: Long,
-        @Body fixMemberRequestDto: FixMemberRequestDto
-    ): StatusResponseDto
+        @Body fixMemberRequestDto: FixMemberRequest
+    ): StatusResponse
 
     @DELETE("/api/wallet/management/{walletId}")
     suspend fun deleteMember(
         @Path("walletId") walletId: Long,
-        @Body fixMemberRequestDto: FixMemberRequestDto
-    ): StatusResponseDto
+        @Body fixMemberRequestDto: FixMemberRequest
+    ): StatusResponse
 
     @PATCH("/api/wallet/management/remit")
     suspend fun remit(
-        @Body remitRequestDto: RemitRequestDto
-    ): StatusResponseDto
+        @Body remitRequestDto: RemitRequest
+    ): StatusResponse
 
     @PATCH("/api/wallet/management/makeZero")
     suspend fun makeZero(
-        @Body makeZeroRequestDto: MakeZeroRequestDto
-    ): StatusResponseDto
+        @Body makeZeroRequestDto: MakeZeroRequest
+    ): StatusResponse
 
 
     //Manager
     @PATCH("/api/manager/event")
     suspend fun event(
-        @Body eventRequestDto: EventRequestDto
-    ): StatusResponseDto
+        @Body eventRequestDto: EventRequest
+    ): StatusResponse
 
     //Member
     @GET("/api/member/search/{memberName}")
@@ -103,19 +108,18 @@ interface AccountApi {
     @POST("/api/noti/{walletId}")
     suspend fun requestAlarm(
         @Path("walletId") walletId: String,
-        @Body messageBodyRequestDto: MessageBodyRequestDto
-    ): StatusResponseDto
+        @Body messageBodyRequestDto: MessageBodyRequest
+    ): StatusResponse
 
     @POST("/api/noti/all")
     suspend fun requestAlarmAll(
-        @Body messageBodyRequestDto: MessageBodyRequestDto
-    ): StatusResponseDto
+        @Body messageBodyRequestDto: MessageBodyRequest
+    ): StatusResponse
 
     @GET("/api/noti/{memberId}")
     suspend fun checkAlarm(
         @Path("memberId") memberId: String
-    ): CheckAlarmDto
-
+    ): CheckAlarm
 
     //QR Code
     @GET("/api/QrCode/search/qr")
@@ -134,12 +138,12 @@ interface AccountApi {
     suspend fun generate(
         @Path("memberId") memberId: String,
         @Body accountName: String
-    ): Account
+    ): AccountObject
 
     @GET("/api/wallet/{walletId}")
     suspend fun getWallet(
         @Path("walletId") walletId: Long
-    ): WalletResponseDto
+    ): WalletResponse
 
     @GET("/api/wallet/search/accountNumber/{accountNumber}")
     suspend fun getAccount(
@@ -149,12 +153,12 @@ interface AccountApi {
     @GET("/api/wallet/search/{memberId}")
     suspend fun searchWallet(
         @Path("memberId") memberId: String
-    ): List<WalletResponseDto>
+    ): List<WalletResponse>
 
     @GET("/api/wallet/search/accountNumber/{accountNumber}")
     suspend fun getWallet(
         @Path("accountNumber") accountNumber: String
-    ): WalletResponseDto
+    ): WalletResponse
 
     @GET("/api/wallet/updatePicture/{walletId}")
     suspend fun updatePicture(
@@ -166,6 +170,6 @@ interface AccountApi {
     suspend fun deleteWallet(
         @Path("memberId") memberId: String,
         @Path("walletId") walletId: Long,
-    ): StatusResponseDto
+    ): StatusResponse
 
 }

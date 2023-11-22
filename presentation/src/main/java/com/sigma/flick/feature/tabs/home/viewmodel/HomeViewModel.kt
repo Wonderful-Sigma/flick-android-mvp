@@ -4,23 +4,24 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.sigma.data.network.dto.account.WalletResponse
+import com.sigma.data.repository.AccountRepository
 import com.sigma.flick.base.BaseViewModel
-import com.sigma.main.model.account.WalletResponseModel
-import com.sigma.main.repository.AccountRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel
-@Inject constructor(private val accountRepository: AccountRepository) : BaseViewModel() {
+class HomeViewModel @Inject constructor(
+    private val accountRepository: AccountRepository
+) : BaseViewModel() {
 
-    private val _accountPublic = MutableLiveData<MutableList<WalletResponseModel>>()
-    val accountPublic: LiveData<MutableList<WalletResponseModel>>
+    private val _accountPublic = MutableLiveData<MutableList<WalletResponse>>()
+    val accountPublic: LiveData<MutableList<WalletResponse>>
         get() = _accountPublic
 
-    private val _accountPersonal = MutableLiveData<WalletResponseModel>()
-    val accountPersonal: LiveData<WalletResponseModel>
+    private val _accountPersonal = MutableLiveData<WalletResponse>()
+    val accountPersonal: LiveData<WalletResponse>
         get() = _accountPersonal
 
 
@@ -38,7 +39,7 @@ class HomeViewModel
         }
     }
 
-    private fun division(data: List<WalletResponseModel>){
+    private fun division(data: List<WalletResponse>){
         data.map {
             if(it.accountType == "PUBLIC"){
                 accountPublic.value?.add(it)

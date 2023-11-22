@@ -19,11 +19,6 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_accountDetailFragment_to_collectionDetailFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
                             <entry key="action_accountDetailFragment_to_fragmentBankbookRecords">
                               <value>
                                 <LayoutPositions />
@@ -70,145 +65,6 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="collectionCompletionFragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="500" />
-                            <option name="y" value="2153" />
-                          </Point>
-                        </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="to_collectionDetailFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="collectionDetailFragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="744" />
-                            <option name="y" value="2127" />
-                          </Point>
-                        </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="action_collectionDetailFragment_to_homeFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="to_collectionSettingFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="to_collectionSettingSellFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="collectionInputNameFragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="256" />
-                            <option name="y" value="2153" />
-                          </Point>
-                        </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="to_collectionCompletionFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="collectionPeopleFragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="1232" />
-                            <option name="y" value="1814" />
-                          </Point>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="collectionSellFragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="1232" />
-                            <option name="y" value="2170" />
-                          </Point>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="collectionSettingFragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="988" />
-                            <option name="y" value="1814" />
-                          </Point>
-                        </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="to_collectionPeopleFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="collectionSettingSellFragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="988" />
-                            <option name="y" value="2170" />
-                          </Point>
-                        </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="to_collectionSellFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
                   <entry key="eventFragment">
                     <value>
                       <LayoutPositions>
@@ -217,6 +73,15 @@
                             <option name="x" value="500" />
                             <option name="y" value="1080" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="to_fragmentBankbookRecords">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -233,11 +98,6 @@
                         <option name="myPositions">
                           <map>
                             <entry key="action_fragmentBankbookRecords_to_sendWhereFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="to_myAccountSettingFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -263,22 +123,12 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_homeFragment_to_collectionDetailFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
                             <entry key="action_homeFragment_to_eventFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
                             </entry>
                             <entry key="action_homeFragment_to_fragmentBankbookRecords">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="action_homeFragment_to_spendFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -308,30 +158,23 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="myAccountSettingFragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="744" />
-                            <option name="y" value="12" />
-                          </Point>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
                   <entry key="sendCheckFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="1476" />
-                            <option name="y" value="368" />
+                            <option name="x" value="1596" />
+                            <option name="y" value="365" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
                             <entry key="action_sendCheckFragment_to_sendLoadFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_sendCheckFragment_to_sendLoadFragment2">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -346,8 +189,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="1964" />
-                            <option name="y" value="1215" />
+                            <option name="x" value="2080" />
+                            <option name="y" value="663" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -367,13 +210,13 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="1720" />
-                            <option name="y" value="368" />
+                            <option name="x" value="1858" />
+                            <option name="y" value="402" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="to_sendFinishFragment">
+                            <entry key="action_sendLoadFragment_to_sendFinishFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -441,7 +284,7 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_sendWhereInputFragment_to_sendPointFragment">
+                            <entry key="to_sendPointFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -458,18 +301,6 @@
                           <Point>
                             <option name="x" value="744" />
                             <option name="y" value="724" />
-                          </Point>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="spendFragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="500" />
-                            <option name="y" value="1440" />
                           </Point>
                         </option>
                       </LayoutPositions>

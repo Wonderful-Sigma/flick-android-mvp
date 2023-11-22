@@ -84,6 +84,10 @@ class SendWhereFragment : BaseFragment<FragmentSendWhereBinding, SendViewModel>(
 
             if (recentAccountList.isEmpty()) {
                 binding.tvRecentAccount.visibility = View.GONE
+                binding.tvNothingRecentAccount.visibility = View.VISIBLE
+            } else {
+                binding.tvRecentAccount.visibility = View.VISIBLE
+                binding.tvNothingRecentAccount.visibility = View.GONE
             }
         }
 

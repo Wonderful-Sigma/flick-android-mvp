@@ -16,8 +16,8 @@ android {
         applicationId = "com.sigma.flick"
         minSdk = 26
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 2
+        versionName = "0.0.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -46,7 +46,6 @@ android {
 dependencies {
 
     implementation(project(":data"))
-    implementation(project(":domain"))
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")

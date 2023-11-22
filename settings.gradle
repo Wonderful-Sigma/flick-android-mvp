@@ -16,4 +16,3 @@ dependencyResolutionManagement {
 rootProject.name = "Flick"
 include ':presentation'
 include ':data'
-include ':domain'
