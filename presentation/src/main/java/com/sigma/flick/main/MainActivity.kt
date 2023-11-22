@@ -33,8 +33,6 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
-    private lateinit var qrCodeClass: QRCode
-
     private lateinit var navController: NavController
 
 
@@ -48,6 +46,7 @@ class MainActivity : AppCompatActivity() {
             getFCMToken(it.id)
         }
 
+
         userViewModel.getUserInfo()
 
         val navHostFragment =
@@ -58,7 +57,6 @@ class MainActivity : AppCompatActivity() {
 
         userViewModel.myInfo.observe(this) {
             setQRCode()
-            qrCodeClass.setUserId()
             setBottomNavigation()
         }
     }
@@ -90,15 +88,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun setQRCode() {
         /** QR Code */
-        qrCodeClass = QRCode(userViewModel, this, this, this, layoutInflater)
+        val qrCodeClass = QRCode(userViewModel, this, this, this, layoutInflater)
 
         val bottomSheetDialog = BottomSheetDialog(this)
         bottomSheetDialog.setContentView(qrCodeClass.bottomSheetView)
 
         binding.bnv.menu.findItem(R.id.paymentFragment).setOnMenuItemClickListener {
-            qrCodeClass.generateQRCode()
             qrCodeClass.setQRCode()
             bottomSheetDialog.show()
+            qrCodeClass.generateQRCode()
             return@setOnMenuItemClickListener false
         }
     }
@@ -123,14 +121,6 @@ class MainActivity : AppCompatActivity() {
             } else {
                 binding.bnv.visibility = View.GONE
             }
-
-            if (destination.id == R.id.settingFragment) {
-                window.navigationBarColor = resources.getColor(R.color.activity_background)
-            } else {
-                window.navigationBarColor = resources.getColor(R.color.white)
-            }
-
-
         }
     }
 

@@ -5,7 +5,7 @@ import android.os.Looper
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.sigma.data.network.dto.account.AccountObject
+import com.sigma.data.network.dto.account.Account
 import com.sigma.flick.R
 import com.sigma.flick.base.BaseFragment
 import com.sigma.flick.databinding.FragmentBankbookDetailBinding
@@ -20,7 +20,7 @@ class BankbookDetailFragment : BaseFragment<FragmentBankbookDetailBinding, Bankb
     private val userViewModel: UserViewModel by activityViewModels()
 
     override fun start() {
-        var myInfo: AccountObject
+        var myInfo: Account
         var myCoin: Long
 
         userViewModel.myInfo.observe(viewLifecycleOwner) {

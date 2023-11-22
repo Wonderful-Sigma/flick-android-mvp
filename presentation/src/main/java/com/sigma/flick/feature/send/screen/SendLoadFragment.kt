@@ -1,21 +1,16 @@
 package com.sigma.flick.feature.send.screen
 
 import android.os.Handler
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.sigma.data.network.dto.account.RemitRequest
 import com.sigma.flick.R
 import com.sigma.flick.base.BaseFragment
 import com.sigma.flick.databinding.FragmentSendLoadBinding
 import com.sigma.flick.feature.send.viewmodel.SendViewModel
 import com.sigma.flick.feature.user.viewmodel.UserViewModel
 import com.sigma.flick.utils.setDeleteBottomNav
-import com.sigma.main.model.account.RemitRequestModel
 import kotlinx.coroutines.launch
 
 class SendLoadFragment :
@@ -35,7 +30,7 @@ class SendLoadFragment :
         val sendMoney = viewModel.sendCoin.value!!.toLong()
 
         lifecycleScope.launch{
-            viewModel.remit(RemitRequestModel(remittanceAccount, sendMoney, depositAccount)).join()
+            viewModel.remit(RemitRequest(remittanceAccount, sendMoney, depositAccount)).join()
             userViewModel.getUserInfo()
         }
 
@@ -47,14 +42,6 @@ class SendLoadFragment :
             val action = SendLoadFragmentDirections.toSendFinishFragment()
             findNavController().navigate(action)
         }, 1000L)
-
-        requireActivity()
-            .onBackPressedDispatcher
-            .addCallback(this, object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    /** 뒤로가기 막기 */
-                }
-            })
     }
 
 }

@@ -1,5 +1,6 @@
 package com.sigma.data.network.dto.account
 
+
 data class CreateWalletResponse (
     val id: Long,
     val number: String,

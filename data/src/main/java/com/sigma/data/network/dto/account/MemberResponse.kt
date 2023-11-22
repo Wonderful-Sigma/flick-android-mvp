@@ -1,7 +1,7 @@
 package com.sigma.data.network.dto.account
 
 
-data class MemberResponseDto(
+data class MemberResponse(
     val id: String,
     val studentNumber: String,
     val name: String,

@@ -1,22 +1,22 @@
 package com.sigma.data.network.api
 
-import com.sigma.data.network.dto.account.AccountResponseDto
-import com.sigma.data.network.dto.account.CheckAlarmDto
-import com.sigma.data.network.dto.account.FixMemberRequestDto
-import com.sigma.data.network.dto.account.EventRequestDto
-import com.sigma.data.network.dto.account.JwtResponseDto
-import com.sigma.data.network.dto.account.MakeZeroRequestDto
-import com.sigma.data.network.dto.account.SpendResponseDto
-import com.sigma.data.network.dto.account.RemitRequestDto
-import com.sigma.main.model.account.Account
-import com.sigma.data.network.dto.account.MemberResponseDto
-import com.sigma.data.network.dto.account.MemberSetFirebaseRequestDto
-import com.sigma.data.network.dto.account.MessageBodyRequestDto
-import com.sigma.data.network.dto.account.SpendCalculateRequestDto
-import com.sigma.data.network.dto.account.SpendCalculateResponseDto
-import com.sigma.data.network.dto.account.StatusResponseDto
-import com.sigma.data.network.dto.account.UpdatePictureRequestDto
-import com.sigma.data.network.dto.account.WalletResponseDto
+import com.sigma.data.network.dto.account.Account
+import com.sigma.data.network.dto.account.AccountResponse
+import com.sigma.data.network.dto.account.CheckAlarmResponse
+import com.sigma.data.network.dto.account.FixMemberRequest
+import com.sigma.data.network.dto.account.EventRequest
+import com.sigma.data.network.dto.account.JwtResponse
+import com.sigma.data.network.dto.account.MakeZeroRequest
+import com.sigma.data.network.dto.account.SpendResponse
+import com.sigma.data.network.dto.account.RemitRequest
+import com.sigma.data.network.dto.account.MemberResponse
+import com.sigma.data.network.dto.account.MemberSetFirebaseRequest
+import com.sigma.data.network.dto.account.MessageBodyRequest
+import com.sigma.data.network.dto.account.SpendCalculateRequest
+import com.sigma.data.network.dto.account.SpendCalculateResponse
+import com.sigma.data.network.dto.account.StatusResponse
+import com.sigma.data.network.dto.account.UpdatePictureRequest
+import com.sigma.data.network.dto.account.WalletResponse
 import retrofit2.http.Body
 import retrofit2.http.Path
 import retrofit2.http.Header
@@ -34,11 +34,6 @@ interface AccountApi {
         @Path("walletId") walletId: Long
     ): List<List<SpendResponse>>
 
-    @GET("/api/spend/recent/remit/{memberId}")
-    suspend fun getRecentAccount(
-        @Path("memberId") memberId: String
-    ): List<AccountObject>
-
     @GET("/api/spend/{memberName}/{walletId}")
     suspend fun memberSpend(
         @Path("memberName") memberName: String,
@@ -47,13 +42,13 @@ interface AccountApi {
 
     @GET("/api/spend/calculate/oneDay")
     suspend fun spendCalculateDay(
-        @Body spendCalculateRequestDto: SpendCalculateRequestDto
-    ): SpendCalculateResponseDto
+        @Body spendCalculateRequestDto: SpendCalculateRequest
+    ): SpendCalculateResponse
 
     @GET("/api/spend/calculate/oneMonth")
     suspend fun spendCalculateMonth(
-        @Body spendCalculateRequestDto: SpendCalculateRequestDto
-    ): SpendCalculateResponseDto
+        @Body spendCalculateRequestDto: SpendCalculateRequest
+    ): SpendCalculateResponse
 
 
     //Wallet Management
@@ -90,17 +85,17 @@ interface AccountApi {
     @GET("/api/member/search/{memberName}")
     suspend fun searchMember(
         @Path("memberName") memberName: String
-    ): List<MemberResponseDto>
+    ): List<MemberResponse>
 
     @GET("/api/member/member")
     suspend fun authorizationSearchMember(
         @Header("authorization") authorization: String
-    ): MemberResponseDto
+    ): MemberResponse
 
     @POST("/api/member/setFirebase/{memberId}")
     suspend fun setFirebaseToken(
         @Path("memberId") memberId: String,
-        @Body memberSetFirebaseRequestDto: MemberSetFirebaseRequestDto
+        @Body memberSetFirebaseRequestDto: MemberSetFirebaseRequest
     )
 
 
@@ -119,18 +114,19 @@ interface AccountApi {
     @GET("/api/noti/{memberId}")
     suspend fun checkAlarm(
         @Path("memberId") memberId: String
-    ): CheckAlarm
+    ): CheckAlarmResponse
+
 
     //QR Code
     @GET("/api/QrCode/search/qr")
     suspend fun encodingJwt(
         @Header("jwt") jwt: String
-    ): AccountResponseDto
+    ): AccountResponse
 
     @GET("/api/QrCode/approval/{walletId}")
     suspend fun createJwt(
         @Path("walletId") walletId: Long
-    ): JwtResponseDto
+    ): JwtResponse
 
 
     //Wallet
@@ -138,7 +134,7 @@ interface AccountApi {
     suspend fun generate(
         @Path("memberId") memberId: String,
         @Body accountName: String
-    ): AccountObject
+    ): Account
 
     @GET("/api/wallet/{walletId}")
     suspend fun getWallet(
@@ -163,8 +159,8 @@ interface AccountApi {
     @GET("/api/wallet/updatePicture/{walletId}")
     suspend fun updatePicture(
         @Path("walletId") walletId: String,
-        @Body updatePicture: UpdatePictureRequestDto
-    ): StatusResponseDto
+        @Body updatePicture: UpdatePictureRequest
+    ): StatusResponse
 
     @DELETE("/api/wallet/{memberId}/{walletId}")
     suspend fun deleteWallet(

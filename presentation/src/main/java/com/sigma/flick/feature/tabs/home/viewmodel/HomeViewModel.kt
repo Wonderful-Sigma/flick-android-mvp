@@ -4,17 +4,16 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.sigma.data.network.api.AccountApi
 import com.sigma.data.network.dto.account.WalletResponse
-import com.sigma.data.repository.AccountRepository
 import com.sigma.flick.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(
-    private val accountRepository: AccountRepository
-) : BaseViewModel() {
+class HomeViewModel
+@Inject constructor(private val accountApi: AccountApi) : BaseViewModel() {
 
     private val _accountPublic = MutableLiveData<MutableList<WalletResponse>>()
     val accountPublic: LiveData<MutableList<WalletResponse>>
@@ -29,7 +28,7 @@ class HomeViewModel @Inject constructor(
     fun searchWallet(memberId: String) {
         viewModelScope.launch {
             kotlin.runCatching {
-                accountRepository.searchWallet(memberId)
+                accountApi.searchWallet(memberId)
             }.onSuccess {
                 division(it)
                 Log.d(TAG, "searchWallet: $it")

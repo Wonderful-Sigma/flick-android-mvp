@@ -11,4 +11,3 @@ data class WalletResponse(
     val fileUrl: String?,
     val memberList: List<String>
 )
-   // val spendLists: List<Account>

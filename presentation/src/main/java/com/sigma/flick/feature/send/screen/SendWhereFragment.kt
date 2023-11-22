@@ -9,13 +9,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.sigma.flick.R
 import com.sigma.flick.base.BaseFragment
 import com.sigma.flick.databinding.FragmentSendWhereBinding
-import com.sigma.flick.feature.send.recyclerview.my.MyAccount
-import com.sigma.flick.feature.send.recyclerview.my.MyAccountAdapter
 import com.sigma.flick.feature.send.recyclerview.recent.RecentAccount
 import com.sigma.flick.feature.send.recyclerview.recent.RecentAccountAdapter
 import com.sigma.flick.feature.send.viewmodel.SendViewModel
 import com.sigma.flick.feature.user.viewmodel.UserViewModel
-import com.sigma.flick.utils.fadeIn
 import com.sigma.flick.utils.setDeleteBottomNav
 import com.sigma.flick.utils.setPopBackStack
 import com.sigma.flick.utils.setStatusBarColorWhite
@@ -84,10 +81,6 @@ class SendWhereFragment : BaseFragment<FragmentSendWhereBinding, SendViewModel>(
 
             if (recentAccountList.isEmpty()) {
                 binding.tvRecentAccount.visibility = View.GONE
-                binding.tvNothingRecentAccount.visibility = View.VISIBLE
-            } else {
-                binding.tvRecentAccount.visibility = View.VISIBLE
-                binding.tvNothingRecentAccount.visibility = View.GONE
             }
         }
 

@@ -1,5 +1,5 @@
 package com.sigma.data.network.dto.qrcode
 
-data class JWTGenerateResponseDto(
+data class JWTGenerateResponse(
     val qrJwt: String
 )

@@ -1,5 +1,5 @@
 package com.sigma.data.network.dto.account
 
-data class UpdatePictureRequestDto(
+data class UpdatePictureRequest(
     val pictureIndex: Int
 )

@@ -13,7 +13,7 @@ class DetailedRecordsItemDecoration: RecyclerView.ItemDecoration() {
         state: RecyclerView.State
     ) {
         super.getItemOffsets(outRect, view, parent, state)
-        outRect.top = 40
-        outRect.bottom = 40
+        outRect.top = 30
+        outRect.bottom = 30
     }
 }
