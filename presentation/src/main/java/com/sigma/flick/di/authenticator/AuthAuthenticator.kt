@@ -2,7 +2,7 @@ package com.sigma.flick.di.authenticator
 
 import android.util.Log
 import com.google.gson.GsonBuilder
-import com.sigma.data.network.api.MemberApi
+import com.sigma.data.network.api.UserApi
 import com.sigma.flick.utils.BASE_URL
 import com.sigma.flick.utils.HiltApplication
 import kotlinx.coroutines.runBlocking
@@ -37,7 +37,7 @@ class AuthAuthenticator: Authenticator {
         }
     }
 
-    private fun createMemberApi(): MemberApi {
+    private fun createMemberApi(): UserApi {
         val okHttpClient = OkHttpClient().newBuilder()
             .connectTimeout(60, TimeUnit.SECONDS)
             .readTimeout(60, TimeUnit.SECONDS)
@@ -52,8 +52,6 @@ class AuthAuthenticator: Authenticator {
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(okHttpClient)
             .build()
-
-        return retrofit.create(MemberApi::class.java)
+        return retrofit.create(UserApi::class.java)
     }
-
 }

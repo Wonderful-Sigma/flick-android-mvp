@@ -1,25 +1,30 @@
 package com.sigma.data.network.api
 
-import com.sigma.data.network.dto.account.Account
-import com.sigma.data.network.dto.account.AccountObject
-import com.sigma.data.network.dto.account.CheckAlarm
-import com.sigma.data.network.dto.account.FixMemberRequest
-import com.sigma.data.network.dto.account.EventRequest
-import com.sigma.data.network.dto.account.MakeZeroRequest
-import com.sigma.data.network.dto.account.SpendResponse
-import com.sigma.data.network.dto.account.RemitRequest
-import retrofit2.http.Body
-import retrofit2.http.GET
+import com.sigma.data.network.dto.account.AccountResponseDto
+import com.sigma.data.network.dto.account.CheckAlarmDto
+import com.sigma.data.network.dto.account.FixMemberRequestDto
+import com.sigma.data.network.dto.account.EventRequestDto
+import com.sigma.data.network.dto.account.JwtResponseDto
+import com.sigma.data.network.dto.account.MakeZeroRequestDto
+import com.sigma.data.network.dto.account.SpendResponseDto
+import com.sigma.data.network.dto.account.RemitRequestDto
+import com.sigma.main.model.account.Account
 import com.sigma.data.network.dto.account.MemberResponseDto
-import com.sigma.data.network.dto.account.MessageBodyRequest
-import com.sigma.data.network.dto.account.SpendCalculateRequest
-import com.sigma.data.network.dto.account.StatusResponse
-import com.sigma.data.network.dto.account.WalletResponse
-import retrofit2.http.DELETE
+import com.sigma.data.network.dto.account.MemberSetFirebaseRequestDto
+import com.sigma.data.network.dto.account.MessageBodyRequestDto
+import com.sigma.data.network.dto.account.SpendCalculateRequestDto
+import com.sigma.data.network.dto.account.SpendCalculateResponseDto
+import com.sigma.data.network.dto.account.StatusResponseDto
+import com.sigma.data.network.dto.account.UpdatePictureRequestDto
+import com.sigma.data.network.dto.account.WalletResponseDto
+import retrofit2.http.Body
+import retrofit2.http.Path
 import retrofit2.http.Header
+import retrofit2.http.GET
+import retrofit2.http.DELETE
 import retrofit2.http.PATCH
 import retrofit2.http.POST
-import retrofit2.http.Path
+
 
 interface AccountApi {
 
@@ -40,24 +45,25 @@ interface AccountApi {
         @Path("walletId") walletId: Long
     ): List<SpendResponse>
 
-    @GET("/api/spend/calculate")
-    suspend fun spendCalculate(
-        @Body spendCalculateRequestDto: SpendCalculateRequest
-    ): StatusResponse
+    @GET("/api/spend/calculate/oneDay")
+    suspend fun spendCalculateDay(
+        @Body spendCalculateRequestDto: SpendCalculateRequestDto
+    ): SpendCalculateResponseDto
 
-
-
-
+    @GET("/api/spend/calculate/oneMonth")
+    suspend fun spendCalculateMonth(
+        @Body spendCalculateRequestDto: SpendCalculateRequestDto
+    ): SpendCalculateResponseDto
 
 
     //Wallet Management
-    @POST("/api/{walletId}")
+    @POST("/api/wallet/management/{walletId}")
     suspend fun addMember(
         @Path("walletId") walletId: Long,
         @Body fixMemberRequestDto: FixMemberRequest
     ): StatusResponse
 
-    @DELETE("/api/{walletId}")
+    @DELETE("/api/wallet/management/{walletId}")
     suspend fun deleteMember(
         @Path("walletId") walletId: Long,
         @Body fixMemberRequestDto: FixMemberRequest
@@ -68,7 +74,7 @@ interface AccountApi {
         @Body remitRequestDto: RemitRequest
     ): StatusResponse
 
-    @PATCH("/api/makeZero")
+    @PATCH("/api/wallet/management/makeZero")
     suspend fun makeZero(
         @Body makeZeroRequestDto: MakeZeroRequest
     ): StatusResponse
@@ -81,15 +87,21 @@ interface AccountApi {
     ): StatusResponse
 
     //Member
-    @GET("/api/search/{memberName}")
+    @GET("/api/member/search/{memberName}")
     suspend fun searchMember(
         @Path("memberName") memberName: String
     ): List<MemberResponseDto>
 
-    @GET("/api/member")
+    @GET("/api/member/member")
     suspend fun authorizationSearchMember(
         @Header("authorization") authorization: String
     ): MemberResponseDto
+
+    @POST("/api/member/setFirebase/{memberId}")
+    suspend fun setFirebaseToken(
+        @Path("memberId") memberId: String,
+        @Body memberSetFirebaseRequestDto: MemberSetFirebaseRequestDto
+    )
 
 
     //Alarm
@@ -109,6 +121,16 @@ interface AccountApi {
         @Path("memberId") memberId: String
     ): CheckAlarm
 
+    //QR Code
+    @GET("/api/QrCode/search/qr")
+    suspend fun encodingJwt(
+        @Header("jwt") jwt: String
+    ): AccountResponseDto
+
+    @GET("/api/QrCode/approval/{walletId}")
+    suspend fun createJwt(
+        @Path("walletId") walletId: Long
+    ): JwtResponseDto
 
 
     //Wallet
@@ -118,16 +140,15 @@ interface AccountApi {
         @Body accountName: String
     ): AccountObject
 
-    @GET("/api/wallet/search/accountNumber/{accountNumber}")
-    suspend fun getAccount(
-        @Path("accountNumber") accountNumber: String
-    ): AccountObject
-
     @GET("/api/wallet/{walletId}")
     suspend fun getWallet(
         @Path("walletId") walletId: Long
     ): WalletResponse
 
+    @GET("/api/wallet/search/accountNumber/{accountNumber}")
+    suspend fun getAccount(
+        @Path("accountNumber") accountNumber: String
+    ): Account
 
     @GET("/api/wallet/search/{memberId}")
     suspend fun searchWallet(
@@ -138,6 +159,12 @@ interface AccountApi {
     suspend fun getWallet(
         @Path("accountNumber") accountNumber: String
     ): WalletResponse
+
+    @GET("/api/wallet/updatePicture/{walletId}")
+    suspend fun updatePicture(
+        @Path("walletId") walletId: String,
+        @Body updatePicture: UpdatePictureRequestDto
+    ): StatusResponseDto
 
     @DELETE("/api/wallet/{memberId}/{walletId}")
     suspend fun deleteWallet(

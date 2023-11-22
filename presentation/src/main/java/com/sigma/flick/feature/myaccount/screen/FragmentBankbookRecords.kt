@@ -124,7 +124,7 @@ class FragmentBankbookRecords : BaseFragment<FragmentBankbookRecordsBinding, Ban
         return decimalFormat.format(number)+"코인"
     }
 
-    fun isoToDate(isoString: String): String {
+    private fun isoToDate(isoString: String): String {
         val formatter = DateTimeFormatter.ISO_DATE_TIME
         val dateTime = LocalDateTime.parse(isoString, formatter)
         return dateTime.format(DateTimeFormatter.ofPattern("MM월 dd일"))

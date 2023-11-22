@@ -1,10 +1,12 @@
 package com.sigma.flick.di.module
 
+import com.sigma.flick.di.authenticator.AuthAuthenticator
 import com.google.gson.GsonBuilder
 import com.sigma.data.network.api.AccountApi
 import com.sigma.data.network.api.MemberApi
 import com.sigma.data.network.api.QRCodeApi
-import com.sigma.flick.di.authenticator.AuthAuthenticator
+import com.sigma.data.network.api.SpendListApi
+import com.sigma.data.network.api.UserApi
 import com.sigma.flick.utils.BASE_URL
 import com.sigma.flick.utils.HiltApplication
 import dagger.Module
@@ -69,11 +71,15 @@ class NetworkModule {
         okHttpClientBuilder.addInterceptor(loggerInterceptor)
         okHttpClientBuilder.addInterceptor(headerInterceptor)
         okHttpClientBuilder.authenticator(authAuthenticator)
-
         return okHttpClientBuilder.build()
     }
     @Singleton
     @Provides
+    fun provideAuthAuthenticator(): AuthAuthenticator =
+        AuthAuthenticator()
+
+    @Provides
+    @Singleton
     fun provideAuthAuthenticator(): AuthAuthenticator =
         AuthAuthenticator()
 

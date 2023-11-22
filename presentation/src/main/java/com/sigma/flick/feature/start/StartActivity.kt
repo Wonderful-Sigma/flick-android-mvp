@@ -1,10 +1,8 @@
 package com.sigma.flick.feature.start
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import com.sigma.flick.R
 import com.sigma.flick.base.BaseActivity
@@ -13,7 +11,6 @@ import com.sigma.flick.main.MainActivity
 import com.sigma.flick.utils.HiltApplication
 import com.sigma.flick.utils.clientId
 import com.sigma.flick.utils.clientSecret
-import com.sigma.flick.utils.onButtonClick
 import com.sigma.flick.utils.redirectUrl
 import com.sigma.flick.utils.setStatusBarColorWhite
 import dagger.hilt.android.AndroidEntryPoint

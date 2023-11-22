@@ -3,19 +3,16 @@ package com.sigma.flick.feature.tabs.home
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.room.util.query
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.firebase.messaging.FirebaseMessaging
 import com.sigma.flick.R
 import com.sigma.flick.base.BaseFragment
 import com.sigma.flick.databinding.FragmentHomeBinding
 import com.sigma.flick.feature.tabs.home.viewmodel.HomeViewModel
-import com.sigma.flick.main.MainActivity
 import com.sigma.flick.feature.user.viewmodel.UserViewModel
 import com.sigma.flick.feature.qrcode.QRCode
 import com.sigma.flick.utils.setStatusBarColorBackground
@@ -23,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.text.DecimalFormat
 
 @AndroidEntryPoint
-class HomeFragment: BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.fragment_home) {
+class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.fragment_home) {
 
     override val viewModel: HomeViewModel by viewModels()
     val userViewModel: UserViewModel by activityViewModels()
@@ -47,7 +44,7 @@ class HomeFragment: BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.fr
             Handler(Looper.getMainLooper()).postDelayed({
                 userViewModel.getUserInfo()
                 binding.home.isRefreshing = false
-            },1000)
+            }, 1000)
         }
     }
 
@@ -58,10 +55,15 @@ class HomeFragment: BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.fr
             binding.tvMyCoin.text = getDecimalFormat(myAccount.money)
             qrCodeClass.setUserId()
         }
+        val myAccount: Account? = userViewModel.myInfo.value?.account?.get(0)
+        if (myAccount != null) {
+            binding.tvMyAccount.text = myAccount.name
+            binding.tvMyCoin.text = getDecimalFormat(myAccount.money)
+        }
     }
 
     private fun setNavigation() {
-        with(binding){
+        with(binding) {
             btnSend.setOnClickListener { findNavController().navigate(R.id.to_sendWhereFragment) }
             linearMyAccount.setOnClickListener { findNavController().navigate(R.id.action_homeFragment_to_fragmentBankbookRecords) }
             bankbookButton.setOnClickListener { findNavController().navigate(R.id.to_accountDetailFragment) }
@@ -72,7 +74,8 @@ class HomeFragment: BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.fr
     }
 
     private fun showQRCode(context: Context) {
-        qrCodeClass = QRCode(userViewModel, context, viewLifecycleOwner, this@HomeFragment, layoutInflater)
+        val qrCodeClass =
+            QRCode(userViewModel, context, viewLifecycleOwner, this@HomeFragment, layoutInflater)
 
         val bottomSheetDialog = BottomSheetDialog(requireContext())
         bottomSheetDialog.setContentView(qrCodeClass.bottomSheetView)
@@ -86,7 +89,7 @@ class HomeFragment: BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.fr
 
     private fun getDecimalFormat(number: Long): String {
         val decimalFormat = DecimalFormat("#,###")
-        return decimalFormat.format(number)+"코인"
+        return decimalFormat.format(number) + "코인"
     }
 
     companion object {

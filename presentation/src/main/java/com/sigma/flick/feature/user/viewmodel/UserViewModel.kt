@@ -10,6 +10,12 @@ import com.sigma.data.repository.AccountRepository
 import com.sigma.data.repository.MemberRepository
 import com.sigma.data.repository.QRCodeRepository
 import com.sigma.flick.base.BaseViewModel
+import com.sigma.main.model.account.Account
+import com.sigma.main.model.account.MemberSetFirebaseRequestModel
+import com.sigma.main.model.user.UserResponseModel
+import com.sigma.main.repository.QRCodeRepository
+import com.sigma.main.repository.AccountRepository
+import com.sigma.main.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -29,7 +35,6 @@ class UserViewModel @Inject constructor(
     private var _jwt = MutableLiveData<String>()
     val jwt: LiveData<String> = _jwt
 
-//    var collectionData: MutableList<ItemGroupBankBookData> = mutableListOf()
 
     fun getUserInfo() = viewModelScope.launch {
         kotlin.runCatching {
@@ -41,8 +46,8 @@ class UserViewModel @Inject constructor(
             Log.d(TAG, "getUser Failed..:  $e")
         }
     }
-    
-     fun generateJwt(walletId: Long) = viewModelScope.launch {
+
+    fun generateJwt(walletId: Long) = viewModelScope.launch {
         kotlin.runCatching {
             qrCodeRepository.generateJwt(walletId)
         }.onSuccess {
@@ -52,7 +57,7 @@ class UserViewModel @Inject constructor(
             Log.d(TAG, "generateJwt: failed.. $e")
         }
     }
-    
+
     fun getAccount(accountNumber: String) = viewModelScope.launch {
         kotlin.runCatching {
             accountRepository.getAccount(accountNumber)
@@ -61,6 +66,17 @@ class UserViewModel @Inject constructor(
             _accountData.value = it
         }.onFailure { e ->
             Log.d(TAG, "getAccount Failed..:  $e")
+        }
+    }
+
+    fun getFCMToken(token: String, uuid: String) = viewModelScope.launch {
+        kotlin.runCatching {
+            accountRepository.setFirebaseToken(uuid, MemberSetFirebaseRequestModel(token))
+        }.onSuccess {
+            Log.d(TAG, "getFCMToken Success!!: $it")
+        }.onFailure { e ->
+            Log.d("정보", "token: $token uuid: $uuid")
+            Log.d(TAG, "getFCMToken Failed..:  $e")
         }
     }
 
