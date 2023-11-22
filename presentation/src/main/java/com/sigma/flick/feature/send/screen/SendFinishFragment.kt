@@ -10,6 +10,7 @@ import com.sigma.flick.R
 import com.sigma.flick.base.BaseFragment
 import com.sigma.flick.databinding.FragmentSendFinishBinding
 import com.sigma.flick.feature.send.viewmodel.SendViewModel
+import com.sigma.flick.feature.user.viewmodel.UserViewModel
 import com.sigma.flick.utils.fadeIn
 import com.sigma.flick.utils.setDeleteBottomNav
 import com.sigma.flick.utils.slideUpAndFadeIn
@@ -19,15 +20,16 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 @AndroidEntryPoint
-class SendFinishFragment : BaseFragment<FragmentSendFinishBinding, SendViewModel>(R.layout.fragment_send_finish) {
+class SendFinishFragment :
+    BaseFragment<FragmentSendFinishBinding, SendViewModel>(R.layout.fragment_send_finish) {
 
     override val viewModel: SendViewModel by activityViewModels()
+    private val userViewModel: UserViewModel by activityViewModels()
 
     private lateinit var context: Context
 
     override fun start() {
         setDeleteBottomNav(activity)
-
         context = requireContext()
 
         val accountName = viewModel.depositAccountName.value
@@ -36,7 +38,6 @@ class SendFinishFragment : BaseFragment<FragmentSendFinishBinding, SendViewModel
         val tvFinishTitle = binding.tvFinishTitle
         tvFinishTitle.text = "${accountName}님에게\n${sendCoin}코인을 보낼게요"
         tvFinishTitle.slideUpAndFadeIn(context)
-
 
         runBlocking {
             lifecycleScope.launch {
@@ -47,7 +48,13 @@ class SendFinishFragment : BaseFragment<FragmentSendFinishBinding, SendViewModel
                 viewModel.sendState.collect {
                     if (it.isSuccess) {
                         val accountId = viewModel.depositAccountId.value
-                        viewModel.postAlarm(accountId.toString(), MessageBodyRequest("title","body"))
+                        viewModel.postAlarm(
+                            accountId.toString(),
+                            MessageBodyRequest(
+                                "코인을 받았습니다",
+                                userViewModel.myInfo.value!!.name + "에게 ${sendCoin}코인을 받았습니다"
+                            )
+                        )
                         tvFinishTitle.text = "${accountName}님에게\n${sendCoin}코인을 보냈어요"
                     }
                     if (it.error.isNotEmpty()) {
@@ -58,9 +65,6 @@ class SendFinishFragment : BaseFragment<FragmentSendFinishBinding, SendViewModel
                 }
             }
         }
-
-
-
 
         binding.btnComplete.fadeIn(context)
 
