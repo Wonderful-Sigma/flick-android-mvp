@@ -2,6 +2,7 @@ package com.sigma.flick.feature.qrcode
 
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.text.format.DateUtils.formatElapsedTime
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -25,6 +26,7 @@ import com.github.alexzhirkevich.customqrgenerator.vector.style.QrVectorPixelSha
 import com.sigma.data.network.dto.account.Account
 import com.sigma.flick.R
 import com.sigma.flick.feature.user.viewmodel.UserViewModel
+import com.sigma.flick.main.toDecimalFormat
 import kotlin.properties.Delegates
 
 class QRCode(
@@ -80,7 +82,7 @@ class QRCode(
     /** Observe Data */
 
     private fun observeMyCoin() {
-        myCoin.text = myAccount.money.toString() + "코인"
+        myCoin.text = myAccount.money.toDecimalFormat()
     }
 
     private fun observeJwt() {
@@ -104,7 +106,7 @@ class QRCode(
     private fun observeQRCode(lifecycleOwner: LifecycleOwner) {
         with(qrViewModel) {
             currentTime.observe(lifecycleOwner) { currentTime ->
-                tvLeftTime.text = android.text.format.DateUtils.formatElapsedTime(currentTime).slice(3..4) + "초"
+                tvLeftTime.text = formatElapsedTime(currentTime).slice(3..4) + "초"
             }
             qrValidityFinish.observe(lifecycleOwner) { isFinished ->
                 if (isFinished) {
@@ -128,7 +130,7 @@ class QRCode(
     private fun settingOptions(
         context: Context,
     ): QrVectorOptions {
-        val myOptions = createQrVectorOptions { // todo : qr code size 키우는 법 없나...
+        val myOptions = createQrVectorOptions {
             padding = .10f
 
             logo {

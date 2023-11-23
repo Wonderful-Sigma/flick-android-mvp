@@ -139,7 +139,9 @@ class SendViewModel @Inject constructor(
     }
 
     fun plusCoin(number: String) {
-        _sendCoin.value = sendCoin.value + number
+        if (sendCoin.value.toString().length < 9) {
+            _sendCoin.value = sendCoin.value + number
+        }
     }
 
     fun backSpaceCoin() {
