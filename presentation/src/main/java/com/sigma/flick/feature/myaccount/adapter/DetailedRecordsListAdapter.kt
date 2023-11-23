@@ -1,5 +1,6 @@
 package com.sigma.flick.feature.myaccount.adapter
 
+import android.graphics.Color.parseColor
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +16,9 @@ class DetailedRecordsListAdapter: BaseListAdapter<DetailedData, ItemDetailedReco
         binding.date.text = data.time
         binding.coin.text = data.changedMoney
         binding.currentMoney.text = data.currentMoney
-        binding.profileIcon.setImageResource(data.profileIcon)
+        if(data.changedMoney > "0")
+            binding.coin.setTextColor(parseColor("#FF5B73FF"))
+//        binding.profileIcon.setImageResource(data.profileIcon)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
