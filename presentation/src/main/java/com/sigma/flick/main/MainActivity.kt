@@ -23,6 +23,7 @@ import com.sigma.flick.feature.qrcode.QRCode
 import com.sigma.flick.feature.user.viewmodel.UserViewModel
 import com.sigma.flick.utils.setStatusBarColorBackground
 import com.sigma.flick.utils.setStatusBarColorWhite
+import java.text.DecimalFormat
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -128,4 +129,16 @@ class MainActivity : AppCompatActivity() {
         private const val TAG = "MainActivity"
     }
 
+}
+fun Long.toDecimalFormat(): String {
+    val decimalFormat = DecimalFormat("#,###")
+    return decimalFormat.format(this) + "코인"
+}
+fun String.toDecimalFormat(): String {
+    return try{
+        val decimalFormat = DecimalFormat("#,###")
+        decimalFormat.format(this.toLong())
+    } catch (e: Exception){
+        ""
+    }
 }

@@ -8,7 +8,7 @@ import com.sigma.flick.base.BaseFragment
 import com.sigma.flick.databinding.FragmentEventBinding
 import com.sigma.flick.feature.tabs.event.viewmodel.EventViewModel
 import com.sigma.flick.feature.user.viewmodel.UserViewModel
-import java.text.DecimalFormat
+import com.sigma.flick.main.toDecimalFormat
 
 class EventFragment : BaseFragment<FragmentEventBinding, EventViewModel>(R.layout.fragment_event) {
 
@@ -22,12 +22,7 @@ class EventFragment : BaseFragment<FragmentEventBinding, EventViewModel>(R.layou
 
         userViewModel.myInfo.observe(viewLifecycleOwner) { myInfo ->
             val myAccount = myInfo?.account!![0]
-            binding.tvMyCoin.text = getDecimalFormat(myAccount.money)
+            binding.tvMyCoin.text = myAccount.money.toDecimalFormat()
         }
-    }
-
-    private fun getDecimalFormat(number: Long): String {
-        val decimalFormat = DecimalFormat("#,###")
-        return decimalFormat.format(number)+"코인"
     }
 }

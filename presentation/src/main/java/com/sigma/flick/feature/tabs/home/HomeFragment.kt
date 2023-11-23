@@ -15,9 +15,9 @@ import com.sigma.flick.databinding.FragmentHomeBinding
 import com.sigma.flick.feature.tabs.home.viewmodel.HomeViewModel
 import com.sigma.flick.feature.user.viewmodel.UserViewModel
 import com.sigma.flick.feature.qrcode.QRCode
+import com.sigma.flick.main.toDecimalFormat
 import com.sigma.flick.utils.setStatusBarColorBackground
 import dagger.hilt.android.AndroidEntryPoint
-import java.text.DecimalFormat
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.fragment_home) {
@@ -51,12 +51,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
         userViewModel.myInfo.observe(viewLifecycleOwner) { myInfo ->
             val myAccount = myInfo?.account!![0]
             binding.tvMyAccount.text = myAccount.name
-            binding.tvMyCoin.text = getDecimalFormat(myAccount.money)
+            binding.tvMyCoin.text = myAccount.money.toDecimalFormat()
         }
         val myAccount: Account? = userViewModel.myInfo.value?.account?.get(0)
         if (myAccount != null) {
             binding.tvMyAccount.text = myAccount.name
-            binding.tvMyCoin.text = getDecimalFormat(myAccount.money)
+            binding.tvMyCoin.text = myAccount.money.toDecimalFormat()
         }
     }
 
@@ -83,11 +83,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
             bottomSheetDialog.show()
             qrCodeClass.generateQRCode()
         }
-    }
-
-    private fun getDecimalFormat(number: Long): String {
-        val decimalFormat = DecimalFormat("#,###")
-        return decimalFormat.format(number) + "코인"
     }
 
     companion object {

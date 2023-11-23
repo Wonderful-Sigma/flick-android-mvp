@@ -12,6 +12,7 @@ import com.sigma.flick.base.BaseFragment
 import com.sigma.flick.databinding.FragmentSendPointBinding
 import com.sigma.flick.feature.send.viewmodel.SendViewModel
 import com.sigma.flick.feature.user.viewmodel.UserViewModel
+import com.sigma.flick.main.toDecimalFormat
 import com.sigma.flick.utils.setDeleteBottomNav
 import com.sigma.flick.utils.setPopBackStack
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,7 +20,8 @@ import kotlinx.coroutines.launch
 import kotlin.properties.Delegates
 
 @AndroidEntryPoint
-class SendPointFragment : BaseFragment<FragmentSendPointBinding, SendViewModel>(R.layout.fragment_send_point) {
+class SendPointFragment :
+    BaseFragment<FragmentSendPointBinding, SendViewModel>(R.layout.fragment_send_point) {
 
     override val viewModel: SendViewModel by activityViewModels()
     private val userViewModel: UserViewModel by activityViewModels()
@@ -36,7 +38,7 @@ class SendPointFragment : BaseFragment<FragmentSendPointBinding, SendViewModel>(
         viewModel.setCoin("")
 
         myLeftCoin = userViewModel.myInfo.value!!.account[0].money
-        binding.tvMyLeftPoint.text = "잔액 " + myLeftCoin.toString() + "코인"
+        binding.tvMyLeftPoint.text = "잔액 " + myLeftCoin.toDecimalFormat()
 
         context = requireContext()
         viewModel.setSendCoinIsFilledToFalse(false)
@@ -80,12 +82,12 @@ class SendPointFragment : BaseFragment<FragmentSendPointBinding, SendViewModel>(
                 btnEight.setOnClickListener { plusCoin("8") }
                 btnNine.setOnClickListener { plusCoin("9") }
                 btnDoubleZero.setOnClickListener {
-                    if ((sendCoin.value!!.isNotEmpty()) && (sendCoin.value.toString()[0] != '0'))     {
+                    if ((sendCoin.value!!.isNotEmpty()) && (sendCoin.value.toString()[0] != '0')) {
                         plusCoin("00")
                     }
                 }
                 btnZero.setOnClickListener {
-                    if ((sendCoin.value!!.isNotEmpty()) && (sendCoin.value.toString()[0] != '0'))     {
+                    if ((sendCoin.value!!.isNotEmpty()) && (sendCoin.value.toString()[0] != '0')) {
                         plusCoin("0")
                     }
                 }
@@ -93,11 +95,12 @@ class SendPointFragment : BaseFragment<FragmentSendPointBinding, SendViewModel>(
             }
         }
     }
+
     private fun observingSendCoin() {
         viewModel.apply {
             binding.apply {
                 sendCoin.observe(viewLifecycleOwner) { sendCoin ->
-                    tvSendCoin.text = sendCoin
+                    tvSendCoin.text = sendCoin.toDecimalFormat()
                     val sendCoinToInt: Int
 
                     if (sendCoin.isNotEmpty()) {
@@ -116,13 +119,14 @@ class SendPointFragment : BaseFragment<FragmentSendPointBinding, SendViewModel>(
 
     private fun controlSendCoin(sendCoinToInt: Int) {
         if (sendCoinToInt > myLeftCoin) {
-            binding.btnDecide.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.blue_100))
-            binding.tvWarning.text = "잔액이 " + myLeftCoin + "코인이에요."
+            binding.btnDecide.backgroundTintList =
+                ColorStateList.valueOf(resources.getColor(R.color.blue_100))
+            binding.tvWarning.text = "잔액이 " + myLeftCoin.toDecimalFormat() + "이에요."
             binding.tvWarning.visibility = View.VISIBLE
             setEnabledAllButtons(false)
-        }
-        else {
-            binding.btnDecide.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.blue_400))
+        } else {
+            binding.btnDecide.backgroundTintList =
+                ColorStateList.valueOf(resources.getColor(R.color.blue_400))
             binding.tvWarning.visibility = View.INVISIBLE
             setEnabledAllButtons(true)
         }
