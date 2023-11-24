@@ -133,32 +133,24 @@ class QRCode(
         val myOptions = createQrVectorOptions {
             padding = .10f
 
-            logo {
-                drawable = ContextCompat
-                    .getDrawable(context, R.drawable.ic_flick_gray_png) // todo : 이미지 바꾸기
-                size = .25f
-                padding = QrVectorLogoPadding.Natural(.2f)
-                shape = QrVectorLogoShape
-                    .Circle
-            }
             colors {
                 dark = QrVectorColor.Solid(
-                    ContextCompat.getColor(context, R.color.sub_title)
+                    ContextCompat.getColor(context, R.color.light_black)
                 ) // 가장 작은 점?
                 ball = QrVectorColor.Solid(
-                    ContextCompat.getColor(context, R.color.sub_title)
+                    ContextCompat.getColor(context, R.color.light_black)
                 ) // 네모 안에 있는 사각형
                 frame = QrVectorColor.Solid(
-                    ContextCompat.getColor(context, R.color.sub_title)
+                    ContextCompat.getColor(context, R.color.light_black)
                 ) // 큰 네모
             }
             shapes {
                 darkPixel = QrVectorPixelShape
-                    .RoundCorners(.5f)
+                    .RoundCorners(.0f)
                 ball = QrVectorBallShape
-                    .RoundCorners(.35f)
+                    .RoundCorners(.0f)
                 frame = QrVectorFrameShape
-                    .RoundCorners(.35f)
+                    .RoundCorners(.0f)
             }
         }
         return myOptions
