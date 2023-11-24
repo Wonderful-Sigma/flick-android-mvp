@@ -24,7 +24,8 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 @AndroidEntryPoint
-class FragmentBankbookRecords : BaseFragment<FragmentBankbookRecordsBinding, BankbookRecordsViewModel>(R.layout.fragment_bankbook_records) {
+class FragmentBankbookRecords :
+    BaseFragment<FragmentBankbookRecordsBinding, BankbookRecordsViewModel>(R.layout.fragment_bankbook_records) {
 
     override val viewModel: BankbookRecordsViewModel by activityViewModels()
     private val userViewModel: UserViewModel by activityViewModels()
@@ -73,21 +74,32 @@ class FragmentBankbookRecords : BaseFragment<FragmentBankbookRecordsBinding, Ban
         binding.recyclerviewRecordsDate.addItemDecoration(detailedRecordsItemDecoration)
 
 
-
         /** Spend List */
-        viewModel.spendList.observe(this){
+        viewModel.spendList.observe(this) {
             val allSpendList = it
             recordsDateListData = mutableListOf()
             allSpendList.map { spendListData ->
-            val detailedData: MutableList<DetailedData> = mutableListOf()
+                val detailedData: MutableList<DetailedData> = mutableListOf()
                 spendListData.map { spendData ->
-                    detailedData.add(DetailedData(spendData.targetMember, isoToTime(spendData.createdDate), spendData.balance.toDecimalFormat(), spendData.money.toDecimalFormat(), R.drawable.ic_my))
+                    detailedData.add(
+                        DetailedData(
+                            spendData.targetMember,
+                            isoToTime(spendData.createdDate),
+                            spendData.balance.toDecimalFormat(),
+                            spendData.money.toDecimalFormat(),
+                            R.drawable.ic_my
+                        )
+                    )
                 }
-                recordsDateListData.add(RecordsDateData(isoToDate(spendListData[0].createdDate),detailedData))
+                recordsDateListData.add(
+                    RecordsDateData(
+                        isoToDate(spendListData[0].createdDate),
+                        detailedData
+                    )
+                )
             }
             recordsDateListAdapter.submitList(recordsDateListData)
         }
-
 
 
         /** Navigation */
@@ -97,10 +109,11 @@ class FragmentBankbookRecords : BaseFragment<FragmentBankbookRecordsBinding, Ban
 
         bottomSheetDialog.setContentView(bottomSheetFill)
 
-        with(binding){
+        with(binding) {
             btnBackArrow.setOnClickListener { findNavController().popBackStack() }
             btnSend.setOnClickListener {
-                val action = FragmentBankbookRecordsDirections.actionFragmentBankbookRecordsToSendWhereFragment()
+                val action =
+                    FragmentBankbookRecordsDirections.actionFragmentBankbookRecordsToSendWhereFragment()
                 findNavController().navigate(action)
             }
         }
@@ -109,32 +122,7 @@ class FragmentBankbookRecords : BaseFragment<FragmentBankbookRecordsBinding, Ban
             Handler(Looper.getMainLooper()).postDelayed({
                 userViewModel.getUserInfo()
                 binding.home.isRefreshing = false
-            },1000)
-        }
-    }
-
-    private fun makeNewRecordsDateData(dateTime: String) {
-        if (recordsDateListData.isEmpty()) {
-            recordsDateListData.add(
-                RecordsDateData(
-                    dateTime,
-                    mutableListOf()
-                )
-            )
-        }
-        var isSame = 0
-        recordsDateListData.forEach { recordsDateData ->
-            if (recordsDateData.date == dateTime) {
-                isSame = 1
-            }
-        }
-        if (isSame == 0) {
-            recordsDateListData.add(
-                RecordsDateData(
-                    dateTime,
-                    mutableListOf()
-                )
-            )
+            }, 1000)
         }
     }
 

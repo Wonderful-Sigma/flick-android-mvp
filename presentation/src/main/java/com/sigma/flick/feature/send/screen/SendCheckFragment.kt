@@ -7,6 +7,7 @@ import com.sigma.flick.base.BaseFragment
 import com.sigma.flick.databinding.FragmentSendCheckBinding
 import com.sigma.flick.feature.send.viewmodel.SendViewModel
 import com.sigma.flick.feature.user.viewmodel.UserViewModel
+import com.sigma.flick.main.toDecimalFormat
 import com.sigma.flick.utils.setDeleteBottomNav
 import com.sigma.flick.utils.setPopBackStack
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,13 +23,13 @@ class SendCheckFragment : BaseFragment<FragmentSendCheckBinding, SendViewModel>(
         binding.toolbar.setPopBackStack()
 
         val myLeftCoin = userViewModel.myInfo.value!!.account[0].money
-        binding.tvMyLeftPoint.text = "잔액 " + myLeftCoin.toString() + "코인"
+        binding.tvMyLeftPoint.text = "잔액 " + myLeftCoin.toDecimalFormat()
 
         val sendMoney = viewModel.sendCoin.value.toString()
 
         binding.tvToSendAccountName.text = viewModel.depositAccountName.value.toString()
         binding.tvToSendAccountNumber.text = viewModel.depositAccountNumber.value.toString()
-        binding.tvSendCoin.text = sendMoney + "코인"
+        binding.tvSendCoin.text = sendMoney.toDecimalFormat()+"코인"
 
         binding.btnDecide.setOnClickListener {
             val action = SendCheckFragmentDirections.actionSendCheckFragmentToSendLoadFragment()
