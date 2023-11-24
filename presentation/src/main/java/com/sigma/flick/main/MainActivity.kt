@@ -39,19 +39,15 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(binding.root)
 
         checkPermission()
-
-        setContentView(binding.root)
-        userViewModel.myInfo.observe(this) {
-            getFCMToken(it.id)
-        }
-
 
         userViewModel.getUserInfo()
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(fragment_container) as NavHostFragment
+
         navController = navHostFragment.findNavController()
 
         binding.bnv.setupWithNavController(navController)
@@ -59,6 +55,9 @@ class MainActivity : AppCompatActivity() {
         userViewModel.myInfo.observe(this) {
             setQRCode()
             setBottomNavigation()
+            if(userViewModel.FCMToken.value == ""){
+                getFCMToken(it.id)
+            }
         }
     }
 
@@ -81,8 +80,8 @@ class MainActivity : AppCompatActivity() {
             }
             token = task.result
             if (token != null) {
-                Log.d(TAG, "FCM Token is $token")
-                userViewModel.getFCMToken(token!!, uuid)
+                Log.d(TAG, "FCM Token is ${task.result}")
+                userViewModel.getFCMToken(task.result.toString(), uuid)
             }
         })
     }
