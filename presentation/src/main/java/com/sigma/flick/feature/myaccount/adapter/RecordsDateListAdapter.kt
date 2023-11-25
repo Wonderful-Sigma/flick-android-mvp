@@ -11,21 +11,30 @@ import com.sigma.flick.feature.myaccount.screen.FragmentBankbookRecords
 import com.sigma.flick.feature.myaccount.adapter.data.RecordsDateData
 import com.sigma.flick.feature.myaccount.adapter.decoration.RecordsDateItemDecoration
 
-class RecordsDateListAdapter: BaseListAdapter<RecordsDateData,ItemRecordsDateBinding>(
-    R.layout.item_records_date), BaseListAdapter.OnItemClickListener {
+class RecordsDateListAdapter : BaseListAdapter<RecordsDateData, ItemRecordsDateBinding>(
+    R.layout.item_records_date
+), BaseListAdapter.OnItemClickListener {
     override fun action(data: RecordsDateData, binding: ItemRecordsDateBinding) {
         val detailedRecordsListAdapter = DetailedRecordsListAdapter()
-        detailedRecordsListAdapter.setItemClickListener(detailedRecordsListAdapter)
-        binding.date.text = data.date
         val recordsDateItemDecoration = RecordsDateItemDecoration()
-        binding.recyclerView.layoutManager = LinearLayoutManager(FragmentBankbookRecords.applicationContext())
-        binding.recyclerView.adapter = detailedRecordsListAdapter
-        binding.recyclerView.addItemDecoration(recordsDateItemDecoration)
+        detailedRecordsListAdapter.setItemClickListener(detailedRecordsListAdapter)
+        with(binding) {
+            date.text = data.date
+            recyclerView.layoutManager = LinearLayoutManager(FragmentBankbookRecords.applicationContext())
+            recyclerView.adapter = detailedRecordsListAdapter
+            recyclerView.addItemDecoration(recordsDateItemDecoration)
+        }
         detailedRecordsListAdapter.submitList(data.detailedData)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
-        return BaseViewHolder(ItemRecordsDateBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+        return BaseViewHolder(
+            ItemRecordsDateBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onClick(v: View, position: Int) {

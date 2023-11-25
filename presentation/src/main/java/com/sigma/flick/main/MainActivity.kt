@@ -23,6 +23,7 @@ import com.sigma.flick.feature.qrcode.QRCode
 import com.sigma.flick.feature.user.viewmodel.UserViewModel
 import com.sigma.flick.utils.setStatusBarColorBackground
 import com.sigma.flick.utils.setStatusBarColorWhite
+import java.text.DecimalFormat
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -38,19 +39,15 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(binding.root)
 
         checkPermission()
-
-        setContentView(binding.root)
-        userViewModel.myInfo.observe(this) {
-            getFCMToken(it.id)
-        }
-
 
         userViewModel.getUserInfo()
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(fragment_container) as NavHostFragment
+
         navController = navHostFragment.findNavController()
 
         binding.bnv.setupWithNavController(navController)
@@ -58,6 +55,9 @@ class MainActivity : AppCompatActivity() {
         userViewModel.myInfo.observe(this) {
             setQRCode()
             setBottomNavigation()
+            if(userViewModel.FCMToken.value == ""){
+                getFCMToken(it.id)
+            }
         }
     }
 
@@ -80,8 +80,8 @@ class MainActivity : AppCompatActivity() {
             }
             token = task.result
             if (token != null) {
-                Log.d(TAG, "FCM Token is $token")
-                userViewModel.getFCMToken(token!!, uuid)
+                Log.d(TAG, "FCM Token is ${task.result}")
+                userViewModel.getFCMToken(task.result.toString(), uuid)
             }
         })
     }
@@ -128,4 +128,16 @@ class MainActivity : AppCompatActivity() {
         private const val TAG = "MainActivity"
     }
 
+}
+fun Long.toDecimalFormat(): String {
+    val decimalFormat = DecimalFormat("#,###")
+    return decimalFormat.format(this) + "코인"
+}
+fun String.toDecimalFormat(): String {
+    return try{
+        val decimalFormat = DecimalFormat("#,###")
+        decimalFormat.format(this.toLong())
+    } catch (e: Exception){
+        ""
+    }
 }

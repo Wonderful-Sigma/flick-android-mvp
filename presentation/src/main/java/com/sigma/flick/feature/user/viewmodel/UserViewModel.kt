@@ -26,6 +26,8 @@ class UserViewModel @Inject constructor(
     val myInfo: LiveData<UserResponse> = _myInfo
     private var _accountData = MutableLiveData<Account>()
     val accountData: LiveData<Account> = _accountData
+    private var _FCMToken = MutableLiveData("")
+    val FCMToken: LiveData<String> = MutableLiveData()
 
     private var _jwt = MutableLiveData<String>()
     val jwt: LiveData<String> = _jwt
@@ -37,6 +39,7 @@ class UserViewModel @Inject constructor(
         }.onSuccess {
             Log.d(TAG, "getUser Success!!: $it")
             _myInfo.value = it
+            _FCMToken.value = it.firebaseToken?:""
         }.onFailure { e ->
             Log.d(TAG, "getUser Failed..:  $e")
         }

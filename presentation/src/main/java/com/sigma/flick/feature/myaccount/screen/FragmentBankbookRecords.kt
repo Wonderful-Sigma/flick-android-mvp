@@ -17,14 +17,15 @@ import com.sigma.flick.feature.myaccount.adapter.data.RecordsDateData
 import com.sigma.flick.feature.myaccount.adapter.decoration.DetailedRecordsItemDecoration
 import com.sigma.flick.feature.myaccount.viewmodel.BankbookRecordsViewModel
 import com.sigma.flick.feature.user.viewmodel.UserViewModel
+import com.sigma.flick.main.toDecimalFormat
 import com.sigma.flick.utils.setStatusBarColorWhite
 import dagger.hilt.android.AndroidEntryPoint
-import java.text.DecimalFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 @AndroidEntryPoint
-class FragmentBankbookRecords : BaseFragment<FragmentBankbookRecordsBinding, BankbookRecordsViewModel>(R.layout.fragment_bankbook_records) {
+class FragmentBankbookRecords :
+    BaseFragment<FragmentBankbookRecordsBinding, BankbookRecordsViewModel>(R.layout.fragment_bankbook_records) {
 
     override val viewModel: BankbookRecordsViewModel by activityViewModels()
     private val userViewModel: UserViewModel by activityViewModels()
@@ -53,11 +54,11 @@ class FragmentBankbookRecords : BaseFragment<FragmentBankbookRecordsBinding, Ban
 
         userViewModel.myInfo.observe(viewLifecycleOwner) {
             myAccount = userViewModel.myInfo.value!!.account[0]
-            binding.tvMyCoinBig.text = getDecimalFormat(myAccount.money)
+            binding.tvMyCoinBig.text = myAccount.money.toDecimalFormat()
         }
 
         binding.tvMyAccountName.text = "내 통장"
-        binding.tvMyAccountNumber.text = "대소코인 ${myAccount.number}"
+        binding.tvMyAccountNumber.text = getString(R.string.account_number, myAccount.number)
 
         viewModel.allSpend(myAccount.id)
         viewModel.getWallet(myAccount.id)
@@ -73,21 +74,32 @@ class FragmentBankbookRecords : BaseFragment<FragmentBankbookRecordsBinding, Ban
         binding.recyclerviewRecordsDate.addItemDecoration(detailedRecordsItemDecoration)
 
 
-
         /** Spend List */
-        viewModel.spendList.observe(this){
+        viewModel.spendList.observe(this) {
             val allSpendList = it
             recordsDateListData = mutableListOf()
-            allSpendList.map {
+            allSpendList.map { spendListData ->
                 val detailedData: MutableList<DetailedData> = mutableListOf()
-                it.map {
-                    detailedData.add(DetailedData(it.targetMember, isoToTime(it.createdDate), getDecimalFormat(it.balance), getDecimalFormat(it.money), R.drawable.ic_my))
+                spendListData.map { spendData ->
+                    detailedData.add(
+                        DetailedData(
+                            spendData.targetMember,
+                            isoToTime(spendData.createdDate),
+                            spendData.balance.toDecimalFormat(),
+                            spendData.money.toDecimalFormat(),
+                            R.drawable.ic_my
+                        )
+                    )
                 }
-                recordsDateListData.add(RecordsDateData(isoToDate(it[0].createdDate),detailedData))
+                recordsDateListData.add(
+                    RecordsDateData(
+                        isoToDate(spendListData[0].createdDate),
+                        detailedData
+                    )
+                )
             }
             recordsDateListAdapter.submitList(recordsDateListData)
         }
-
 
 
         /** Navigation */
@@ -97,10 +109,11 @@ class FragmentBankbookRecords : BaseFragment<FragmentBankbookRecordsBinding, Ban
 
         bottomSheetDialog.setContentView(bottomSheetFill)
 
-        with(binding){
+        with(binding) {
             btnBackArrow.setOnClickListener { findNavController().popBackStack() }
             btnSend.setOnClickListener {
-                val action = FragmentBankbookRecordsDirections.actionFragmentBankbookRecordsToSendWhereFragment()
+                val action =
+                    FragmentBankbookRecordsDirections.actionFragmentBankbookRecordsToSendWhereFragment()
                 findNavController().navigate(action)
             }
         }
@@ -109,37 +122,8 @@ class FragmentBankbookRecords : BaseFragment<FragmentBankbookRecordsBinding, Ban
             Handler(Looper.getMainLooper()).postDelayed({
                 userViewModel.getUserInfo()
                 binding.home.isRefreshing = false
-            },1000)
+            }, 1000)
         }
-    }
-
-    private fun makeNewRecordsDateData(dateTime: String) {
-        if (recordsDateListData.isEmpty()) {
-            recordsDateListData.add(
-                RecordsDateData(
-                    dateTime,
-                    mutableListOf()
-                )
-            )
-        }
-        var isSame = 0
-        recordsDateListData.forEach { recordsDateData ->
-            if (recordsDateData.date == dateTime) {
-                isSame = 1
-            }
-        }
-        if (isSame == 0) {
-            recordsDateListData.add(
-                RecordsDateData(
-                    dateTime,
-                    mutableListOf()
-                )
-            )
-        }
-    }
-    private fun getDecimalFormat(number: Long): String {
-        val decimalFormat = DecimalFormat("#,###")
-        return decimalFormat.format(number)+"코인"
     }
 
     private fun isoToDate(isoString: String): String {
@@ -148,7 +132,7 @@ class FragmentBankbookRecords : BaseFragment<FragmentBankbookRecordsBinding, Ban
         return dateTime.format(DateTimeFormatter.ofPattern("MM월 dd일"))
     }
 
-    fun isoToTime(isoString: String): String {
+    private fun isoToTime(isoString: String): String {
         val formatter = DateTimeFormatter.ISO_DATE_TIME
         val dateTime = LocalDateTime.parse(isoString, formatter)
         return dateTime.format(DateTimeFormatter.ofPattern("HH:mm"))
