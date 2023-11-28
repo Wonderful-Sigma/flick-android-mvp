@@ -15,12 +15,12 @@ class RecordsDateItemDecoration: RecyclerView.ItemDecoration() {
         val position = parent.getChildAdapterPosition(view)
         val count = state.itemCount
         if(position == 0){
-            outRect.bottom = 40
+            outRect.bottom = 20
         } else if(position == count-1){
-            outRect.top = 40
+            outRect.top = 20
         } else {
-            outRect.top = 40
-            outRect.bottom = 40
+            outRect.top = 20
+            outRect.bottom = 20
         }
     }
 }

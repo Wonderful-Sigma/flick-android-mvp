@@ -58,7 +58,7 @@ class FragmentBankbookRecords :
         }
 
         binding.tvMyAccountName.text = "내 통장"
-        binding.tvMyAccountNumber.text = myAccount.number
+        binding.tvMyAccountNumber.text = "대소코인 " + myAccount.number
 
         viewModel.allSpend(myAccount.id)
         viewModel.getWallet(myAccount.id)
