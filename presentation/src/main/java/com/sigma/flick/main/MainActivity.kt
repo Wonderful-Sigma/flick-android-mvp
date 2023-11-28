@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
@@ -111,6 +112,12 @@ class MainActivity : AppCompatActivity() {
             } else {
                 binding.root.setBackgroundColor(Color.WHITE)
                 setStatusBarColorWhite(this, this)
+            }
+
+            if (destination.id == R.id.settingFragment) {
+                window.navigationBarColor = ContextCompat.getColor(applicationContext, R.color.activity_background)
+            } else {
+                window.navigationBarColor = Color.WHITE
             }
 
             /** Bottom Nav */

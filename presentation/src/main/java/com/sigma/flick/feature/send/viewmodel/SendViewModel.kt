@@ -35,6 +35,9 @@ class SendViewModel @Inject constructor(
     private var _accountNumberState = MutableSharedFlow<AccountNumberState>()
     val accountNumberState: SharedFlow<AccountNumberState> = _accountNumberState
 
+    private var _accountCheckState = MutableSharedFlow<AccountNumberState>()
+    val accountCheckState: SharedFlow<AccountNumberState> = _accountCheckState
+
     private var _sendState = MutableSharedFlow<SendState>()
     val sendState: SharedFlow<SendState> = _sendState
 
@@ -63,6 +66,18 @@ class SendViewModel @Inject constructor(
         _sendCoinIsFilled.value = false
         _isSent.value = false
         _depositAccountNumber.value = ""
+    }
+
+    fun checkAccount(accountNumber: String) = viewModelScope.launch {
+        kotlin.runCatching {
+            accountApi.getAccount(accountNumber)
+        }.onSuccess {
+            Log.d(TAG, "checkAccount Success!! $it")
+            _accountCheckState.emit(AccountNumberState(isSuccess = true))
+        }.onFailure { e ->
+            Log.d(TAG, "checkAccount Failed.. $e")
+            _accountCheckState.emit(AccountNumberState(error = "$e"))
+        }
     }
 
     fun getAccount(accountNumber: String) = viewModelScope.launch {

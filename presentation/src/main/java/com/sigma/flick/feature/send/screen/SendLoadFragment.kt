@@ -22,7 +22,6 @@ class SendLoadFragment :
         val accountName = viewModel.depositAccountName.value
         val sendCoin = viewModel.sendCoin.value.toString()
 
-
         binding.tvLoadTitle.text = "${accountName}님에게\n${sendCoin.toDecimalFormat()}코인을 보낼게요"
 
         Handler().postDelayed({
@@ -31,5 +30,4 @@ class SendLoadFragment :
             findNavController().navigate(action)
         }, 1000L)
     }
-
 }

@@ -15,21 +15,21 @@
             android:id="@+id/linear_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
             android:gravity="center"
             android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@+id/linear"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.35">
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/animation_load"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                app:lottie_rawRes="@raw/animation_load2"
                 app:lottie_autoPlay="true"
-                app:lottie_loop="false" />
+                app:lottie_loop="false"
+                app:lottie_rawRes="@raw/animation_load2" />
 
             <TextView
                 android:id="@+id/tv_load_title"
@@ -40,23 +40,9 @@
                 android:gravity="center"
                 android:text="...님에게\n...원을 보낼게요"
                 android:textColor="@color/title"
-                android:textSize="22sp"/>
+                android:textSize="22sp" />
 
         </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/linear"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginBottom="20dp"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:orientation="horizontal" />
-
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
