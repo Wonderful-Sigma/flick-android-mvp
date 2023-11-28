@@ -3,6 +3,7 @@ package com.sigma.flick.feature.send.screen
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -81,5 +82,13 @@ class SendFinishFragment :
         binding.btnComplete.setOnClickListener {
             findNavController().navigate(R.id.to_homeFragment)
         }
+
+        requireActivity()
+            .onBackPressedDispatcher
+            .addCallback(this, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    /** 뒤로가기 막기 */
+                }
+            })
     }
 }
