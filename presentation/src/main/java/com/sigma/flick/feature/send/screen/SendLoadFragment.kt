@@ -2,6 +2,8 @@ package com.sigma.flick.feature.send.screen
 
 import android.os.Handler
 import android.util.Log
+import android.window.OnBackInvokedCallback
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.sigma.flick.R
@@ -29,5 +31,15 @@ class SendLoadFragment :
             val action = SendLoadFragmentDirections.toSendFinishFragment()
             findNavController().navigate(action)
         }, 1000L)
+
+        requireActivity()
+            .onBackPressedDispatcher
+            .addCallback(this, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    /** 뒤로가기 막기 */
+                }
+            })
     }
+
+
 }
