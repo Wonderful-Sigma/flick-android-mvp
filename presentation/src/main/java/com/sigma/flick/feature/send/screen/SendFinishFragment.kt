@@ -44,12 +44,10 @@ class SendFinishFragment :
 
         val tvFinishTitle = binding.tvFinishTitle
         tvFinishTitle.text = "${accountName}님에게\n${sendCoin}코인을 보낼게요"
-        tvFinishTitle.slideUpAndFadeIn(context)
 
         lifecycleScope.launch {
             delay(1000)
         }
-
 
         lifecycleScope.launch{
             viewModel.remit(RemitRequest(remittanceAccount, sendMoney, depositAccount)).join()
