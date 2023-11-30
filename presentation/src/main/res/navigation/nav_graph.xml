@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/sendWhereFragment"
-        android:name="com.sigma.flick.feature.send.screen.SendWhereFragment"
+        android:name="com.wonderfulsigma.flick.feature.send.screen.SendWhereFragment"
         android:label="fragment_send_where"
         tools:layout="@layout/fragment_send_where">
         <action
@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/sendWhereInputFragment"
-        android:name="com.sigma.flick.feature.send.screen.SendWhereInputFragment"
+        android:name="com.wonderfulsigma.flick.feature.send.screen.SendWhereInputFragment"
         android:label="fragment_send_where_input"
         tools:layout="@layout/fragment_send_where_input">
         <action
@@ -41,7 +41,7 @@
     </fragment>
     <fragment
         android:id="@+id/sendPointFragment"
-        android:name="com.sigma.flick.feature.send.screen.SendPointFragment"
+        android:name="com.wonderfulsigma.flick.feature.send.screen.SendPointFragment"
         android:label="fragment_send_point"
         tools:layout="@layout/fragment_send_point">
         <action
@@ -54,7 +54,7 @@
     </fragment>
     <fragment
         android:id="@+id/sendCheckFragment"
-        android:name="com.sigma.flick.feature.send.screen.SendCheckFragment"
+        android:name="com.wonderfulsigma.flick.feature.send.screen.SendCheckFragment"
         android:label="fragment_send_check"
         tools:layout="@layout/fragment_send_check">
         <action
@@ -70,7 +70,7 @@
     </fragment>
     <fragment
         android:id="@+id/sendFinishFragment"
-        android:name="com.sigma.flick.feature.send.screen.SendFinishFragment"
+        android:name="com.wonderfulsigma.flick.feature.send.screen.SendFinishFragment"
         android:label="SendFinishFragment"
         tools:layout="@layout/fragment_send_finish" >
         <action
@@ -85,7 +85,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.sigma.flick.feature.tabs.home.HomeFragment"
+        android:name="com.wonderfulsigma.flick.feature.tabs.home.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home">
         <action
@@ -142,7 +142,7 @@
 
     <fragment
         android:id="@+id/fragmentBankbookRecords"
-        android:name="com.sigma.flick.feature.myaccount.screen.FragmentBankbookRecords"
+        android:name="com.wonderfulsigma.flick.feature.myaccount.screen.FragmentBankbookRecords"
         android:label="FragmentBankbookRecords"
         tools:layout="@layout/fragment_bankbook_records">
         <action
@@ -155,7 +155,7 @@
     </fragment>
     <fragment
         android:id="@+id/accountDetailFragment"
-        android:name="com.sigma.flick.feature.accounts.BankbookDetailFragment"
+        android:name="com.wonderfulsigma.flick.feature.accounts.BankbookDetailFragment"
         android:label="AccountDetailFragment"
         tools:layout="@layout/fragment_bankbook_detail">
         <action
@@ -203,7 +203,7 @@
     <!--    </fragment>-->
     <fragment
         android:id="@+id/allFragment"
-        android:name="com.sigma.flick.feature.tabs.all.AllFragment"
+        android:name="com.wonderfulsigma.flick.feature.tabs.all.AllFragment"
         android:label="fragment_all"
         tools:layout="@layout/fragment_all">
         <action
@@ -217,13 +217,13 @@
 
     <fragment
         android:id="@+id/stockFragment"
-        android:name="com.sigma.flick.feature.tabs.stock.StockFragment"
+        android:name="com.wonderfulsigma.flick.feature.tabs.stock.StockFragment"
         android:label="fragment_stock"
         tools:layout="@layout/fragment_stock" />
 
     <fragment
         android:id="@+id/eventFragment"
-        android:name="com.sigma.flick.feature.tabs.event.screen.EventFragment"
+        android:name="com.wonderfulsigma.flick.feature.tabs.event.screen.EventFragment"
         android:label="EventFragment"
         tools:layout="@layout/fragment_event" >
         <action
@@ -237,12 +237,12 @@
 
     <fragment
         android:id="@+id/settingFragment"
-        android:name="com.sigma.flick.feature.setting.SettingFragment"
+        android:name="com.wonderfulsigma.flick.feature.setting.SettingFragment"
         android:label="fragment_setting"
         tools:layout="@layout/fragment_setting" />
     <fragment
         android:id="@+id/sendLoadFragment"
-        android:name="com.sigma.flick.feature.send.screen.SendLoadFragment"
+        android:name="com.wonderfulsigma.flick.feature.send.screen.SendLoadFragment"
         android:label="fragment_send_load"
         tools:layout="@layout/fragment_send_load" >
         <action

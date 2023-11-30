@@ -9,14 +9,14 @@ plugins {
 }
 
 android {
-    namespace = "com.sigma.flick"
+    namespace = "com.wonderfulsigma.flick"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.sigma.flick"
+        applicationId = "com.wonderfulsigma.flick"
         minSdk = 26
         targetSdk = 34
-        versionCode = 2
+        versionCode = 3
         versionName = "0.0.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -24,7 +24,7 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
