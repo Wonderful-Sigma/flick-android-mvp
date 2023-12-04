@@ -2,12 +2,12 @@ package com.wonderfulsigma.flick.di.module
 
 import com.google.gson.GsonBuilder
 import com.sigma.data.network.api.AccountApi
-import com.sigma.data.network.api.DauthApi
 import com.sigma.data.network.api.QRCodeApi
 import com.sigma.data.network.api.SpendListApi
 import com.sigma.data.network.api.UserApi
 import com.wonderfulsigma.flick.di.authenticator.AuthAuthenticator
 import com.wonderfulsigma.flick.utils.BASE_URL
+import com.wonderfulsigma.flick.utils.DAUTH_BASE_URL
 import com.wonderfulsigma.flick.utils.HiltApplication
 import dagger.Module
 import dagger.Provides
@@ -24,13 +24,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class NetworkModule {
-
-    /* LoginApi Type의 객체 생성 */
-
-    @Provides
-    @Singleton
-    fun provideDauthApi(retrofit: Retrofit): DauthApi =
-        retrofit.create(DauthApi::class.java)
 
     @Provides
     @Singleton
@@ -66,6 +59,7 @@ class NetworkModule {
             .client(okHttpClient)
             .build()
     }
+
 
     /* OkHttp로 세부적인 네트워크 구성요소를 설정 */
 
