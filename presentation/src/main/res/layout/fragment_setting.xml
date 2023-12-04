@@ -101,101 +101,101 @@
 
         </LinearLayout>
 
-<!--        <LinearLayout-->
-<!--            android:id="@+id/linear_rule"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="56dp"-->
-<!--            android:layout_marginTop="16dp"-->
-<!--            android:paddingVertical="2dp"-->
-<!--            android:paddingHorizontal="8dp"-->
-<!--            android:background="@color/white"-->
-<!--            android:gravity="center_vertical"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/linearLayout">-->
+        <LinearLayout
+            android:id="@+id/linear_rule"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="16dp"
+            android:paddingVertical="2dp"
+            android:paddingHorizontal="8dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linear_my_account_info">
 
-<!--            <LinearLayout-->
-<!--                android:id="@+id/btn_rule"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:paddingHorizontal="16dp"-->
-<!--                android:background="@drawable/button_ripple_white_small"-->
-<!--                android:gravity="center_vertical">-->
+            <LinearLayout
+                android:id="@+id/btn_rule"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingHorizontal="16dp"
+                android:background="@drawable/button_ripple_white_small"
+                android:gravity="center_vertical">
 
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:fontFamily="@font/pretendard_medium"-->
-<!--                    android:text="약관 및 개인정보 처리 동의"-->
-<!--                    android:textSize="17sp"-->
-<!--                    android:textColor="@color/sub_title"/>-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:text="약관 및 개인정보 처리 동의"
+                    android:textSize="17sp"
+                    android:textColor="@color/sub_title"/>
 
-<!--                <Space-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_weight="1" />-->
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
 
-<!--                <ImageView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:src="@drawable/ic_arrow_mini" />-->
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_arrow_mini" />
 
-<!--            </LinearLayout>-->
+            </LinearLayout>
 
-<!--        </LinearLayout>-->
+        </LinearLayout>
 
-<!--        <LinearLayout-->
-<!--            android:id="@+id/linear_version"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="56dp"-->
-<!--            android:layout_marginTop="16dp"-->
-<!--            android:paddingVertical="2dp"-->
-<!--            android:paddingHorizontal="8dp"-->
-<!--            android:background="@color/white"-->
-<!--            android:gravity="center_vertical"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/linear_rule">-->
+        <LinearLayout
+            android:id="@+id/linear_version"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="16dp"
+            android:paddingVertical="2dp"
+            android:paddingHorizontal="8dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linear_rule">
 
-<!--            <LinearLayout-->
-<!--                android:id="@+id/btn_version"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:paddingHorizontal="16dp"-->
-<!--                android:background="@drawable/button_ripple_white_small"-->
-<!--                android:gravity="center_vertical">-->
+            <LinearLayout
+                android:id="@+id/btn_version"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingHorizontal="16dp"
+                android:background="@drawable/button_ripple_white_small"
+                android:gravity="center_vertical">
 
-<!--                <TextView-->
-<!--                    android:id="@+id/tv_version"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:fontFamily="@font/pretendard_medium"-->
-<!--                    android:text="앱 버전"-->
-<!--                    android:textSize="17sp"-->
-<!--                    android:textColor="@color/sub_title"/>-->
+                <TextView
+                    android:id="@+id/tv_version"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:text="앱 버전"
+                    android:textSize="17sp"
+                    android:textColor="@color/sub_title"/>
 
-<!--                <Space-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_weight="1" />-->
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
 
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginEnd="20dp"-->
-<!--                    android:fontFamily="@font/pretendard_medium"-->
-<!--                    android:text="업데이트 하기"-->
-<!--                    android:textSize="17sp"-->
-<!--                    android:textColor="@color/light_gray"/>-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:text="업데이트 하기"
+                    android:textSize="17sp"
+                    android:textColor="@color/light_gray"/>
 
-<!--                <ImageView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:src="@drawable/ic_arrow_mini" />-->
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_arrow_mini" />
 
-<!--            </LinearLayout>-->
+            </LinearLayout>
 
-<!--        </LinearLayout>-->
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/linear_logout"
@@ -208,7 +208,7 @@
             android:gravity="center_vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linear_my_account_info">
+            app:layout_constraintTop_toBottomOf="@+id/linear_version">
 
             <LinearLayout
                 android:id="@+id/btn_logout"
@@ -235,7 +235,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_arrow_mini" />
-b
+
             </LinearLayout>
 
         </LinearLayout>
@@ -247,7 +247,7 @@ b
             android:layout_marginTop="18dp"
             android:layout_marginStart="24dp"
             android:fontFamily="@font/pretendard_regular"
-            android:text="버전 0.0.1"
+            android:text="버전 0.0.2"
             android:textSize="14sp"
             android:textColor="@color/light_gray"
             app:layout_constraintStart_toStartOf="parent"
