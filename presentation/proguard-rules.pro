@@ -20,3 +20,6 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 -ignorewarnings
+
+#-keep class * extends com.google.protobuf.GeneratedMessageLite { *; }
+#-keep,allowobfuscation,allowshrinking class kotlin.coroutines.Continuation
