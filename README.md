@@ -16,5 +16,5 @@ Flick은 대구소프트웨어마이스터고등학교(이하 대소고)에서 �
 
 # Team
 
-[@HamTody06](https://github.com/HamTory06) - 햄토리 수정 바람 </br>
+[@HamTody06](https://github.com/HamTory06) </br>
 [@stev3j](https://www.notion.so/stev3j/845cb047a86443e9847078b25a54f204)
