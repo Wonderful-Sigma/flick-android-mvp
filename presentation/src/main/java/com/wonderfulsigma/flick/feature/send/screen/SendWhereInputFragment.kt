@@ -43,7 +43,6 @@ class SendWhereInputFragment : BaseFragment<FragmentSendWhereInputBinding, SendV
             viewModel.accountCheckState.collect {
                 if (it.isSuccess) {
                     viewModel.setDepositAccountNumber(etNumber)
-//                    viewModel.resetAccountCheckState()
                     findNavController().navigate(SendWhereInputFragmentDirections.toSendPointFragment())
                 }
                 if (it.error.isNotEmpty()) {
