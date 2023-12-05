@@ -7,7 +7,6 @@ import com.sigma.data.network.api.SpendListApi
 import com.sigma.data.network.api.UserApi
 import com.wonderfulsigma.flick.di.authenticator.AuthAuthenticator
 import com.wonderfulsigma.flick.utils.BASE_URL
-import com.wonderfulsigma.flick.utils.DAUTH_BASE_URL
 import com.wonderfulsigma.flick.utils.HiltApplication
 import dagger.Module
 import dagger.Provides

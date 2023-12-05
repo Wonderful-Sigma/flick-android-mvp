@@ -14,6 +14,7 @@ import com.sigma.data.network.dto.account.Account
 import com.sigma.data.network.dto.account.MessageBodyRequest
 import com.sigma.data.network.dto.account.RemitRequest
 import com.wonderfulsigma.flick.base.BaseViewModel
+import com.wonderfulsigma.flick.feature.send.state.AccountCheckState
 import com.wonderfulsigma.flick.feature.send.state.AccountNumberState
 import com.wonderfulsigma.flick.feature.send.state.SendState
 import com.wonderfulsigma.flick.utils.fadeIn
@@ -35,8 +36,8 @@ class SendViewModel @Inject constructor(
     private var _accountNumberState = MutableSharedFlow<AccountNumberState>()
     val accountNumberState: SharedFlow<AccountNumberState> = _accountNumberState
 
-    private var _accountCheckState = MutableSharedFlow<AccountNumberState>()
-    val accountCheckState: SharedFlow<AccountNumberState> = _accountCheckState
+    private var _accountCheckState = MutableSharedFlow<AccountCheckState>()
+    val accountCheckState: SharedFlow<AccountCheckState> = _accountCheckState
 
     private var _sendState = MutableSharedFlow<SendState>()
     val sendState: SharedFlow<SendState> = _sendState
@@ -73,10 +74,10 @@ class SendViewModel @Inject constructor(
             accountApi.getAccount(accountNumber)
         }.onSuccess {
             Log.d(TAG, "checkAccount Success!! $it")
-            _accountCheckState.emit(AccountNumberState(isSuccess = true))
+            _accountCheckState.emit(AccountCheckState(isSuccess = true))
         }.onFailure { e ->
             Log.d(TAG, "checkAccount Failed.. $e")
-            _accountCheckState.emit(AccountNumberState(error = "$e"))
+            _accountCheckState.emit(AccountCheckState(error = "$e"))
         }
     }
 
@@ -221,5 +222,9 @@ class SendViewModel @Inject constructor(
     companion object {
         const val TAG = "SendViewModel"
     }
+
+//    fun resetAccountCheckState() {
+//        _accountCheckState = MutableSharedFlow<AccountNumberState>()
+//    }
 }
 

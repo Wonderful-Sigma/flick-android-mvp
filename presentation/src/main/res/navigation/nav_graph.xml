@@ -19,7 +19,7 @@
             app:popEnterAnim="@anim/animation_pop_enter"
             app:popExitAnim="@anim/animation_pop_exit"/>
         <action
-            android:id="@+id/action_sendWhereFragment_to_sendPointFragment"
+            android:id="@+id/to_sendPointFragment"
             app:destination="@id/sendPointFragment"
             app:enterAnim="@anim/animation_enter"
             app:exitAnim="@anim/animation_exit"
@@ -45,7 +45,7 @@
         android:label="fragment_send_point"
         tools:layout="@layout/fragment_send_point">
         <action
-            android:id="@+id/action_sendPointFragment_to_sendCheckFragment"
+            android:id="@+id/to_sendCheckFragment"
             app:destination="@id/sendCheckFragment"
             app:enterAnim="@anim/animation_enter"
             app:exitAnim="@anim/animation_exit"

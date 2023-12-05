@@ -32,7 +32,10 @@ class SendPointFragment :
 
     override fun start() {
         setDeleteBottomNav(activity)
-        binding.toolbar.setPopBackStack()
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
+//        binding.toolbar.setPopBackStack()
 
         viewModel.getAccount(viewModel.depositAccountNumber.value.toString())
         viewModel.setCoin("")
@@ -48,7 +51,7 @@ class SendPointFragment :
                 accountNumberState.collect {
                     if (it.isSuccess) {
                         depositAccountName.observe(this@SendPointFragment) { depositAccountName ->
-                            binding.tvToSendAccountName.text = depositAccountName
+                            binding.tvToSendAccountName.text = depositAccountName.slice(0 until depositAccountName.indexOf("의"))
                             binding.tvToSendAccountNumber.text = depositAccountNumber.value.toString()
                         }
                     }
@@ -60,7 +63,7 @@ class SendPointFragment :
         observingSendCoin()
 
         binding.btnDecide.setOnClickListener {
-            val action = SendPointFragmentDirections.actionSendPointFragmentToSendCheckFragment()
+            val action = SendPointFragmentDirections.toSendCheckFragment()
             findNavController().navigate(action)
         }
     }
