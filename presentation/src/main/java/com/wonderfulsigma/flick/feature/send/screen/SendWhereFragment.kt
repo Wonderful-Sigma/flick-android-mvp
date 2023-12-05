@@ -57,7 +57,7 @@ class SendWhereFragment : BaseFragment<FragmentSendWhereBinding, SendViewModel>(
         val clickAccount = recentAccountList[position]
         viewModel.setDepositAccountNumber(clickAccount.accountNumber)
 
-        val action = SendPointFragmentDirections.actionSendPointFragmentToSendCheckFragment()
+        val action = SendWhereFragmentDirections.toSendPointFragment()
         findNavController().navigate(action)
     }
 
