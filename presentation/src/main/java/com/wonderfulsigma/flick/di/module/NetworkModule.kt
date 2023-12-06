@@ -29,71 +29,46 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideDauthApi(retrofit: Retrofit): DauthApi =
+    fun provideDauthApi(@DauthRetrofit retrofit: Retrofit): DauthApi =
         retrofit.create(DauthApi::class.java)
 
     @Provides
     @Singleton
-    fun provideAccountApi(retrofit: Retrofit): AccountApi =
+    fun provideAccountApi(@BasicRetrofit retrofit: Retrofit): AccountApi =
         retrofit.create(AccountApi::class.java)
 
     @Provides
     @Singleton
-    fun provideUserApi(retrofit: Retrofit): UserApi =
+    fun provideUserApi(@BasicRetrofit retrofit: Retrofit): UserApi =
         retrofit.create(UserApi::class.java)
 
     @Provides
     @Singleton
-    fun provideSpendListApi(retrofit: Retrofit): SpendListApi =
+    fun provideSpendListApi(@BasicRetrofit retrofit: Retrofit): SpendListApi =
         retrofit.create(SpendListApi::class.java)
 
     @Provides
     @Singleton
-    fun provideQRCodeApi(retrofit: Retrofit): QRCodeApi =
+    fun provideQRCodeApi(@BasicRetrofit retrofit: Retrofit): QRCodeApi =
         retrofit.create(QRCodeApi::class.java)
-
-//    @Provides
-//    @Singleton
-//    fun provideDauthApi(@DauthRetrofit retrofit: Retrofit): DauthApi =
-//        retrofit.create(DauthApi::class.java)
-//
-//    @Provides
-//    @Singleton
-//    fun provideAccountApi(@BasicRetrofit retrofit: Retrofit): AccountApi =
-//        retrofit.create(AccountApi::class.java)
-//
-//    @Provides
-//    @Singleton
-//    fun provideUserApi(@BasicRetrofit retrofit: Retrofit): UserApi =
-//        retrofit.create(UserApi::class.java)
-//
-//    @Provides
-//    @Singleton
-//    fun provideSpendListApi(@BasicRetrofit retrofit: Retrofit): SpendListApi =
-//        retrofit.create(SpendListApi::class.java)
-//
-//    @Provides
-//    @Singleton
-//    fun provideQRCodeApi(@BasicRetrofit retrofit: Retrofit): QRCodeApi =
-//        retrofit.create(QRCodeApi::class.java)
 
 
     /* Retrofit Object 생성 */
 
     private var gson = GsonBuilder().setLenient().create()
 
-//    @BasicRetrofit
-//    @Provides
-//    @Singleton
-//    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
-//        return Retrofit.Builder()
-//            .baseUrl(BASE_URL)
-//            .addConverterFactory(GsonConverterFactory.create(gson))
-//            .client(okHttpClient)
-//            .build()
-//    }
+    @BasicRetrofit
+    @Provides
+    @Singleton
+    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .client(okHttpClient)
+            .build()
+    }
 
-//    @DauthRetrofit
+    @DauthRetrofit
     @Provides
     @Singleton
     fun provideDauthRetrofit(okHttpClient: OkHttpClient): Retrofit {

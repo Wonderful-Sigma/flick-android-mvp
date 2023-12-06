@@ -12,6 +12,7 @@ import com.sigma.data.network.dto.dauth.DauthLoginRequest
 import com.sigma.data.network.dto.dauth.DauthRequest
 import com.wonderfulsigma.flick.base.BaseViewModel
 import com.wonderfulsigma.flick.feature.start.state.DauthLoginState
+import com.wonderfulsigma.flick.feature.start.state.LoginState
 import com.wonderfulsigma.flick.utils.HiltApplication
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -32,42 +33,35 @@ class StartViewModel @Inject constructor(
     private var _dauthLoginState = MutableSharedFlow<DauthLoginState>()
     val dauthLoginState: SharedFlow<DauthLoginState> = _dauthLoginState
 
-
-//    fun getCode(context: Context) {
-//        DAuth.getCode(context, { code ->
-//            Log.d(TAG, "getCodeSuccess!! $code")
-//            login(DauthRequest(code))
-//            Toast.makeText(context, "로그인 되었어요, 잠시만 기다려주세요", Toast.LENGTH_SHORT).show()
-//        }, { e ->
-//            Log.d(TAG, "getCodeFailed.. $e")
-//            Toast.makeText(context, "아이디나 비밀번호를 다시 확인해주세요", Toast.LENGTH_SHORT).show()
-//        })
-//    }
+    private var _loginState = MutableSharedFlow<LoginState>()
+    val loginState: SharedFlow<LoginState> = _loginState
 
     fun dauthLogin(dauthLoginRequest: DauthLoginRequest) = viewModelScope.launch {
         kotlin.runCatching {
             dauthApi.dauthLogin(dauthLoginRequest)
         }.onSuccess {
-            Log.d(TAG, "dauthLogin: SUCCESS ${it.data}")
-            _dauthLoginState.emit(DauthLoginState(isSuccess = true))
+            val code = it.data.location.split("[=&]".toRegex())[1]
+            Log.d(TAG, "dauthLogin: SUCCESS $code")
+            _dauthLoginState.emit(DauthLoginState(isSuccess = code))
         }.onFailure { e ->
             Log.d(TAG, "dauthLogin: FAILED $e")
             _dauthLoginState.emit(DauthLoginState(error = "$e"))
         }
     }
 
-    private fun login(dauthRequestDto: DauthRequest) = viewModelScope.launch {
+    fun login(dauthRequestDto: DauthRequest) = viewModelScope.launch {
         kotlin.runCatching {
             userApi.login(dauthRequestDto)
         }.onSuccess {
             Log.d(TAG, "LoginSuccess! $it")
-
+            _loginState.emit(LoginState(isSuccess = true))
             HiltApplication.prefs.autoLogin = true
             _autoLogin.value = true
             HiltApplication.prefs.accessToken = it.accessToken
             HiltApplication.prefs.refreshToken = it.refreshToken
         }.onFailure { e ->
             Log.d(TAG, "LoginFailed.. $e")
+            _loginState.emit(LoginState(error = "$e"))
         }
     }
 

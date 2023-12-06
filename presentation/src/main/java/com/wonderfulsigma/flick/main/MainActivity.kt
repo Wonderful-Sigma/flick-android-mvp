@@ -46,9 +46,10 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.a
 
         binding.bnv.setupWithNavController(navController)
 
+        setBottomNavigation()
+
         userViewModel.myInfo.observe(this) {
             setQRCode()
-            setBottomNavigation()
             if(userViewModel.FCMToken.value == ""){
                 getFCMToken(it.id)
             }

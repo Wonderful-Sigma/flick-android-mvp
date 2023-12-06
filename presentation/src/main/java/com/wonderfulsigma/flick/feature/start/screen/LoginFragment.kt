@@ -3,17 +3,22 @@ package com.wonderfulsigma.flick.feature.start.screen
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.sigma.data.network.dto.dauth.DauthLoginRequest
+import com.sigma.data.network.dto.dauth.DauthRequest
 import com.wonderfulsigma.flick.R
 import com.wonderfulsigma.flick.base.BaseFragment
 import com.wonderfulsigma.flick.databinding.FragmentLoginBinding
 import com.wonderfulsigma.flick.feature.start.StartViewModel
+import com.wonderfulsigma.flick.feature.start.state.LoginState
 import com.wonderfulsigma.flick.utils.setPopBackStack
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.math.BigInteger
 import java.security.MessageDigest
 
+@AndroidEntryPoint
 class LoginFragment: BaseFragment<FragmentLoginBinding, StartViewModel>(R.layout.fragment_login) {
 
     override val viewModel: StartViewModel by viewModels()
@@ -39,12 +44,22 @@ class LoginFragment: BaseFragment<FragmentLoginBinding, StartViewModel>(R.layout
 
         lifecycleScope.launch {
             viewModel.dauthLoginState.collect {
-                if (it.isSuccess) {
+                if (it.isSuccess.isNotEmpty()) {
                     Toast.makeText(requireContext(), "로그인되었어요, 잠시만 기다려주세요", Toast.LENGTH_SHORT).show()
-//                    viewModel.
+                    viewModel.login(DauthRequest(it.isSuccess))
                 }
                 if (it.error.isNotEmpty()) {
                     Toast.makeText(requireContext(), "아이디나 비밀번호를 다시 확인해주세요", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+        lifecycleScope.launch {
+            viewModel.loginState.collect {
+                if (it.isSuccess) {
+                    findNavController().navigate(LoginFragmentDirections.toHomeFragment())
+                }
+                if (it.error.isNotEmpty()) {
+                    Toast.makeText(requireContext(), "와이파이가 켜져있는지 확인해주세요", Toast.LENGTH_SHORT).show()
                 }
             }
         }

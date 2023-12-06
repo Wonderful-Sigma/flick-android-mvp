@@ -23,7 +23,7 @@
             android:id="@+id/tv_login_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="20dp"
             android:layout_marginStart="24dp"
             android:text="도담도담 계정으로\n로그인해주세요"
             android:textSize="24sp"
@@ -76,7 +76,7 @@
                 android:layout_height="match_parent"
                 android:fontFamily="@font/pretendard_regular"
                 android:hint="비밀번호"
-                android:inputType="text"
+                android:inputType="textPassword"
                 android:singleLine="true"
                 android:textSize="20sp" />
         </com.google.android.material.textfield.TextInputLayout>

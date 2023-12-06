@@ -11,12 +11,19 @@ import com.wonderfulsigma.flick.R
 import com.wonderfulsigma.flick.base.BaseFragment
 import com.wonderfulsigma.flick.databinding.FragmentStartBinding
 import com.wonderfulsigma.flick.feature.start.StartViewModel
+import com.wonderfulsigma.flick.utils.HiltApplication
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class StartFragment: BaseFragment<FragmentStartBinding, StartViewModel>(R.layout.fragment_start) {
 
     override val viewModel: StartViewModel by viewModels()
 
     override fun start() {
+        if (HiltApplication.prefs.autoLogin) {
+            val action = StartFragmentDirections.toHomeFragment()
+            findNavController().navigate(action)
+        }
         binding.btnDauth.setOnClickListener {
             val action = StartFragmentDirections.toLoginFragment()
             findNavController().navigate(action)

@@ -243,6 +243,7 @@
         <action
             android:id="@+id/to_startFragment"
             app:destination="@id/startFragment"
+            app:popUpTo="@id/nav_graph"
             app:enterAnim="@anim/animation_fade_in"
             app:exitAnim="@anim/animation_fade_out"
             app:popEnterAnim="@anim/animation_fade_in"
@@ -273,6 +274,10 @@
             app:exitAnim="@anim/animation_exit"
             app:popEnterAnim="@anim/animation_pop_enter"
             app:popExitAnim="@anim/animation_pop_exit"/>
+        <action
+            android:id="@+id/to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/nav_graph"/>
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -282,6 +287,7 @@
         <action
             android:id="@+id/to_homeFragment"
             app:destination="@id/homeFragment"
+            app:popUpTo="@id/nav_graph"
             app:enterAnim="@anim/animation_fade_in"
             app:exitAnim="@anim/animation_fade_out"
             app:popEnterAnim="@anim/animation_fade_in"
