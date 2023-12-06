@@ -11,8 +11,11 @@ import com.sigma.data.network.api.UserApi
 import com.sigma.data.network.dto.dauth.DauthLoginRequest
 import com.sigma.data.network.dto.dauth.DauthRequest
 import com.wonderfulsigma.flick.base.BaseViewModel
+import com.wonderfulsigma.flick.feature.start.state.DauthLoginState
 import com.wonderfulsigma.flick.utils.HiltApplication
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
 import kr.hs.dgsw.smartschool.dodamdodam.dauth.DAuth
 import javax.inject.Inject
@@ -26,24 +29,30 @@ class StartViewModel @Inject constructor(
     private var _autoLogin = MutableLiveData(HiltApplication.prefs.autoLogin)
     val autoLogin: LiveData<Boolean> = _autoLogin
 
-    fun getCode(context: Context) {
-        DAuth.getCode(context, { code ->
-            Log.d(TAG, "getCodeSuccess!! $code")
-            login(DauthRequest(code))
-            Toast.makeText(context, "로그인 되었어요, 잠시만 기다려주세요", Toast.LENGTH_SHORT).show()
-        }, { e ->
-            Log.d(TAG, "getCodeFailed.. $e")
-            Toast.makeText(context, "아이디나 비밀번호를 다시 확인해주세요", Toast.LENGTH_SHORT).show()
-        })
-    }
+    private var _dauthLoginState = MutableSharedFlow<DauthLoginState>()
+    val dauthLoginState: SharedFlow<DauthLoginState> = _dauthLoginState
+
+
+//    fun getCode(context: Context) {
+//        DAuth.getCode(context, { code ->
+//            Log.d(TAG, "getCodeSuccess!! $code")
+//            login(DauthRequest(code))
+//            Toast.makeText(context, "로그인 되었어요, 잠시만 기다려주세요", Toast.LENGTH_SHORT).show()
+//        }, { e ->
+//            Log.d(TAG, "getCodeFailed.. $e")
+//            Toast.makeText(context, "아이디나 비밀번호를 다시 확인해주세요", Toast.LENGTH_SHORT).show()
+//        })
+//    }
 
     fun dauthLogin(dauthLoginRequest: DauthLoginRequest) = viewModelScope.launch {
         kotlin.runCatching {
             dauthApi.dauthLogin(dauthLoginRequest)
         }.onSuccess {
             Log.d(TAG, "dauthLogin: SUCCESS ${it.data}")
+            _dauthLoginState.emit(DauthLoginState(isSuccess = true))
         }.onFailure { e ->
             Log.d(TAG, "dauthLogin: FAILED $e")
+            _dauthLoginState.emit(DauthLoginState(error = "$e"))
         }
     }
 

@@ -28,7 +28,7 @@
         tools:ignore="HardcodedDebugMode">
 
         <activity
-            android:name=".feature.start.StartActivity"
+            android:name=".feature.start.screen.StartActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
