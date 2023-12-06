@@ -87,7 +87,7 @@ class SendViewModel @Inject constructor(
         }.onSuccess {
             Log.d(TAG, "getAccount Success!! $it")
             _depositAccountId.value = it.id
-            _depositAccountName.value = it.name
+            _depositAccountName.value = it.name.slice(0 until it.name.indexOf("의"))
             _accountNumberState.emit(AccountNumberState(isSuccess = true))
         }.onFailure { e ->
             Log.d(TAG, "getAccount Failed.. $e")

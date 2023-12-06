@@ -43,11 +43,7 @@ class SendFinishFragment :
         val sendMoney = viewModel.sendCoin.value!!.toLong()
 
         val tvFinishTitle = binding.tvFinishTitle
-        tvFinishTitle.text = "${accountName}님에게\n${sendCoin}코인을 보낼게요"
-
-        lifecycleScope.launch {
-            delay(1000)
-        }
+        tvFinishTitle.text = "${accountName}님에게\n${sendCoin.toDecimalFormat()}코인을 보냈어요"
 
         lifecycleScope.launch{
             viewModel.remit(RemitRequest(remittanceAccount, sendMoney, depositAccount)).join()
@@ -66,7 +62,6 @@ class SendFinishFragment :
                             userViewModel.myInfo.value!!.name + "에게 ${sendCoin.toDecimalFormat()}코인을 받았습니다"
                         )
                     )
-                    tvFinishTitle.text = "${accountName}님에게\n${sendCoin.toDecimalFormat()}코인을 보냈어요"
                 }
                 if (it.error.isNotEmpty()) {
                     binding.animationCompletion.setAnimation(R.raw.animation_warning)

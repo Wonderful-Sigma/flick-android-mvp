@@ -51,7 +51,7 @@ class SendPointFragment :
                 accountNumberState.collect {
                     if (it.isSuccess) {
                         depositAccountName.observe(this@SendPointFragment) { depositAccountName ->
-                            binding.tvToSendAccountName.text = depositAccountName.slice(0 until depositAccountName.indexOf("의"))
+                            binding.tvToSendAccountName.text = depositAccountName
                             binding.tvToSendAccountNumber.text = depositAccountNumber.value.toString()
                         }
                     }
