@@ -30,7 +30,7 @@ class SendLoadFragment :
             Log.d("다음","다음")
             val action = SendLoadFragmentDirections.toSendFinishFragment()
             findNavController().navigate(action)
-        }, 1000L)
+        }, 1500L)
 
         requireActivity()
             .onBackPressedDispatcher

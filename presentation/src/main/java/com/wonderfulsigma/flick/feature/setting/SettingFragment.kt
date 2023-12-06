@@ -9,7 +9,6 @@ import androidx.navigation.fragment.findNavController
 import com.wonderfulsigma.flick.R
 import com.wonderfulsigma.flick.base.BaseFragment
 import com.wonderfulsigma.flick.databinding.FragmentSettingBinding
-import com.wonderfulsigma.flick.feature.start.StartActivity
 import com.wonderfulsigma.flick.feature.user.viewmodel.UserViewModel
 import com.wonderfulsigma.flick.utils.HiltApplication
 
@@ -43,7 +42,7 @@ class SettingFragment: BaseFragment<FragmentSettingBinding, SettingViewModel>(R.
             btnLogout.setOnClickListener {
                 Toast.makeText(requireContext(), "로그아웃 되었어요", Toast.LENGTH_SHORT).show()
                 HiltApplication.prefs.deleteToken()
-                startActivity(Intent(activity, StartActivity::class.java))
+                findNavController().navigate(SettingFragmentDirections.toStartFragment())
             }
         }
     }
