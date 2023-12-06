@@ -23,8 +23,6 @@ class StartActivity : BaseActivity<ActivityStartBinding, StartViewModel>(R.layou
         setStatusBarColorWhite(this, this)
         window.navigationBarColor = Color.WHITE
 
-//        settingDAuth(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL)
-
         viewModel.autoLogin.observe(this) { autoLogin ->
             if (autoLogin) {
                 startActivity(Intent(this, MainActivity::class.java))
@@ -39,7 +37,6 @@ class StartActivity : BaseActivity<ActivityStartBinding, StartViewModel>(R.layou
             viewModel.dauthLogin(
                 DauthLoginRequest(id, pw)
             )
-//            viewModel.getCode(this)
         }
     }
 
@@ -48,5 +45,5 @@ class StartActivity : BaseActivity<ActivityStartBinding, StartViewModel>(R.layou
         md.update(str.toByteArray())
         return String.format("%0128x", BigInteger(1, md.digest()))
     }
-    
+
 }
