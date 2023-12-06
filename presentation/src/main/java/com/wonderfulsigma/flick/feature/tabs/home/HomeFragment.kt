@@ -31,6 +31,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
         context = requireContext()
         setStatusBarColorBackground(requireActivity(), context)
 
+        userViewModel.getUserInfo()
+
         observeMyInfo()
 
         /** QR Code */
