@@ -1,13 +1,19 @@
 package com.wonderfulsigma.flick.main
 
+import android.content.Context
+import android.content.DialogInterface
+import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import dagger.hilt.android.AndroidEntryPoint
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
@@ -16,6 +22,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.install.model.AppUpdateType
+import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.firebase.messaging.FirebaseMessaging
 import com.wonderfulsigma.flick.feature.qrcode.QRCode
 import com.wonderfulsigma.flick.R
@@ -35,6 +44,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.a
     private lateinit var navController: NavController
 
     override fun start() {
+        checkUpdate()
         checkPermission()
 
         userViewModel.getUserInfo()
@@ -79,6 +89,29 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.a
                 userViewModel.getFCMToken(task.result.toString(), uuid)
             }
         })
+    }
+
+    private fun checkUpdate() {
+        val appUpdateManager = AppUpdateManagerFactory.create(this)
+        val appUpdateInfoTask = appUpdateManager.appUpdateInfo
+        val i = Intent(Intent.ACTION_VIEW)
+        val updateUrl = "https://play.google.com/store/apps/details?id=com.wonderfulsigma.flick"
+
+        appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+                && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
+            ) {
+                AlertDialog.Builder(this)
+                    .setTitle("플릭 업데이트")
+                    .setMessage("원활한 사용을 위해선 업데이트가 필요해요")
+                    .setPositiveButton("확인") { _, _ ->
+                        i.data = Uri.parse(updateUrl)
+                        startActivity(i)
+                    }
+                    .create()
+                    .show()
+            }
+        }
     }
 
     private fun setQRCode() {
