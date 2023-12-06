@@ -20,8 +20,10 @@ class LoginFragment: BaseFragment<FragmentLoginBinding, StartViewModel>(R.layout
 
     override fun start() {
         binding.toolbar.setPopBackStack()
+
         var id: String
         var pw: String
+
         binding.btnLogin.setOnClickListener {
             id = binding.etId.text.toString().trim()
             pw = binding.etPwd.text.toString().trim()

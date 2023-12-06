@@ -34,11 +34,6 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="to_collectionInputNameFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
                           </map>
                         </option>
                       </LayoutPositions>
@@ -158,6 +153,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="loginFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-606" />
+                            <option name="y" value="831" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="sendCheckFragment">
                     <value>
                       <LayoutPositions>
@@ -174,7 +181,7 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_sendCheckFragment_to_sendLoadFragment2">
+                            <entry key="to_sendLoadFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -195,7 +202,7 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_sendFinishFragment_to_homeFragment">
+                            <entry key="to_homeFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -216,7 +223,7 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_sendLoadFragment_to_sendFinishFragment">
+                            <entry key="to_sendFinishFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -237,7 +244,7 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_sendPointFragment_to_sendCheckFragment">
+                            <entry key="to_sendCheckFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -258,12 +265,12 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_sendWhereFragment_to_sendPointFragment">
+                            <entry key="action_sendWhereFragment_to_sendWhereInputFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_sendWhereFragment_to_sendWhereInputFragment">
+                            <entry key="to_sendPointFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -301,6 +308,18 @@
                           <Point>
                             <option name="x" value="744" />
                             <option name="y" value="724" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="startFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-839" />
+                            <option name="y" value="839" />
                           </Point>
                         </option>
                       </LayoutPositions>
