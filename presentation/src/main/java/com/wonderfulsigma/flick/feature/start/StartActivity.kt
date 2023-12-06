@@ -8,12 +8,11 @@ import com.wonderfulsigma.flick.R
 import com.wonderfulsigma.flick.base.BaseActivity
 import com.wonderfulsigma.flick.databinding.ActivityStartBinding
 import com.wonderfulsigma.flick.main.MainActivity
-import com.wonderfulsigma.flick.utils.clientId
-import com.wonderfulsigma.flick.utils.clientSecret
-import com.wonderfulsigma.flick.utils.redirectUrl
 import com.wonderfulsigma.flick.utils.setStatusBarColorWhite
 import dagger.hilt.android.AndroidEntryPoint
-import kr.hs.dgsw.smartschool.dodamdodam.dauth.DAuth.settingDAuth
+import java.math.BigInteger
+import java.security.MessageDigest
+
 
 @AndroidEntryPoint
 class StartActivity : BaseActivity<ActivityStartBinding, StartViewModel>(R.layout.activity_start) {
@@ -24,7 +23,7 @@ class StartActivity : BaseActivity<ActivityStartBinding, StartViewModel>(R.layou
         setStatusBarColorWhite(this, this)
         window.navigationBarColor = Color.WHITE
 
-//        settingDAuth(clientId, clientSecret, redirectUrl)
+//        settingDAuth(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL)
 
         viewModel.autoLogin.observe(this) { autoLogin ->
             if (autoLogin) {
@@ -33,11 +32,21 @@ class StartActivity : BaseActivity<ActivityStartBinding, StartViewModel>(R.layou
             }
         }
 
+        val id = "jjosumin"
+        val pw = getHash("jjosumin123")
+
         binding.btnDauth.setOnClickListener {
             viewModel.dauthLogin(
-                DauthLoginRequest("jsw613", "jsw613!@#")
+                DauthLoginRequest(id, pw)
             )
 //            viewModel.getCode(this)
         }
     }
+
+    private fun getHash(str: String): String {
+        val md = MessageDigest.getInstance("SHA-512")
+        md.update(str.toByteArray())
+        return String.format("%0128x", BigInteger(1, md.digest()))
+    }
+    
 }
