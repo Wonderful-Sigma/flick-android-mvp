@@ -6,7 +6,9 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.sigma.data.network.api.DauthApi
 import com.sigma.data.network.api.UserApi
+import com.sigma.data.network.dto.dauth.DauthLoginRequest
 import com.sigma.data.network.dto.dauth.DauthRequest
 import com.wonderfulsigma.flick.base.BaseViewModel
 import com.wonderfulsigma.flick.utils.HiltApplication
@@ -17,7 +19,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class StartViewModel @Inject constructor(
-//    private val dauthApi: DauthApi,
+    private val dauthApi: DauthApi,
     private val userApi: UserApi,
 ): BaseViewModel() {
 
@@ -35,15 +37,15 @@ class StartViewModel @Inject constructor(
         })
     }
 
-//    fun dauthLogin(dauthLoginRequest: DauthLoginRequest) = viewModelScope.launch {
-//        kotlin.runCatching {
-//            dauthApi.dauthLogin(dauthLoginRequest)
-//        }.onSuccess {
-//            Log.d(TAG, "dauthLogin: SUCCESS $it")
-//        }.onFailure { e ->
-//            Log.d(TAG, "dauthLogin: FAILED $e")
-//        }
-//    }
+    fun dauthLogin(dauthLoginRequest: DauthLoginRequest) = viewModelScope.launch {
+        kotlin.runCatching {
+            dauthApi.dauthLogin(dauthLoginRequest)
+        }.onSuccess {
+            Log.d(TAG, "dauthLogin: SUCCESS ${it.data}")
+        }.onFailure { e ->
+            Log.d(TAG, "dauthLogin: FAILED $e")
+        }
+    }
 
     private fun login(dauthRequestDto: DauthRequest) = viewModelScope.launch {
         kotlin.runCatching {

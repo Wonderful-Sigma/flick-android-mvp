@@ -3,6 +3,7 @@ package com.wonderfulsigma.flick.feature.start
 import android.content.Intent
 import android.graphics.Color
 import androidx.activity.viewModels
+import com.sigma.data.network.dto.dauth.DauthLoginRequest
 import com.wonderfulsigma.flick.R
 import com.wonderfulsigma.flick.base.BaseActivity
 import com.wonderfulsigma.flick.databinding.ActivityStartBinding
@@ -23,7 +24,7 @@ class StartActivity : BaseActivity<ActivityStartBinding, StartViewModel>(R.layou
         setStatusBarColorWhite(this, this)
         window.navigationBarColor = Color.WHITE
 
-        settingDAuth(clientId, clientSecret, redirectUrl)
+//        settingDAuth(clientId, clientSecret, redirectUrl)
 
         viewModel.autoLogin.observe(this) { autoLogin ->
             if (autoLogin) {
@@ -33,7 +34,10 @@ class StartActivity : BaseActivity<ActivityStartBinding, StartViewModel>(R.layou
         }
 
         binding.btnDauth.setOnClickListener {
-            viewModel.getCode(this)
+            viewModel.dauthLogin(
+                DauthLoginRequest("jsw613", "jsw613!@#")
+            )
+//            viewModel.getCode(this)
         }
     }
 }

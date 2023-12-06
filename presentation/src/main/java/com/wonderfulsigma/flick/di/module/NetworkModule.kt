@@ -2,11 +2,13 @@ package com.wonderfulsigma.flick.di.module
 
 import com.google.gson.GsonBuilder
 import com.sigma.data.network.api.AccountApi
+import com.sigma.data.network.api.DauthApi
 import com.sigma.data.network.api.QRCodeApi
 import com.sigma.data.network.api.SpendListApi
 import com.sigma.data.network.api.UserApi
 import com.wonderfulsigma.flick.di.authenticator.AuthAuthenticator
 import com.wonderfulsigma.flick.utils.BASE_URL
+import com.wonderfulsigma.flick.utils.DAUTH_BASE_URL
 import com.wonderfulsigma.flick.utils.HiltApplication
 import dagger.Module
 import dagger.Provides
@@ -26,22 +28,27 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideAccountApi(retrofit: Retrofit): AccountApi =
+    fun provideDauthApi(@DauthRetrofit retrofit: Retrofit): DauthApi =
+        retrofit.create(DauthApi::class.java)
+
+    @Provides
+    @Singleton
+    fun provideAccountApi(@BasicRetrofit retrofit: Retrofit): AccountApi =
         retrofit.create(AccountApi::class.java)
 
     @Provides
     @Singleton
-    fun provideUserApi(retrofit: Retrofit): UserApi =
+    fun provideUserApi(@BasicRetrofit retrofit: Retrofit): UserApi =
         retrofit.create(UserApi::class.java)
 
     @Provides
     @Singleton
-    fun provideSpendListApi(retrofit: Retrofit): SpendListApi =
+    fun provideSpendListApi(@BasicRetrofit retrofit: Retrofit): SpendListApi =
         retrofit.create(SpendListApi::class.java)
 
     @Provides
     @Singleton
-    fun provideQRCodeApi(retrofit: Retrofit): QRCodeApi =
+    fun provideQRCodeApi(@BasicRetrofit retrofit: Retrofit): QRCodeApi =
         retrofit.create(QRCodeApi::class.java)
 
 
@@ -49,11 +56,23 @@ class NetworkModule {
 
     private var gson = GsonBuilder().setLenient().create()
 
+    @BasicRetrofit
     @Provides
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .client(okHttpClient)
+            .build()
+    }
+
+    @DauthRetrofit
+    @Provides
+    @Singleton
+    fun provideDauthRetrofit(okHttpClient: OkHttpClient): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(DAUTH_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(okHttpClient)
             .build()
