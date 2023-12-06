@@ -60,7 +60,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.a
 
         userViewModel.myInfo.observe(this) {
             setQRCode()
-            if(userViewModel.FCMToken.value == ""){
+            if(userViewModel.FCMToken.value == "") {
                 getFCMToken(it.id)
             }
         }
