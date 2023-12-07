@@ -36,6 +36,7 @@ Flick은 대구소프트웨어마이스터고등학교(이하 대소고)에서 �
 - Android
   - Coroutine
   - Flow
+  - SharedPreferences
 - Libraries
   - Lottie
   - Retrofit2, Gson, OkHttp3
