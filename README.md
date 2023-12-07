@@ -29,26 +29,24 @@ Flick은 대구소프트웨어마이스터고등학교(이하 대소고)에서 �
 [@stev3j](https://www.notion.so/stev3j/845cb047a86443e9847078b25a54f204)
 
 # Stack
-### Languege
-- Kotlin + XML
-
-### Android
-- Coroutine
-- Flow
-
-### Libraries
-- Lottie
-- Retrofit2, Gson, OkHttp3
-- Dagger Hilt
-- Firebase
-- [custom-qr-generator](https://github.com/alexzhirkevich/custom-qr-generator)
-- [code-scanner](https://github.com/yuriy-budiyev/code-scanner/tree/master)
-
-### Jetpack
-- ViewModel
-- Fragment
-- Navigation
-- LiveData
-
-### Others
-- Dauth Login
+- Languege
+  - Kotlin + XML
+- Architecture
+  - MVVM Pattern
+- Android
+  - Coroutine
+  - Flow
+- Libraries
+  - Lottie
+  - Retrofit2, Gson, OkHttp3
+  - Dagger Hilt
+  - Firebase
+  - [custom-qr-generator](https://github.com/alexzhirkevich/custom-qr-generator)
+  - [code-scanner](https://github.com/yuriy-budiyev/code-scanner/tree/master)
+- Jetpack
+  - ViewModel
+  - Fragment
+  - Navigation
+  - LiveData
+- Others
+  - Dauth Login
