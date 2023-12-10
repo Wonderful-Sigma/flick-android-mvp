@@ -1,6 +1,15 @@
 ![Flick_banner](https://github.com/Wonderful-Sigma/flick-android-mvp/assets/103572569/0df2339c-a677-443b-a730-e63baa5919e0)
 
+<a href="https://play.google.com/store/apps/details?id=com.wonderfulsigma.flick">
+<img src="http://pluspng.com/img-png/get-it-on-google-play-badge-png-open-2000.png" height="60"/>
+</a>
+<a href="https://apps.apple.com/kr/app/%ED%94%8C%EB%A6%AD/id6473106872">
+<img src="https://devimages-cdn.apple.com/app-store/marketing/guidelines/images/badge-example-alternate_2x.png" height="60"/>
+</a>
+
 ## 🔵 Flick?
+
+</br>
 
 Flick은 대구소프트웨어마이스터고등학교(이하 대소고)에서 사용하는 종이 대소코인을 대체하기 위해 만들어졌습니다. </br>
 대소코인이란 대소고에서 축제나 부스활동을 할 때 쓰이는 화폐입니다.</br>
