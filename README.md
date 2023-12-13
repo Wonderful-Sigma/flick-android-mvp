@@ -49,12 +49,13 @@ Flick은 대구소프트웨어마이스터고등학교(이하 대소고)에서 �
   - Retrofit2, Gson, OkHttp3
   - Dagger Hilt
   - Firebase
+  - Glide
   - [custom-qr-generator](https://github.com/alexzhirkevich/custom-qr-generator)
-  - [code-scanner](https://github.com/yuriy-budiyev/code-scanner/tree/master)
 - Jetpack
   - ViewModel
   - Fragment
   - Navigation
   - LiveData
+  - Data Binding
 - Others
   - Dauth Login
