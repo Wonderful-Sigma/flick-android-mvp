@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import android.widget.Toast
+import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -19,6 +20,7 @@ import com.wonderfulsigma.flick.main.toDecimalFormat
 import com.wonderfulsigma.flick.utils.setStatusBarColorBackground
 import dagger.hilt.android.AndroidEntryPoint
 
+
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.fragment_home) {
 
@@ -28,6 +30,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
     private lateinit var context: Context
 
     override fun start() {
+        val transaction: FragmentTransaction = childFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragment_container, HomeLoadingFragment())
+        transaction.commit()
+
         context = requireContext()
         setStatusBarColorBackground(requireActivity(), context)
 
