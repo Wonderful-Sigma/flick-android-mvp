@@ -72,3 +72,5 @@ class LoginFragment: BaseFragment<FragmentLoginBinding, StartViewModel>(R.layout
     }
 
 }
+
+
