@@ -95,6 +95,4 @@ dependencies {
     implementation("com.google.firebase:firebase-messaging:23.2.1")
     implementation(platform("com.google.firebase:firebase-bom:32.4.0"))
     implementation("com.google.firebase:firebase-analytics-ktx")
-
-    implementation("com.github.ybq:Android-SpinKit:1.4.0")
 }
